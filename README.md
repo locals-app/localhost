@@ -1,2 +1,3 @@
 # locals-app
-a tourist guidance app
+A better way to travel
+
