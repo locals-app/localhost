@@ -38,7 +38,7 @@ module.exports.getMessagesByUser = (req, res) => {
   								myUserId: userId,
   								key: conversationKey,
   								messages: messages
-  							})
+  							});
   						});
   					};
   				};
@@ -102,7 +102,7 @@ module.exports.postMessage = (req, res) => {
 			});
 		});
 	});
-}
+};
 
 //This method is for going back and deleting a single message
 module.exports.deleteSingleMessage = (req, res) => {
@@ -113,7 +113,7 @@ module.exports.deleteSingleMessage = (req, res) => {
 	}).catch((err) => {
 		res.status(404).json(err);
 	});
-}
+};
 
 //This method delets all messages by a single user. At present, it does not delete the record of 
 //the conversation in the Conversations table.
@@ -145,7 +145,7 @@ module.exports.getByLocation = (req, res) => {
 	}).catch((err) => {
 		res.status(404).json(err);
 	});
-}
+};
 
 //This deletes a conversation from the Conversation table and deletes all associated messages from
 //the messages table
@@ -216,7 +216,7 @@ module.exports.addConversation = (req, res) => {
 			});
 		});
 	});
-}
+};
 
 //This method adds a new profile to the Users table
 //TODO: if user properties are changed, update this method
@@ -236,7 +236,7 @@ module.exports.addProfile = (req, res) => {
 module.exports.getProfile = (req, res) => {
 	const username = req.path.substr(req.path.lastIndexOf('/') + 1);
 	DB.User.findOne({
-		where: { username: username }
+		where: { username, }
 	}).then((profile) => {
 		res.status(200).json(profile);
 	}).catch((err) => {
