@@ -101,6 +101,30 @@ module.exports.deleteConversation = (req, res) => {
 	});
 };
 
+module.exports.addConversation = (req, res) => {
+	let userToAdd1;
+	let userToAdd2;
+	DB.User.findOne({
+		where: { userName: req.body.firstUser }
+	}).then((user1) => {
+		userToAdd1 = user1.id;
+		DB.User.findOne({
+			where: { username: req.body.secondUser}
+		}).then((user2) => {
+			userToAdd2 = user2.id;
+		}).then((bothUsers) => {
+			DB.Conversation.create({
+				firstUser: userToAdd1,
+				secondUser: userToAdd2
+			}).then((newConversation) => {
+				res.status(201).json(newConversation);
+			}).catch((err) => {
+				res.status(404).json(err);
+			});
+		});
+	});
+}
+
 module.exports.addProfile = (req, res) => {
 	DB.User.create({
 		username: req.body.username,

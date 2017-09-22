@@ -11,8 +11,10 @@ router.route('/deletemessage')
 //this route allows user to delete a message that they made, but should not allow deletion of any others. Takes a message id
 .delete(controller.deleteSingleMessage);
 
-router.route('/removeconversation') 
-//This route deletes a single conversation
+router.route('/modifyconversation') 
+//Posting to this route adds a conversation
+.post(controller.addConversation)
+//Deleting to this route deletes a single conversation
 .delete(controller.deleteConversation);
 
 router.route('/profiles/createnew') 
