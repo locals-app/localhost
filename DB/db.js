@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
-
-//this initializes the database. TODO: change from sqlite to postgress
+//TODO: change from sqlite to postgress
+//this initializes the database.
 const DB = new Sequelize('localHostDB', 'Alex', '', {
 	dialect: 'sqlite',
 	storage: 'db/localhost.sqlite'
