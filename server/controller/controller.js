@@ -1,6 +1,5 @@
 const DB = require('../../DB/db.js');
 
-
 module.exports.getMessagesByUser = (req, res) => {
   const username = req.path.substr(req.path.lastIndexOf('/') + 1);
   let userId;
@@ -92,7 +91,7 @@ module.exports.deleteConversation = (req, res) => {
 						}).then((done) => {
 						  res.status(204).json('conversations destroyed');
 						}).catch((err) => {
-							res.json(err);
+							res.status(404).json(err);
 						});
 					});
 				});
