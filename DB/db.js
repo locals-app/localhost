@@ -65,8 +65,7 @@ Message.belongsTo(User, { onDelete: 'cascade' });
 Conversation.belongsTo(User, { onDelete: 'cascade' });
 User.hasMany(Conversation, { onDelete: 'cascade' });
 
-// Message.belongsTo(Conversation, { onDelete: 'cascade' });
-// Conversation.hasMany(Message, { onDelete: 'cascade' });
+
 
 User.sync({ force: true }).then(() => {
 	return User.create({
