@@ -42,7 +42,7 @@ module.exports.deleteAllByUser = (req, res) => {
   DB.User.destroy({
   	where: { username,}
   }).then((destroyed) => {
-  	res.json(destroyed);
+  	res.status(204).json(destroyed);
   }).catch((err) => {
   	res.status(404).json(err);
   });
@@ -55,6 +55,17 @@ module.exports.addProfile = (req, res) => {
 		biography: req.body.biography
 	}).then((newUser) => {
 		res.status(201).json(newUser);
+	}).catch((err) => {
+		res.status(404).json(err);
+	});
+};
+
+module.exports.getProfile = (req, res) => {
+	const username = req.path.substr(req.path.lastIndexOf('/') + 1);
+	DB.User.findOne({
+		where: { username: username }
+	}).then((profile) => {
+		res.status(200).json(profile);
 	}).catch((err) => {
 		res.status(404).json(err);
 	});

@@ -8,5 +8,7 @@ router.route('/messages/:username')
 router.route('/profiles/createnew')
 .post(controller.addProfile);
 
+router.route('/profiles/:username')
+.get(controller.getProfile);
 
 module.exports = router;
