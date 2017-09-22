@@ -66,7 +66,6 @@ Conversation.belongsTo(User, { onDelete: 'cascade' });
 User.hasMany(Conversation, { onDelete: 'cascade' });
 
 
-
 User.sync({ force: true }).then(() => {
 	return User.create({
 		username: 'Alex',
@@ -77,6 +76,18 @@ User.sync({ force: true }).then(() => {
 			username: 'Jeff',
 			location: 'North Hollywood',
 			biography: 'Some other stuffs'
+		}).then(() => {
+			return User.create({
+				username: 'Max',
+				location: 'Portland',
+				biography: 'Another bio'
+			}).then(() => {
+				return User.create({
+					username: 'Tiffany',
+					location: 'Los Angeles',
+					biography: 'yet another one'
+				});
+			});
 		});
 	});
 });
@@ -90,7 +101,13 @@ Message.sync({ force: true }).then(() => {
 		return Message.create({
 			text: 'another new message',
 			userId: 2,
-			conversationId: 1
+			conversationId: 2
+		}).then(() => {
+			Message.create({
+				text: 'yet another one',
+				userId: 3,
+				conversationId: 3
+			});
 		});
 	});
 });
@@ -103,6 +120,11 @@ Conversation.sync({ force: true }).then(() => {
 		return Conversation.create({
 			firstUser: 2,
 			secondUser: 1
+		}).then(() => {
+			return Conversation.create({
+				firstUser: 3,
+				secondUser: 4
+			});
 		});
 	});
 });

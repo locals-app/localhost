@@ -4,6 +4,7 @@ const DB = require('../../DB/db.js');
 module.exports.getMessagesByUser = (req, res) => {
   const username = req.path.substr(req.path.lastIndexOf('/') + 1);
   let convoArray = [];
+  let convoIdArray = [];
   DB.User.findAll({
   	where: { username, }
   }).then((user) => {
@@ -13,9 +14,16 @@ module.exports.getMessagesByUser = (req, res) => {
   		conversations.forEach((one) => convoArray.push(one));
   		DB.Conversation.findAll({
   			where: { secondUser: user[0].id }
-  		}).then((moreConversations) => {
-  			moreConversations.forEach((one) => convoArray.push(one));
-  			res.json(convoArray);
+  		}).then((conversations) => {
+  			conversations.forEach((one) => convoArray.push(one));
+  			convoArray.forEach((conversation) => {
+  				convoIdArray.push(conversation.id);
+  			})
+  			DB.Message.findAll({
+  				where: { conversationId:convoIdArray }
+  			}).then((messages) => {
+  				res.json(messages);
+  			})
   		})
   	})
   })
