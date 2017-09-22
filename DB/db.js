@@ -30,6 +30,9 @@ const User = DB.define('user', {
 	biography: {
 		type: Sequelize.STRING,
 		allowNull: false
+	},
+	rating: {
+		type: Sequelize.INTEGER
 	}
 });
 
@@ -140,7 +143,7 @@ Conversation.sync({ force: true }).then(() => {
 	});
 });
 
-//Exports the different models
+//Exports the different model
 module.exports = {
 	DB,
 	User,

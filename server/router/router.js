@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const controller = require('../controller/controller.js');
 
+//TODO : add a route for posting to ratings
+
 router.route('/messages/:username')
 // This route returns all messages that are relevant to one user for when the app is started
 .get(controller.getMessagesByUser) 

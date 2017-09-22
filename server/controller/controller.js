@@ -1,5 +1,10 @@
 const DB = require('../../DB/db.js');
 
+//TODO : change all urls todo 
+//TODO : try to make the sendAll function send messages with usernames;
+//TODO : add rating to database and profiles functions
+//TODO : add a way to add a rating to profiles
+
 //Goes to all the places required and fetches all messages that pertain to a single user
 //(To be used on signin). It also sends back the user Id and a table of users that 
 // you are having conversations with so that the client can sort the data more easily.
@@ -51,6 +56,7 @@ module.exports.getMessagesByUser = (req, res) => {
 //This function adds new messages to the database with the correct userId and conversationId
 //when an otherUser property is provided along with text
 module.exports.postMessage = (req, res) => {
+	console.log(req.params);
 	const username = req.path.substr(req.path.lastIndexOf('/') + 1);
 	let userIds = [];
 	let conversationsBetween2 = [];
@@ -129,6 +135,7 @@ module.exports.deleteAllByUser = (req, res) => {
   });
 };
 
+//gets profiles by location
 module.exports.getByLocation = (req, res) => {
 	let location = req.path.substr(req.path.lastIndexOf('/') + 1);
 	location = location.split('');
@@ -224,7 +231,8 @@ module.exports.addProfile = (req, res) => {
 	DB.User.create({
 		username: req.body.username,
 		location: req.body.location,
-		biography: req.body.biography
+		biography: req.body.biography,
+		rating: req.body.rating
 	}).then((newUser) => {
 		res.status(201).json(newUser);
 	}).catch((err) => {
