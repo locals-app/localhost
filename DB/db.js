@@ -1,10 +1,13 @@
 const Sequelize = require('sequelize');
 
+
+//this initializes the database. TODO: change from sqlite to postgress
 const DB = new Sequelize('localHostDB', 'Alex', '', {
 	dialect: 'sqlite',
 	storage: 'db/localhost.sqlite'
 });
 
+//This initializes and authenticates the database
 DB.authenticate()
 .then(() => {
 	console.log('Connection to database has been established');
@@ -13,6 +16,8 @@ DB.authenticate()
 	console.error('Unable to connect to the database', err);
 });
 
+//Defines the User model which will essentially hold profile information. 
+//More items may be added to this model:
 const User = DB.define('user', {
 	username: {
 		type: Sequelize.STRING,
@@ -28,7 +33,8 @@ const User = DB.define('user', {
 	}
 });
 
-
+//Defined the message model that has tow foreign keys: A userId corresponding to 
+//the Users table and a conversationId corresponding to the conversations table: 
 const Message = DB.define('message', {
 	text: {
 		type: Sequelize.STRING,
@@ -46,6 +52,7 @@ const Message = DB.define('message', {
 	}
 });
 
+//This is the the conversations table. Both properties are forein keys each relating to the Users table:
 const Conversation = DB.define('conversation', {
 	firstUser: {
 		type: Sequelize.INTEGER,
@@ -59,13 +66,15 @@ const Conversation = DB.define('conversation', {
 	}
 });
 
+//These lines establish the relationship between the Users table and the Messages table:
 User.hasMany(Message, { onDelete: 'cascade' });
 Message.belongsTo(User, { onDelete: 'cascade' });
 
-Conversation.belongsTo(User, { onDelete: 'cascade' });
+//These lines establish the relationship between the Users table and the Conversations table:
 User.hasMany(Conversation, { onDelete: 'cascade' });
+Conversation.belongsTo(User, { onDelete: 'cascade' });
 
-
+//This syncs the Users table and then adds some seed data
 User.sync({ force: true }).then(() => {
 	return User.create({
 		username: 'Alex',
@@ -92,6 +101,7 @@ User.sync({ force: true }).then(() => {
 	});
 });
 
+//This syncs the messages table and seeds some data
 Message.sync({ force: true }).then(() => {
 	return Message.create({
 		text: 'a new message',
@@ -112,6 +122,7 @@ Message.sync({ force: true }).then(() => {
 	});
 });
 
+//This syncs the Conversations table and then seeds some data
 Conversation.sync({ force: true }).then(() => {
 	return Conversation.create({
 		firstUser: 1,

@@ -1,5 +1,8 @@
 const DB = require('../../DB/db.js');
 
+//Goes to all the places required and fetches all messages that pertain to a single user
+//(To be used on signin). It also sends back the user Id wit this so that the client can sort
+//the data more easily.
 module.exports.getMessagesByUser = (req, res) => {
   const username = req.path.substr(req.path.lastIndexOf('/') + 1);
   let userId;
@@ -35,6 +38,7 @@ module.exports.getMessagesByUser = (req, res) => {
   });
 };
 
+//This method is for going back and deleting a single message
 module.exports.deleteSingleMessage = (req, res) => {
 	DB.Message.destroy({
 		where: { id: req.body.id }
@@ -45,6 +49,8 @@ module.exports.deleteSingleMessage = (req, res) => {
 	})
 }
 
+//This method delets all messages by a single user. At present, it does not delete the record of 
+//the conversation in the Conversations table.
 module.exports.deleteAllByUser = (req, res) => {
 	const username = req.path.substr(req.path.lastIndexOf('/') + 1);
 	let userIdDelete;
@@ -57,6 +63,8 @@ module.exports.deleteAllByUser = (req, res) => {
   });
 };
 
+//This deletes a conversation from the Conversation table and deletes all associated messages from
+//the messages table
 module.exports.deleteConversation = (req, res) => {
 	let userIds = [];
 	let convosToDelete = [];
@@ -100,6 +108,8 @@ module.exports.deleteConversation = (req, res) => {
 	});
 };
 
+//This adds a conversation to the Conversation table given 2 users sent on the 
+//body of an object that are given by name
 module.exports.addConversation = (req, res) => {
 	let userToAdd1;
 	let userToAdd2;
@@ -124,6 +134,8 @@ module.exports.addConversation = (req, res) => {
 	});
 }
 
+//This method adds a new profile to the Users table
+//TODO: if user properties are changed, update this method
 module.exports.addProfile = (req, res) => {
 	DB.User.create({
 		username: req.body.username,
@@ -136,6 +148,7 @@ module.exports.addProfile = (req, res) => {
 	});
 };
 
+//This method fetchs a single profile given a userName
 module.exports.getProfile = (req, res) => {
 	const username = req.path.substr(req.path.lastIndexOf('/') + 1);
 	DB.User.findOne({
@@ -147,6 +160,8 @@ module.exports.getProfile = (req, res) => {
 	});
 };
 
+//This method deletes a profile based on a username
+//All messages belonging to this user are deleted automatically on cascade
 module.exports.deleteProfile = (req, res) => {
 	const username = req.path.substr(req.path.lastIndexOf('/') + 1);
 	DB.User.destroy({
