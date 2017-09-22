@@ -38,6 +38,62 @@ module.exports.getMessagesByUser = (req, res) => {
   });
 };
 
+//This function adds new messages to the database with the correct userId and conversationId
+//when an otherUser property is provided along with text
+module.exports.postMessage = (req, res) => {
+	const username = req.path.substr(req.path.lastIndexOf('/') + 1);
+	let userIds = [];
+	let conversationsBetween2 = [];
+	DB.User.findOne({
+		where: { username, }
+	}).then((userId) => {
+		userIds.push(userId.id);
+		DB.User.findOne({
+			where: { username: req.body.otherUser }
+		}).then((userId) => {
+			userIds.push(userId.id);
+		}).then((both) => {
+			DB.Conversation.findOne({
+			where: { 
+				firstUser: userIds[0],
+				secondUser: userIds[1]
+			}
+			}).then((conversation1) =>{
+				if (conversation1 !== null) {
+					DB.Message.create({
+						text: req.body.text,
+						userId: userIds[0],
+						conversationId: conversation1.id
+					}).then((message) => {
+						res.status(201).json(message);
+					}).catch((err) => {
+						res.status(404).json(message);
+					})
+				} else {
+					DB.Conversation.findOne({
+						where: { 
+							firstUser: userIds[1],
+							secondUser: userIds[0]
+						}
+					}).then((conversation2) => {
+						if (conversation2 !== null) {
+							DB.Message.create({
+								text: req.body.text,
+								userId: userIds[0],
+								conversationId: conversation2.id
+							}).then((message) => {
+								res.status(201).json(message);
+							}).catch((err) => {
+								res.status(404).json(err);
+							});
+						};
+					});
+				};
+			});
+		});
+	});
+}
+
 //This method is for going back and deleting a single message
 module.exports.deleteSingleMessage = (req, res) => {
 	DB.Message.destroy({
@@ -114,7 +170,7 @@ module.exports.addConversation = (req, res) => {
 	let userToAdd1;
 	let userToAdd2;
 	DB.User.findOne({
-		where: { userName: req.body.firstUser }
+		where: { username: req.body.firstUser }
 	}).then((user1) => {
 		userToAdd1 = user1.id;
 		DB.User.findOne({

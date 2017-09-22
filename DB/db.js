@@ -17,7 +17,7 @@ DB.authenticate()
 });
 
 //Defines the User model which will essentially hold profile information. 
-//More items may be added to this model:
+//TODO: more items may be added to this model:
 const User = DB.define('user', {
 	username: {
 		type: Sequelize.STRING,
@@ -140,6 +140,7 @@ Conversation.sync({ force: true }).then(() => {
 	});
 });
 
+//Exports the different models
 module.exports = {
 	DB,
 	User,
