@@ -129,6 +129,24 @@ module.exports.deleteAllByUser = (req, res) => {
   });
 };
 
+module.exports.getByLocation = (req, res) => {
+	let location = req.path.substr(req.path.lastIndexOf('/') + 1);
+	location = location.split('');
+	for (let i = 0; i < location.length; i++) {
+		if (location[i] === '_') {
+			location.splice(i, 1, ' ');
+		}
+	};
+	location = location.join('')
+	DB.User.findAll({
+		where: { location, }
+	}).then((users) => {
+		res.status(200).json(users);
+	}).catch((err) => {
+		res.status(404).json(err);
+	});
+}
+
 //This deletes a conversation from the Conversation table and deletes all associated messages from
 //the messages table
 module.exports.deleteConversation = (req, res) => {

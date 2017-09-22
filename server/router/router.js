@@ -15,6 +15,11 @@ router.route('/deletemessage')
 //this route allows user to delete a message that they made, but should not allow deletion of any others. Takes a message id
 .delete(controller.deleteSingleMessage);
 
+router.route('/:location')
+//This route should return all profiles in a given location. If there is a space in the city, camel casing should be used in url.
+//The camel casing will be turned into spaces in the controller.
+.get(controller.getByLocation);
+
 router.route('/modifyconversation') 
 //Posting to this route adds a conversation
 .post(controller.addConversation)
