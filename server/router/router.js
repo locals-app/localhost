@@ -2,17 +2,27 @@ const router = require('express').Router();
 const controller = require('../controller/controller.js');
 
 router.route('/messages/:username')
-.get(controller.getMessagesByUser)
-.delete(controller.deleteAllByUser);
+// This route returns all messages that are relevant to one user for when the app is started
+.get(controller.getMessagesByUser) 
+// This route deletes all messages by one user. It does not currently delete entries in the conversations table
+.delete(controller.deleteAllByUser); 
 
-router.route('/removeconversation')
+router.route('/deletemessage')
+//this route allows user to delete a message that they made, but should not allow deletion of any others. Takes a message id
+.delete(controller.deleteSingleMessage);
+
+router.route('/removeconversation') 
+//This route deletes a single conversation
 .delete(controller.deleteConversation);
 
-router.route('/profiles/createnew')
+router.route('/profiles/createnew') 
+//This route allows new profiles to be posted
 .post(controller.addProfile);
 
 router.route('/profiles/:username')
+//this route allows you to grab a particular profile
 .get(controller.getProfile)
+//and this one will delete one
 .delete(controller.deleteProfile);
 
 module.exports = router;

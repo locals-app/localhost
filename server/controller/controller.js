@@ -22,7 +22,7 @@ module.exports.getMessagesByUser = (req, res) => {
   				convoIdArray.push(conversation.id);
   			})
   			DB.Message.findAll({
-  				where: { conversationId:convoIdArray }
+  				where: { conversationId: convoIdArray }
   			}).then((messages) => {
   				res.status(200).json({
   					yourUserId: userId, 
@@ -35,6 +35,16 @@ module.exports.getMessagesByUser = (req, res) => {
   	});
   });
 };
+
+module.exports.deleteSingleMessage = (req, res) => {
+	DB.Message.destroy({
+		where: { id: req.body.id }
+	}).then((done) => {
+		res.status(204).json('message deleted');
+	}).catch((err) => {
+		res.status(404).json(err);
+	})
+}
 
 module.exports.deleteAllByUser = (req, res) => {
 	const username = req.path.substr(req.path.lastIndexOf('/') + 1);
@@ -89,7 +99,7 @@ module.exports.deleteConversation = (req, res) => {
 			});
 		});
 	});
-}
+};
 
 module.exports.addProfile = (req, res) => {
 	DB.User.create({
@@ -121,7 +131,7 @@ module.exports.deleteProfile = (req, res) => {
 	}).then((done) => {
 		res.status(204).json('profile deleted');
 	});
-}
+};
 
 
 
