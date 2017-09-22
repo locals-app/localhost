@@ -12,6 +12,7 @@ router.route('/profiles/createnew')
 .post(controller.addProfile);
 
 router.route('/profiles/:username')
-.get(controller.getProfile);
+.get(controller.getProfile)
+.delete(controller.deleteProfile);
 
 module.exports = router;

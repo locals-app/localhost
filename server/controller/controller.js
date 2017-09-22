@@ -114,5 +114,14 @@ module.exports.getProfile = (req, res) => {
 	});
 };
 
+module.exports.deleteProfile = (req, res) => {
+	const username = req.path.substr(req.path.lastIndexOf('/') + 1);
+	DB.User.destroy({
+		where: { username, }
+	}).then((done) => {
+		res.status(204).json('profile deleted');
+	});
+}
+
 
 
