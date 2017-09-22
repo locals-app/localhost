@@ -36,12 +36,12 @@ const Message = DB.define('message', {
 	},
 	user_id: {
 		type: Sequelize.INTEGER,
-		model: 'users',
+		model: 'user',
 		key: 'id'
 	},
 	conversation_id: {
 		type: Sequelize.INTEGER,
-		model: 'conversations',
+		model: 'conversation',
 		key: 'id'
 	}
 });
@@ -49,12 +49,12 @@ const Message = DB.define('message', {
 const Conversation = DB.define('conversation', {
 	user_id_1: {
 		type: Sequelize.INTEGER,
-		model: 'users',
+		model: 'user',
 		key: 'id'
 	},
 	user_id_2: {
 		type: Sequelize.INTEGER,
-		model: 'users',
+		model: 'user',
 		key: 'id'
 	}
 });
@@ -85,11 +85,13 @@ User.sync({ force: true }).then(() => {
 Message.sync({ force: true }).then(() => {
 	return Message.create({
 		text: 'a new message',
-		user_id: 1
+		user_id: 1,
+		conversation_id: 1
 	}).then(() => {
 		return Message.create({
 			text: 'another new message',
-			user_id: 2
+			user_id: 2,
+			conversation_id: 1
 		});
 	});
 });
