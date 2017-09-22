@@ -34,12 +34,12 @@ const Message = DB.define('message', {
 		type: Sequelize.STRING,
 		allowNull: false
 	},
-	user_id: {
+	userId: {
 		type: Sequelize.INTEGER,
 		model: 'user',
 		key: 'id'
 	},
-	conversation_id: {
+	conversationId: {
 		type: Sequelize.INTEGER,
 		model: 'conversation',
 		key: 'id'
@@ -47,26 +47,26 @@ const Message = DB.define('message', {
 });
 
 const Conversation = DB.define('conversation', {
-	user_id_1: {
+	firstUser: {
 		type: Sequelize.INTEGER,
 		model: 'user',
 		key: 'id'
 	},
-	user_id_2: {
+	secondUser: {
 		type: Sequelize.INTEGER,
 		model: 'user',
 		key: 'id'
 	}
 });
 
-User.hasMany(Message);
-Message.belongsTo(User);
+User.hasMany(Message, { onDelete: 'cascade' });
+Message.belongsTo(User, { onDelete: 'cascade' });
 
-Conversation.belongsTo(User);
-User.hasMany(Conversation);
+Conversation.belongsTo(User, { onDelete: 'cascade' });
+User.hasMany(Conversation, { onDelete: 'cascade' });
 
-Message.belongsTo(Conversation);
-Conversation.hasMany(Message);
+// Message.belongsTo(Conversation, { onDelete: 'cascade' });
+// Conversation.hasMany(Message, { onDelete: 'cascade' });
 
 User.sync({ force: true }).then(() => {
 	return User.create({
@@ -85,27 +85,27 @@ User.sync({ force: true }).then(() => {
 Message.sync({ force: true }).then(() => {
 	return Message.create({
 		text: 'a new message',
-		user_id: 1,
-		conversation_id: 1
+		userId: 1,
+		conversationId: 1
 	}).then(() => {
 		return Message.create({
 			text: 'another new message',
-			user_id: 2,
-			conversation_id: 1
+			userId: 2,
+			conversationId: 1
 		});
 	});
 });
 
 Conversation.sync({ force: true }).then(() => {
 	return Conversation.create({
-		user_id_1: '1',
-		user_id_2: '2'
+		firstUser: 1,
+		secondUser: 2
 	}).then(() => {
 		return Conversation.create({
-			user_id_1: '2',
-			user_id_2: '1'
-		})
-	})
+			firstUser: 2,
+			secondUser: 1
+		});
+	});
 });
 
 module.exports = {
