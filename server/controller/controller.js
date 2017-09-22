@@ -76,9 +76,15 @@ module.exports.deleteConversation = (req, res) => {
 				}).then((destruction) => {
 					DB.Message.destroy({
 						where: { conversationId: convosToDelete }
-					}).then((after) => {
-						res.status(204).json('conversations destroyed');
-					})
+					}).then((moreDestruction) => {
+						DB.Conversation.destroy({
+							where: { id: convosToDelete }
+						}).then((done) => {
+						  res.status(204).json('conversations destroyed');
+						}).catch((err) => {
+							res.json(err);
+						});
+					});
 				});
 			});
 		});
