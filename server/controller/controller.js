@@ -3,11 +3,13 @@ const DB = require('../../DB/db.js');
 
 module.exports.getMessagesByUser = (req, res) => {
   const username = req.path.substr(req.path.lastIndexOf('/') + 1);
+  let userId;
   let convoArray = [];
   let convoIdArray = [];
   DB.User.findAll({
   	where: { username, }
   }).then((user) => {
+  	userId = user[0].id;
   	DB.Conversation.findAll({
   		where: { firstUser: user[0].id }
   	}).then((conversations) => {
@@ -22,13 +24,16 @@ module.exports.getMessagesByUser = (req, res) => {
   			DB.Message.findAll({
   				where: { conversationId:convoIdArray }
   			}).then((messages) => {
-  				res.json(messages);
-  			})
-  		})
-  	})
-  })
-  	
-  
+  				res.status(200).json({
+  					yourUserId: userId, 
+  					messages: messages
+  				});
+  			}).catch((err) => {
+  				res.status(404).json(err);
+  			});
+  		});
+  	});
+  });
 };
 
 module.exports.deleteAllByUser = (req, res) => {
