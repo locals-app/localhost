@@ -1,13 +1,14 @@
 const DB = require('../../DB/db.js');
 
 //Goes to all the places required and fetches all messages that pertain to a single user
-//(To be used on signin). It also sends back the user Id wit this so that the client can sort
-//the data more easily.
+//(To be used on signin). It also sends back the user Id and a table of users that 
+// you are having conversations with so that the client can sort the data more easily.
 module.exports.getMessagesByUser = (req, res) => {
   const username = req.path.substr(req.path.lastIndexOf('/') + 1);
   let userId;
   let convoArray = [];
   let convoIdArray = [];
+  let conversationKey = {}
   DB.User.findAll({
   	where: { username, }
   }).then((user) => {
@@ -26,12 +27,21 @@ module.exports.getMessagesByUser = (req, res) => {
   			DB.Message.findAll({
   				where: { conversationId: convoIdArray }
   			}).then((messages) => {
-  				res.status(200).json({
-  					yourUserId: userId, 
-  					messages: messages
-  				});
-  			}).catch((err) => {
-  				res.status(404).json(err);
+  				for (let i = 0; i < messages.length; i++) {
+  					if (messages[i].id !== userId) {
+  						DB.User.findOne({
+  							where: { id: messages[i].id }
+  						}).then((user) => {
+  							conversationKey[messages[i].id] = user.username;
+  						}).then((done) => {
+  							res.status(200).json({ 
+  								myUserId: userId,
+  								key: conversationKey,
+  								messages: messages
+  							})
+  						});
+  					};
+  				};
   			});
   		});
   	});
@@ -102,7 +112,7 @@ module.exports.deleteSingleMessage = (req, res) => {
 		res.status(204).json('message deleted');
 	}).catch((err) => {
 		res.status(404).json(err);
-	})
+	});
 }
 
 //This method delets all messages by a single user. At present, it does not delete the record of 
