@@ -40,13 +40,50 @@ module.exports.deleteAllByUser = (req, res) => {
 	const username = req.path.substr(req.path.lastIndexOf('/') + 1);
 	let userIdDelete;
   DB.User.destroy({
-  	where: { username,}
+  	where: { username, }
   }).then((destroyed) => {
   	res.status(204).json(destroyed);
   }).catch((err) => {
   	res.status(404).json(err);
   });
 };
+
+module.exports.deleteConversation = (req, res) => {
+	let userIds = [];
+	let convosToDelete = [];
+	DB.User.findAll({
+		where: { username: req.body.firstUser }
+	}).then((user1) => {
+		userIds.push(user1[0].id);
+		DB.User.findAll({
+			where: { username: req.body.secondUser }
+		}).then((user2) => {
+			userIds.push(user2[0].id);
+			DB.Conversation.findOne({
+				where: {
+					firstUser: userIds[0],
+					secondUser: userIds[1]
+				}
+			}).then((convo1) => {
+				convosToDelete.push(convo1.id);
+				DB.Conversation.findOne({
+					where: {
+						firstUser: userIds[1],
+						secondUser: userIds[0]
+					}
+				}).then((convo2) => {
+					convosToDelete.push(convo2.id);
+				}).then((destruction) => {
+					DB.Message.destroy({
+						where: { conversationId: convosToDelete }
+					}).then((after) => {
+						res.status(204).json('conversations destroyed');
+					})
+				});
+			});
+		});
+	});
+}
 
 module.exports.addProfile = (req, res) => {
 	DB.User.create({

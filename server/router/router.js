@@ -5,6 +5,9 @@ router.route('/messages/:username')
 .get(controller.getMessagesByUser)
 .delete(controller.deleteAllByUser);
 
+router.route('/removeconversation')
+.delete(controller.deleteConversation);
+
 router.route('/profiles/createnew')
 .post(controller.addProfile);
 
