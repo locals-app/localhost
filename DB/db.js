@@ -75,7 +75,7 @@ const Conversation = DB.define('conversation', {
 User.hasMany(Message, { onDelete: 'cascade' });
 Message.belongsTo(User, { onDelete: 'cascade' });
 
-// Message.belongsTo(Conversation, { onDelete: 'cascade' });
+Message.belongsTo(Conversation, { onDelete: 'cascade' });
 
 //These lines establish the relationship between the Users table and the Conversations table:
 User.hasMany(Conversation, { onDelete: 'cascade' });
@@ -88,7 +88,7 @@ User.sync({ force: true }).then(() => {
     username: 'Alex',
     location: 'Santa Monica',
     biography: 'some stuff about me',
-    isLocal:false
+    isLocal: false
   }).then(() => {
     return User.create({
       username: 'Jeff',
@@ -140,11 +140,11 @@ User.sync({ force: true }).then(() => {
                       });
                     });
                   });
-                })
+                });
               });
             });
           });
-        })
+        });
       });
     });
   });
