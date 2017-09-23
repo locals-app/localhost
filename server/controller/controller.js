@@ -87,7 +87,6 @@ module.exports.postMessage = (req, res) => {
 //TODO: Possibly make it delete all in these conversations.
 module.exports.deleteAllByUser = (req, res) => {
   const username = req.params.username;
-  let userIdDelete;
   DB.User.destroy({
     where: { username, }
   }).then((destroyed) => {
@@ -127,48 +126,6 @@ module.exports.getByLocation = (req, res) => {
   });
 };
 
-//This deletes a conversation from the Conversation table and deletes all associated messages from
-//the messages table
-module.exports.deleteConversation = (req, res) => {
-  let userIds = [];
-  let conversationToDelete;
-  DB.User.findAll({
-    where: { username: req.body.firstUser }
-  }).then((user1) => {
-    userIds.push(user1[0].id);
-    DB.User.findAll({
-      where: { username: req.body.secondUser }
-    }).then((user2) => {
-      userIds.push(user2[0].id);
-      userIds.sort();
-      console.log(userIds);
-      DB.Conversation.findOne({
-        where: {
-          firstUser: userIds[0],
-          secondUser: userIds[1]
-        },
-        raw: true
-      }).then((destruction) => {
-        console.log(destruction.id);
-        DB.Message.destroy({
-          where: { conversationId: destruction.id }
-        }).then((moreDestruction) => {
-          console.log(moreDestruction);
-          DB.Conversation.destroy({
-            where: { id: destruction.id }
-          }).then((done) => {
-            res.status(204).json('conversations destroyed');
-          }).catch((err) => {
-            res.status(404).json(err);
-          });
-        });
-      });
-    });
-  });
-};
-
-
-//9/22: debugged to here
 //This adds a conversation to the Conversation table given 2 users sent on the 
 //body of an object that are given by name
 module.exports.addConversation = (req, res) => {
@@ -202,6 +159,45 @@ module.exports.addConversation = (req, res) => {
           res.status(404).json(err);
         });
       }
+    });
+  });
+};
+
+//This deletes a conversation from the Conversation table and deletes all associated messages from
+//the messages table
+module.exports.deleteConversation = (req, res) => {
+  let userIds = [];
+  DB.User.findAll({
+    where: { username: req.body.firstUser }
+  }).then((user1) => {
+    userIds.push(user1[0].id);
+    DB.User.findAll({
+      where: { username: req.body.secondUser }
+    }).then((user2) => {
+      userIds.push(user2[0].id);
+      userIds.sort();
+      console.log(userIds);
+      DB.Conversation.findOne({
+        where: {
+          firstUser: userIds[0],
+          secondUser: userIds[1]
+        },
+        raw: true
+      }).then((destruction) => {
+        console.log(destruction.id);
+        DB.Message.destroy({
+          where: { conversationId: destruction.id }
+        }).then((moreDestruction) => {
+          console.log(moreDestruction);
+          DB.Conversation.destroy({
+            where: { id: destruction.id }
+          }).then((done) => {
+            res.status(204).json('conversations destroyed');
+          }).catch((err) => {
+            res.status(404).json(err);
+          });
+        });
+      });
     });
   });
 };
