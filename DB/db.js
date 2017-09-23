@@ -114,7 +114,7 @@ Message.sync({ force: true }).then(() => {
     return Message.create({
       text: 'another new message',
       userId: 2,
-      conversationId: 2
+      conversationId: 1
     }).then(() => {
       Message.create({
         text: 'yet another one',

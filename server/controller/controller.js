@@ -2,8 +2,6 @@ const DB = require('../../DB/db.js');
 
 //TODO : change all urls to req.params 
 //TODO : try to make the sendAll function send messages with usernames;
-//TODO : add rating to database and profiles functions
-//TODO : add a way to add a rating to profiles
 
 //Goes to all the places required and fetches all messages that pertain to a single user
 //(To be used on signin). It also sends back the user Id and a table of users that 
@@ -196,7 +194,7 @@ module.exports.deleteConversation = (req, res) => {
 //body of an object that are given by name
 module.exports.addConversation = (req, res) => {
   let userToAdd1 = 0;
-  let userToAdd2 = '';
+  let userToAdd2 = 0;
   DB.User.findOne({
     where: { username: req.body.firstUser }
   }).then((user1) => {
