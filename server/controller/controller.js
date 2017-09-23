@@ -1,13 +1,10 @@
 const DB = require('../../DB/db.js');
 
-//TODO : change all urls to req.params 
-//TODO : try to make the sendAll function send messages with usernames;
-
 //Goes to all the places required and fetches all messages that pertain to a single user
 //(To be used on signin). It also sends back the user Id and a table of users that 
 // you are having conversations with so that the client can sort the data more easily.
 module.exports.getMessagesByUser = (req, res) => {
-  const username = req.path.substr(req.path.lastIndexOf('/') + 1);
+  const username = req.params.username;
   let convoArray = [];
   let convoIdArray = [];
   DB.User.findAll({
@@ -49,10 +46,10 @@ module.exports.getMessagesByUser = (req, res) => {
 //This function adds new messages to the database with the correct userId and conversationId
 //when an otherUser property is provided along with text
 //it cannot make a post if there is not already an open conversation
-//TODO: modify this for logic of only one conversations per pair of user
+//TODO: modify this for logic of only one conversations per pair of user. It still works, but
+//can be simplified by sorting the userIds array.
 module.exports.postMessage = (req, res) => {
-  console.log(req.params);
-  const username = req.path.substr(req.path.lastIndexOf('/') + 1);
+  const username = req.params.username;
   let userIds = [];
   let conversationsBetween2 = [];
   DB.User.findOne({
@@ -105,6 +102,21 @@ module.exports.postMessage = (req, res) => {
   });
 };
 
+//This method delets all messages by a single user. At present, it does not delete the record of 
+//the conversation in the Conversations table.
+//TODO: Possibly make it delete all in these conversations.
+module.exports.deleteAllByUser = (req, res) => {
+  const username = req.params.username;
+  let userIdDelete;
+  DB.User.destroy({
+    where: { username, }
+  }).then((destroyed) => {
+    res.status(204).json(destroyed);
+  }).catch((err) => {
+    res.status(404).json(err);
+  });
+};
+
 //This method is for going back and deleting a single message
 module.exports.deleteSingleMessage = (req, res) => {
   DB.Message.destroy({
@@ -116,23 +128,9 @@ module.exports.deleteSingleMessage = (req, res) => {
   });
 };
 
-//This method delets all messages by a single user. At present, it does not delete the record of 
-//the conversation in the Conversations table.
-module.exports.deleteAllByUser = (req, res) => {
-  const username = req.path.substr(req.path.lastIndexOf('/') + 1);
-  let userIdDelete;
-  DB.User.destroy({
-    where: { username, }
-  }).then((destroyed) => {
-    res.status(204).json(destroyed);
-  }).catch((err) => {
-    res.status(404).json(err);
-  });
-};
-
 //gets profiles by location
 module.exports.getByLocation = (req, res) => {
-  let location = req.path.substr(req.path.lastIndexOf('/') + 1);
+  let location = req.params.location;
   location = location.split('');
   for (let i = 0; i < location.length; i++) {
     if (location[i] === '_') {
@@ -245,7 +243,7 @@ module.exports.addProfile = (req, res) => {
 
 //This method fetchs a single profile given a userName
 module.exports.getProfile = (req, res) => {
-  const username = req.path.substr(req.path.lastIndexOf('/') + 1);
+  const username = req.params.username;
   DB.User.findOne({
     where: { username, }
   }).then((profile) => {
@@ -258,7 +256,7 @@ module.exports.getProfile = (req, res) => {
 //This method deletes a profile based on a username
 //All messages belonging to this user are deleted automatically on cascade
 module.exports.deleteProfile = (req, res) => {
-  const username = req.path.substr(req.path.lastIndexOf('/') + 1);
+  const username = req.params.username;
   DB.User.destroy({
     where: { username, }
   }).then((done) => {
