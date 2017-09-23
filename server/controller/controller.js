@@ -1,6 +1,6 @@
 const DB = require('../../DB/db.js');
 
-//TODO : change all urls todo 
+//TODO : change all urls to req.params 
 //TODO : try to make the sendAll function send messages with usernames;
 //TODO : add rating to database and profiles functions
 //TODO : add a way to add a rating to profiles
@@ -30,22 +30,22 @@ module.exports.getMessagesByUser = (req, res) => {
           convoIdArray.push(conversation.id);
         });
         DB.Message.findAll({
-          where: { conversationId: convoIdArray }
+          where: { conversationId: convoIdArray },
+          raw: true
         }).then((messages) => {
+          console.log(messages);
           for (let i = 0; i < messages.length; i++) {
-            if (messages[i].id !== userId) {
-              DB.User.findOne({
-                where: { id: messages[i].id }
-              }).then((user) => {
-                conversationKey[messages[i].id] = user.username;
-              }).then((done) => {
-                res.status(200).json({ 
-                  myUserId: userId,
-                  key: conversationKey,
-                  messages: messages
-                });
+            DB.User.findOne({
+              where: { id: messages[i].id }
+            }).then((user) => {
+              messages[i].userId = user.username;
+            }).then((done) => {
+              console.log(messages);
+              res.status(200).json({ 
+                myUserId: userId,
+                messages: messages
               });
-            }
+            });
           }
         });
       });
