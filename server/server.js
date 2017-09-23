@@ -9,7 +9,7 @@ const port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.use('/', router);
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(__dirname + '/../client/compiled'));
+app.use(express.static(__dirname + '/../client/static'));
 
 app.listen(port, () => console.log('server listening on port: ' + port));
 

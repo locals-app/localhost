@@ -3,7 +3,7 @@ const path = require('path');
 const webpackConfig = {
   entry: path.resolve(__dirname, './client/src/index.jsx'),
   output: {
-    path: path.resolve(__dirname, './client/compiled'),
+    path: path.resolve(__dirname, './client/static'),
     filename: 'bundle.js',
   },
   module: {
