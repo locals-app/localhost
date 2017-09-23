@@ -60,43 +60,24 @@ module.exports.postMessage = (req, res) => {
       where: { username: req.body.otherUser }
     }).then((userId) => {
       userIds.push(userId.id);
+      userIds.sort();
+      console.log(userIds);
     }).then((both) => {
       DB.Conversation.findOne({
         where: { 
           firstUser: userIds[0],
           secondUser: userIds[1]
         }
-      }).then((conversation1) =>{
-        if (conversation1 !== null) {
-          DB.Message.create({
-            text: req.body.text,
-            userId: userIds[0],
-            conversationId: conversation1.id
-          }).then((message) => {
-            res.status(201).json(message);
-          }).catch((err) => {
-            res.status(404).json(message);
-          });
-        } else {
-          DB.Conversation.findOne({
-            where: { 
-              firstUser: userIds[1],
-              secondUser: userIds[0]
-            }
-          }).then((conversation2) => {
-            if (conversation2 !== null) {
-              DB.Message.create({
-                text: req.body.text,
-                userId: userIds[0],
-                conversationId: conversation2.id
-              }).then((message) => {
-                res.status(201).json(message);
-              }).catch((err) => {
-                res.status(404).json(err);
-              });
-            }
-          });
-        }
+      }).then((conversation) =>{
+        DB.Message.create({
+          text: req.body.text,
+          userId: userIds[0],
+          conversationId: conversation.id
+        }).then((message) => {
+          res.status(201).json(message);
+        }).catch((err) => {
+          res.status(404).json(message);
+        });
       });
     });
   });
