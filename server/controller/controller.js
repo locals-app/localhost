@@ -13,7 +13,6 @@ module.exports.getMessagesByUser = (req, res) => {
   let userId;
   let convoArray = [];
   let convoIdArray = [];
-  let conversationKey = {};
   DB.User.findAll({
     where: { username, }
   }).then((user) => {
@@ -33,20 +32,18 @@ module.exports.getMessagesByUser = (req, res) => {
           where: { conversationId: convoIdArray },
           raw: true
         }).then((messages) => {
-          console.log(messages);
-          for (let i = 0; i < messages.length; i++) {
-            DB.User.findOne({
-              where: { id: messages[i].id }
-            }).then((user) => {
-              messages[i].userId = user.username;
-            }).then((done) => {
-              console.log(messages);
-              res.status(200).json({ 
-                myUserId: userId,
-                messages: messages
-              });
-            });
-          }
+          usersToHash = [];
+          let conversationKey = {};
+          messages.forEach((message) => usersToHash.push(message.id));
+          DB.User.findAll({
+            where: { Id: usersToHash },
+            raw: true
+          }).then((users) => {
+            users.forEach((user) => conversationKey[user.id] = user.username);
+            messages.forEach((message) => message.userId = conversationKey[message.userId]);
+            console.log(messages);
+            res.status(200).json(messages);
+          });
         });
       });
     });
@@ -202,7 +199,7 @@ module.exports.deleteConversation = (req, res) => {
 //This adds a conversation to the Conversation table given 2 users sent on the 
 //body of an object that are given by name
 module.exports.addConversation = (req, res) => {
-  let userToAdd1 = '';
+  let userToAdd1 = 0;
   let userToAdd2 = '';
   DB.User.findOne({
     where: { username: req.body.firstUser }
@@ -213,14 +210,25 @@ module.exports.addConversation = (req, res) => {
     }).then((user2) => {
       userToAdd2 = user2.id;
     }).then((bothUsers) => {
-      DB.Conversation.create({
-        firstUser: userToAdd1,
-        secondUser: userToAdd2
-      }).then((newConversation) => {
-        res.status(201).json(newConversation);
-      }).catch((err) => {
-        res.status(404).json(err);
-      });
+      if (userToAdd1 < userToAdd2) {
+        DB.Conversation.create({
+          firstUser: userToAdd1,
+          secondUser: userToAdd2
+        }).then((newConversation) => {
+          res.status(201).json(newConversation);
+        }).catch((err) => {
+          res.status(404).json(err);
+        });
+      } else {
+        DB.Conversation.create({
+          firstUser: userToAdd2,
+          secondUser: userToAdd1
+        }).then((newConversation) => {
+          res.status(201).json(newConversation);
+        }).catch((err) => {
+          res.status(404).json(err);
+        });
+      }
     });
   });
 };
