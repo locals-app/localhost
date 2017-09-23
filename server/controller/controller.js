@@ -26,6 +26,7 @@ module.exports.getMessagesByUser = (req, res) => {
           where: { conversationId: convoIdArray },
           raw: true
         }).then((messages) => {
+          console.log(messages);
           usersToHash = [];
           let conversationKey = {};
           messages.forEach((message) => usersToHash.push(message.id));
@@ -49,6 +50,7 @@ module.exports.getMessagesByUser = (req, res) => {
 module.exports.postMessage = (req, res) => {
   const username = req.params.username;
   let userIds = [];
+  let sortedIds = [];
   DB.User.findOne({
     where: { username, }
   }).then((userId) => {
@@ -57,15 +59,19 @@ module.exports.postMessage = (req, res) => {
       where: { username: req.body.otherUser }
     }).then((userId) => {
       userIds.push(userId.id);
-      userIds.sort();
-      console.log(userIds);
+      userIds.forEach((id) => sortedIds.push(id));
+      sortedIds.sort()
+      console.log('userIds', userIds);
+      console.log('sortedIds', sortedIds);
+
     }).then((both) => {
       DB.Conversation.findOne({
         where: { 
-          firstUser: userIds[0],
-          secondUser: userIds[1]
+          firstUser: sortedIds[0],
+          secondUser: sortedIds[1]
         }
       }).then((conversation) =>{
+        console.log(conversation);
         DB.Message.create({
           text: req.body.text,
           userId: userIds[0],
