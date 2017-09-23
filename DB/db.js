@@ -9,12 +9,21 @@ const DB = new Sequelize('localHostDB', 'Alex', '', {
 
 //This initializes and authenticates the database
 DB.authenticate()
+<<<<<<< HEAD
 .then(() => {
   console.log('Connection to database has been established');
 })
 .catch((err) => {
   console.error('Unable to connect to the database', err);
 });
+=======
+  .then(() => {
+    console.log('Connection to database has been established');
+  })
+  .catch((err) => {
+    console.error('Unable to connect to the database', err);
+  });
+>>>>>>> making the linter happy
 
 //Defines the User model which will essentially hold profile information. 
 //TODO: more items may be added to this model:
