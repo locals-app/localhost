@@ -2,7 +2,7 @@
 
 import auth0 from 'auth0-js';
 
-export default class Auth {
+class Auth extends Component {
   auth0 = new auth0.WebAuth({
     domain: 'localhost-app.auth0.com',
     clientID: 'Mg4MZmQkghpTrMFJ4obiXXiqCD1zRL1t',
@@ -16,3 +16,5 @@ export default class Auth {
     this.auth0.authorize();
   }
 }
+
+export default Auth;
