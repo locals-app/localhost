@@ -49,6 +49,7 @@ module.exports.getMessagesByUser = (req, res) => {
 //This function adds new messages to the database with the correct userId and conversationId
 //when an otherUser property is provided along with text
 //it cannot make a post if there is not already an open conversation
+//TODO: modify this for logic of only one conversations per pair of user
 module.exports.postMessage = (req, res) => {
   console.log(req.params);
   const username = req.path.substr(req.path.lastIndexOf('/') + 1);
