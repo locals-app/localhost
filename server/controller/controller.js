@@ -50,6 +50,7 @@ module.exports.getMessagesByUser = (req, res) => {
 
 //This function adds new messages to the database with the correct userId and conversationId
 //when an otherUser property is provided along with text
+//it cannot make a post if there is not already an open conversation
 module.exports.postMessage = (req, res) => {
   console.log(req.params);
   const username = req.path.substr(req.path.lastIndexOf('/') + 1);
@@ -153,7 +154,7 @@ module.exports.getByLocation = (req, res) => {
 //the messages table
 module.exports.deleteConversation = (req, res) => {
   let userIds = [];
-  let convosToDelete = [];
+  let conversationToDelete;
   DB.User.findAll({
     where: { username: req.body.firstUser }
   }).then((user1) => {
@@ -162,31 +163,26 @@ module.exports.deleteConversation = (req, res) => {
       where: { username: req.body.secondUser }
     }).then((user2) => {
       userIds.push(user2[0].id);
+      userIds.sort();
+      console.log(userIds);
       DB.Conversation.findOne({
         where: {
           firstUser: userIds[0],
           secondUser: userIds[1]
-        }
-      }).then((convo1) => {
-        convosToDelete.push(convo1.id);
-        DB.Conversation.findOne({
-          where: {
-            firstUser: userIds[1],
-            secondUser: userIds[0]
-          }
-        }).then((convo2) => {
-          convosToDelete.push(convo2.id);
-        }).then((destruction) => {
-          DB.Message.destroy({
-            where: { conversationId: convosToDelete }
-          }).then((moreDestruction) => {
-            DB.Conversation.destroy({
-              where: { id: convosToDelete }
-            }).then((done) => {
-              res.status(204).json('conversations destroyed');
-            }).catch((err) => {
-              res.status(404).json(err);
-            });
+        },
+        raw: true
+      }).then((destruction) => {
+        console.log(destruction.id);
+        DB.Message.destroy({
+          where: { conversationId: destruction.id }
+        }).then((moreDestruction) => {
+          console.log(moreDestruction);
+          DB.Conversation.destroy({
+            where: { id: destruction.id }
+          }).then((done) => {
+            res.status(204).json('conversations destroyed');
+          }).catch((err) => {
+            res.status(404).json(err);
           });
         });
       });
@@ -194,6 +190,8 @@ module.exports.deleteConversation = (req, res) => {
   });
 };
 
+
+//9/22: debugged to here
 //This adds a conversation to the Conversation table given 2 users sent on the 
 //body of an object that are given by name
 module.exports.addConversation = (req, res) => {
