@@ -1,7 +1,8 @@
 const Sequelize = require('sequelize');
+const dbUrl = require('./elephantUrl.js');
 
 //this initializes the database.
-const DB = new Sequelize('postgres://rqgzqolx:kcs9uuu_QCep85jlPrhiqp9Xexg-GNWJ@pellefant.db.elephantsql.com:5432/rqgzqolx', {
+const DB = new Sequelize(dbUrl, {
   dialect: 'pg',
 });
 
