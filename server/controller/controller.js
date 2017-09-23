@@ -240,7 +240,6 @@ module.exports.changeProfile = (req, res) => {
     profile.update({
       location: req.body.location,
       biography: req.body.biography,
-      rating: req.body.rating,
       isLocal: req.body.isLocal
     }).then((user) => {
       res.status(201).json(user);
