@@ -132,8 +132,8 @@ Conversation.sync({ force: true }).then(() => {
     secondUser: 2
   }).then(() => {
     return Conversation.create({
-      firstUser: 2,
-      secondUser: 1
+      firstUser: 1,
+      secondUser: 3
     }).then(() => {
       return Conversation.create({
         firstUser: 3,

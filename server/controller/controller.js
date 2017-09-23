@@ -10,7 +10,6 @@ const DB = require('../../DB/db.js');
 // you are having conversations with so that the client can sort the data more easily.
 module.exports.getMessagesByUser = (req, res) => {
   const username = req.path.substr(req.path.lastIndexOf('/') + 1);
-  let userId;
   let convoArray = [];
   let convoIdArray = [];
   DB.User.findAll({
@@ -41,7 +40,6 @@ module.exports.getMessagesByUser = (req, res) => {
           }).then((users) => {
             users.forEach((user) => conversationKey[user.id] = user.username);
             messages.forEach((message) => message.userId = conversationKey[message.userId]);
-            console.log(messages);
             res.status(200).json(messages);
           });
         });
