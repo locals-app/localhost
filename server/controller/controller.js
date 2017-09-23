@@ -1,19 +1,12 @@
 const DB = require('../../DB/db.js');
 
-//TODO : change all urls to req.params 
-//TODO : try to make the sendAll function send messages with usernames;
-//TODO : add rating to database and profiles functions
-//TODO : add a way to add a rating to profiles
-
 //Goes to all the places required and fetches all messages that pertain to a single user
 //(To be used on signin). It also sends back the user Id and a table of users that 
 // you are having conversations with so that the client can sort the data more easily.
 module.exports.getMessagesByUser = (req, res) => {
-  const username = req.path.substr(req.path.lastIndexOf('/') + 1);
-  let userId;
+  const username = req.params.username;
   let convoArray = [];
   let convoIdArray = [];
-  let conversationKey = {};
   DB.User.findAll({
     where: { username, }
   }).then((user) => {
@@ -34,19 +27,17 @@ module.exports.getMessagesByUser = (req, res) => {
           raw: true
         }).then((messages) => {
           console.log(messages);
-          for (let i = 0; i < messages.length; i++) {
-            DB.User.findOne({
-              where: { id: messages[i].id }
-            }).then((user) => {
-              messages[i].userId = user.username;
-            }).then((done) => {
-              console.log(messages);
-              res.status(200).json({ 
-                myUserId: userId,
-                messages: messages
-              });
-            });
-          }
+          usersToHash = [];
+          let conversationKey = {};
+          messages.forEach((message) => usersToHash.push(message.id));
+          DB.User.findAll({
+            where: { id: usersToHash },
+            raw: true
+          }).then((users) => {
+            users.forEach((user) => conversationKey[user.id] = user.username);
+            messages.forEach((message) => message.userId = conversationKey[message.userId]);
+            res.status(200).json(messages);
+          });
         });
       });
     });
@@ -55,11 +46,11 @@ module.exports.getMessagesByUser = (req, res) => {
 
 //This function adds new messages to the database with the correct userId and conversationId
 //when an otherUser property is provided along with text
+//it cannot make a post if there is not already an open conversation
 module.exports.postMessage = (req, res) => {
-  console.log(req.params);
-  const username = req.path.substr(req.path.lastIndexOf('/') + 1);
+  const username = req.params.username;
   let userIds = [];
-  let conversationsBetween2 = [];
+  let sortedIds = [];
   DB.User.findOne({
     where: { username, }
   }).then((userId) => {
@@ -68,45 +59,44 @@ module.exports.postMessage = (req, res) => {
       where: { username: req.body.otherUser }
     }).then((userId) => {
       userIds.push(userId.id);
+      userIds.forEach((id) => sortedIds.push(id));
+      sortedIds.sort()
+      console.log('userIds', userIds);
+      console.log('sortedIds', sortedIds);
+
     }).then((both) => {
       DB.Conversation.findOne({
         where: { 
-          firstUser: userIds[0],
-          secondUser: userIds[1]
+          firstUser: sortedIds[0],
+          secondUser: sortedIds[1]
         }
-      }).then((conversation1) =>{
-        if (conversation1 !== null) {
-          DB.Message.create({
-            text: req.body.text,
-            userId: userIds[0],
-            conversationId: conversation1.id
-          }).then((message) => {
-            res.status(201).json(message);
-          }).catch((err) => {
-            res.status(404).json(message);
-          });
-        } else {
-          DB.Conversation.findOne({
-            where: { 
-              firstUser: userIds[1],
-              secondUser: userIds[0]
-            }
-          }).then((conversation2) => {
-            if (conversation2 !== null) {
-              DB.Message.create({
-                text: req.body.text,
-                userId: userIds[0],
-                conversationId: conversation2.id
-              }).then((message) => {
-                res.status(201).json(message);
-              }).catch((err) => {
-                res.status(404).json(err);
-              });
-            }
-          });
-        }
+      }).then((conversation) =>{
+        console.log(conversation);
+        DB.Message.create({
+          text: req.body.text,
+          userId: userIds[0],
+          conversationId: conversation.id
+        }).then((message) => {
+          res.status(201).json(message);
+        }).catch((err) => {
+          res.status(404).json(message);
+        });
       });
     });
+  });
+};
+
+//This method delets all messages by a single user. At present, it does not delete the record of 
+//the conversation in the Conversations table.
+//TODO: Possibly make it delete all in these conversations.
+module.exports.deleteAllByUser = (req, res) => {
+  const username = req.params.username;
+  DB.User.destroy({
+    where: { username, }
+  }).then((destroyed) => {
+    res.status(204).json(destroyed);
+  }).catch((err) => {
+    res.status(404).json(err);
   });
 };
 
@@ -121,23 +111,9 @@ module.exports.deleteSingleMessage = (req, res) => {
   });
 };
 
-//This method delets all messages by a single user. At present, it does not delete the record of 
-//the conversation in the Conversations table.
-module.exports.deleteAllByUser = (req, res) => {
-  const username = req.path.substr(req.path.lastIndexOf('/') + 1);
-  let userIdDelete;
-  DB.User.destroy({
-    where: { username, }
-  }).then((destroyed) => {
-    res.status(204).json(destroyed);
-  }).catch((err) => {
-    res.status(404).json(err);
-  });
-};
-
 //gets profiles by location
 module.exports.getByLocation = (req, res) => {
-  let location = req.path.substr(req.path.lastIndexOf('/') + 1);
+  let location = req.params.location;
   location = location.split('');
   for (let i = 0; i < location.length; i++) {
     if (location[i] === '_') {
@@ -154,56 +130,11 @@ module.exports.getByLocation = (req, res) => {
   });
 };
 
-//This deletes a conversation from the Conversation table and deletes all associated messages from
-//the messages table
-module.exports.deleteConversation = (req, res) => {
-  let userIds = [];
-  let convosToDelete = [];
-  DB.User.findAll({
-    where: { username: req.body.firstUser }
-  }).then((user1) => {
-    userIds.push(user1[0].id);
-    DB.User.findAll({
-      where: { username: req.body.secondUser }
-    }).then((user2) => {
-      userIds.push(user2[0].id);
-      DB.Conversation.findOne({
-        where: {
-          firstUser: userIds[0],
-          secondUser: userIds[1]
-        }
-      }).then((convo1) => {
-        convosToDelete.push(convo1.id);
-        DB.Conversation.findOne({
-          where: {
-            firstUser: userIds[1],
-            secondUser: userIds[0]
-          }
-        }).then((convo2) => {
-          convosToDelete.push(convo2.id);
-        }).then((destruction) => {
-          DB.Message.destroy({
-            where: { conversationId: convosToDelete }
-          }).then((moreDestruction) => {
-            DB.Conversation.destroy({
-              where: { id: convosToDelete }
-            }).then((done) => {
-              res.status(204).json('conversations destroyed');
-            }).catch((err) => {
-              res.status(404).json(err);
-            });
-          });
-        });
-      });
-    });
-  });
-};
-
 //This adds a conversation to the Conversation table given 2 users sent on the 
 //body of an object that are given by name
 module.exports.addConversation = (req, res) => {
-  let userToAdd1 = '';
-  let userToAdd2 = '';
+  let userToAdd1 = 0;
+  let userToAdd2 = 0;
   DB.User.findOne({
     where: { username: req.body.firstUser }
   }).then((user1) => {
@@ -213,13 +144,63 @@ module.exports.addConversation = (req, res) => {
     }).then((user2) => {
       userToAdd2 = user2.id;
     }).then((bothUsers) => {
-      DB.Conversation.create({
-        firstUser: userToAdd1,
-        secondUser: userToAdd2
-      }).then((newConversation) => {
-        res.status(201).json(newConversation);
-      }).catch((err) => {
-        res.status(404).json(err);
+      if (userToAdd1 < userToAdd2) {
+        DB.Conversation.create({
+          firstUser: userToAdd1,
+          secondUser: userToAdd2
+        }).then((newConversation) => {
+          res.status(201).json(newConversation);
+        }).catch((err) => {
+          res.status(404).json(err);
+        });
+      } else {
+        DB.Conversation.create({
+          firstUser: userToAdd2,
+          secondUser: userToAdd1
+        }).then((newConversation) => {
+          res.status(201).json(newConversation);
+        }).catch((err) => {
+          res.status(404).json(err);
+        });
+      }
+    });
+  });
+};
+
+//This deletes a conversation from the Conversation table and 
+//deletes all associated messages from the messages table
+module.exports.deleteConversation = (req, res) => {
+  let userIds = [];
+  DB.User.findAll({
+    where: { username: req.body.firstUser }
+  }).then((user1) => {
+    userIds.push(user1[0].id);
+    DB.User.findAll({
+      where: { username: req.body.secondUser }
+    }).then((user2) => {
+      userIds.push(user2[0].id);
+      userIds.sort();
+      console.log(userIds);
+      DB.Conversation.findOne({
+        where: {
+          firstUser: userIds[0],
+          secondUser: userIds[1]
+        },
+        raw: true
+      }).then((destruction) => {
+        console.log(destruction.id);
+        DB.Message.destroy({
+          where: { conversationId: destruction.id }
+        }).then((moreDestruction) => {
+          console.log(moreDestruction);
+          DB.Conversation.destroy({
+            where: { id: destruction.id }
+          }).then((done) => {
+            res.status(204).json('conversations destroyed');
+          }).catch((err) => {
+            res.status(404).json(err);
+          });
+        });
       });
     });
   });
@@ -242,7 +223,7 @@ module.exports.addProfile = (req, res) => {
 
 //This method fetchs a single profile given a userName
 module.exports.getProfile = (req, res) => {
-  const username = req.path.substr(req.path.lastIndexOf('/') + 1);
+  const username = req.params.username;
   DB.User.findOne({
     where: { username, }
   }).then((profile) => {
@@ -255,7 +236,7 @@ module.exports.getProfile = (req, res) => {
 //This method deletes a profile based on a username
 //All messages belonging to this user are deleted automatically on cascade
 module.exports.deleteProfile = (req, res) => {
-  const username = req.path.substr(req.path.lastIndexOf('/') + 1);
+  const username = req.params.username;
   DB.User.destroy({
     where: { username, }
   }).then((done) => {
