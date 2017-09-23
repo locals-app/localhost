@@ -23,6 +23,7 @@
     "path": "^0.12.7",
     "pg": "^7.3.0",
     "react": "^15.6.1",
+    "react-bootstrap": "^0.31.3",
     "react-dom": "^15.6.1",
     "sequelize": "^4.8.4",
     "sqlite3": "^3.1.11",
