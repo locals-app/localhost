@@ -210,7 +210,8 @@ module.exports.addProfile = (req, res) => {
     username: req.body.username,
     location: req.body.location,
     biography: req.body.biography,
-    rating: req.body.rating
+    rating: req.body.rating,
+    isLocal: req.body.isLocal
   }).then((newUser) => {
     res.status(201).json(newUser);
   }).catch((err) => {
@@ -229,6 +230,25 @@ module.exports.getProfile = (req, res) => {
     res.status(404).json(err);
   });
 };
+
+module.exports.changeProfile = (req, res) => {
+  const username = req.params.username;
+  console.log(req.body)
+  DB.User.findOne({
+    where: { username, }
+  }).then((profile) => {
+    profile.update({
+      location: req.body.location,
+      biography: req.body.biography,
+      rating: req.body.rating,
+      isLocal: req.body.isLocal
+    }).then((user) => {
+      res.status(201).json(user);
+    }).catch((err) => {
+      res.status(404).json(err);
+    });
+  });
+}
 
 //This method deletes a profile based on a username
 //All messages belonging to this user are deleted automatically on cascade

@@ -35,6 +35,7 @@ router.route('/profiles/createnew')
 router.route('/profiles/:username')
 //this route allows you to grab a particular profile
 .get(controller.getProfile)
+.put(controller.changeProfile)
 //and this one will delete one
 .delete(controller.deleteProfile);
 
