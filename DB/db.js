@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize');
 
-//TODO: change from sqlite to postgress
 //this initializes the database.
 const DB = new Sequelize('postgres://rqgzqolx:kcs9uuu_QCep85jlPrhiqp9Xexg-GNWJ@pellefant.db.elephantsql.com:5432/rqgzqolx', {
   dialect: 'pg',
@@ -44,12 +43,12 @@ const Message = DB.define('message', {
   },
   userId: {
     type: Sequelize.INTEGER,
-    model: 'user',
+    model: 'users',
     key: 'id'
   },
   conversationId: {
     type: Sequelize.INTEGER,
-    model: 'conversation',
+    model: 'conversations',
     key: 'id'
   }
 });
@@ -58,12 +57,12 @@ const Message = DB.define('message', {
 const Conversation = DB.define('conversation', {
   firstUser: {
     type: Sequelize.INTEGER,
-    model: 'user',
+    model: 'users',
     key: 'id'
   },
   secondUser: {
     type: Sequelize.INTEGER,
-    model: 'user',
+    model: 'users',
     key: 'id'
   }
 });
@@ -72,11 +71,14 @@ const Conversation = DB.define('conversation', {
 User.hasMany(Message, { onDelete: 'cascade' });
 Message.belongsTo(User, { onDelete: 'cascade' });
 
+Message.belongsTo(Conversation, { onDelete: 'cascade' });
+
 //These lines establish the relationship between the Users table and the Conversations table:
 User.hasMany(Conversation, { onDelete: 'cascade' });
 Conversation.belongsTo(User, { onDelete: 'cascade' });
 
-//This syncs the Users table and then adds some seed data
+
+
 User.sync({ force: true }).then(() => {
   return User.create({
     username: 'Alex',
@@ -97,49 +99,54 @@ User.sync({ force: true }).then(() => {
           username: 'Tiffany',
           location: 'Los Angeles',
           biography: 'yet another one'
-        });
+        }).then(() => {
+          Conversation.sync({ force: true }).then(() => {
+            return Conversation.create({
+              firstUser: 1,
+              secondUser: 2
+            }).then(() => {
+              return Conversation.create({
+                firstUser: 1,
+                secondUser: 3
+              }).then(() => {
+                return Conversation.create({
+                  firstUser: 3,
+                  secondUser: 4
+                }).then(() => {
+                  Message.sync({ force: true }).then(() => {
+                    return Message.create({
+                      text: 'a new message',
+                      userId: 1,
+                      conversationId: 1
+                    }).then(() => {
+                      return Message.create({
+                        text: 'another new message',
+                        userId: 2,
+                        conversationId: 1
+                      }).then(() => {
+                        Message.create({
+                          text: 'yet another one',
+                          userId: 3,
+                          conversationId: 3
+                        });
+                      });
+                    });
+                  });
+                })
+              });
+            });
+          });
+        })
       });
     });
   });
 });
 
-Message.sync({ force: true }).then(() => {
-  return Message.create({
-    text: 'a new message',
-    userId: 1,
-    conversationId: 1
-  }).then(() => {
-    return Message.create({
-      text: 'another new message',
-      userId: 2,
-      conversationId: 1
-    }).then(() => {
-      Message.create({
-        text: 'yet another one',
-        userId: 3,
-        conversationId: 3
-      });
-    });
-  });
-});
 
 //This syncs the Conversations table and then seeds some data
-Conversation.sync({ force: true }).then(() => {
-  return Conversation.create({
-    firstUser: 1,
-    secondUser: 2
-  }).then(() => {
-    return Conversation.create({
-      firstUser: 1,
-      secondUser: 3
-    }).then(() => {
-      return Conversation.create({
-        firstUser: 3,
-        secondUser: 4
-      });
-    });
-  });
-});
+
+
+//This syncs the Users table and then adds some seed data
 
 
 //Exports the different model
