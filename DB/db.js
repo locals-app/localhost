@@ -71,7 +71,7 @@ const Conversation = DB.define('conversation', {
 User.hasMany(Message, { onDelete: 'cascade' });
 Message.belongsTo(User, { onDelete: 'cascade' });
 
-Message.belongsTo(Conversation, { onDelete: 'cascade' });
+// Message.belongsTo(Conversation, { onDelete: 'cascade' });
 
 //These lines establish the relationship between the Users table and the Conversations table:
 User.hasMany(Conversation, { onDelete: 'cascade' });

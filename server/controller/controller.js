@@ -30,7 +30,7 @@ module.exports.getMessagesByUser = (req, res) => {
           let conversationKey = {};
           messages.forEach((message) => usersToHash.push(message.id));
           DB.User.findAll({
-            where: { Id: usersToHash },
+            where: { id: usersToHash },
             raw: true
           }).then((users) => {
             users.forEach((user) => conversationKey[user.id] = user.username);
