@@ -51,7 +51,6 @@ module.exports.getMessagesByUser = (req, res) => {
 module.exports.postMessage = (req, res) => {
   const username = req.params.username;
   let userIds = [];
-  let conversationsBetween2 = [];
   DB.User.findOne({
     where: { username, }
   }).then((userId) => {
