@@ -32,6 +32,9 @@ const User = DB.define('user', {
   },
   rating: {
     type: Sequelize.FLOAT
+  },
+  isLocal: {
+    type: Sequelize.BOOLEAN
   }
 });
 
@@ -84,22 +87,26 @@ User.sync({ force: true }).then(() => {
   return User.create({
     username: 'Alex',
     location: 'Santa Monica',
-    biography: 'some stuff about me'
+    biography: 'some stuff about me',
+    isLocal:false
   }).then(() => {
     return User.create({
       username: 'Jeff',
       location: 'North Hollywood',
-      biography: 'Some other stuffs'
+      biography: 'Some other stuffs',
+      isLocal: false
     }).then(() => {
       return User.create({
         username: 'Max',
         location: 'Portland',
-        biography: 'Another bio'
+        biography: 'Another bio',
+        isLocal: true
       }).then(() => {
         return User.create({
           username: 'Tiffany',
           location: 'Los Angeles',
-          biography: 'yet another one'
+          biography: 'yet another one',
+          isLocal: false
         }).then(() => {
           Conversation.sync({ force: true }).then(() => {
             return Conversation.create({
