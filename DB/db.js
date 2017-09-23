@@ -2,9 +2,8 @@ const Sequelize = require('sequelize');
 
 //TODO: change from sqlite to postgress
 //this initializes the database.
-const DB = new Sequelize('localHostDB', 'Alex', '', {
-  dialect: 'sqlite',
-  storage: 'db/localhost.sqlite'
+const DB = new Sequelize('postgres://rqgzqolx:kcs9uuu_QCep85jlPrhiqp9Xexg-GNWJ@pellefant.db.elephantsql.com:5432/rqgzqolx', {
+  dialect: 'pg',
 });
 
 //This initializes and authenticates the database
@@ -32,7 +31,7 @@ const User = DB.define('user', {
     allowNull: false
   },
   rating: {
-    type: Sequelize.INTEGER
+    type: Sequelize.FLOAT
   }
 });
 
@@ -104,7 +103,6 @@ User.sync({ force: true }).then(() => {
   });
 });
 
-//This syncs the messages table and seeds some data
 Message.sync({ force: true }).then(() => {
   return Message.create({
     text: 'a new message',
@@ -142,6 +140,7 @@ Conversation.sync({ force: true }).then(() => {
     });
   });
 });
+
 
 //Exports the different model
 module.exports = {

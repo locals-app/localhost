@@ -46,8 +46,6 @@ module.exports.getMessagesByUser = (req, res) => {
 //This function adds new messages to the database with the correct userId and conversationId
 //when an otherUser property is provided along with text
 //it cannot make a post if there is not already an open conversation
-//TODO: modify this for logic of only one conversations per pair of user. It still works, but
-//can be simplified by sorting the userIds array.
 module.exports.postMessage = (req, res) => {
   const username = req.params.username;
   let userIds = [];
@@ -163,8 +161,8 @@ module.exports.addConversation = (req, res) => {
   });
 };
 
-//This deletes a conversation from the Conversation table and deletes all associated messages from
-//the messages table
+//This deletes a conversation from the Conversation table and 
+//deletes all associated messages from the messages table
 module.exports.deleteConversation = (req, res) => {
   let userIds = [];
   DB.User.findAll({
