@@ -3,56 +3,56 @@ const Sequelize = require('sequelize');
 //TODO: change from sqlite to postgress
 //this initializes the database.
 const DB = new Sequelize('localHostDB', 'Alex', '', {
-	dialect: 'sqlite',
-	storage: 'db/localhost.sqlite'
+  dialect: 'sqlite',
+  storage: 'db/localhost.sqlite'
 });
 
 //This initializes and authenticates the database
 DB.authenticate()
-.then(() => {
-	console.log('Connection to database has been established');
-})
-.catch((err) => {
-	console.error('Unable to connect to the database', err);
-});
+  .then(() => {
+    console.log('Connection to database has been established');
+  })
+  .catch((err) => {
+    console.error('Unable to connect to the database', err);
+  });
 
 //Defines the User model which will essentially hold profile information. 
 //TODO: more items may be added to this model:
 const User = DB.define('user', {
-	username: {
-		type: Sequelize.STRING,
-		allowNull: false
-	},
-	location: {
-		type: Sequelize.STRING,
-		allowNull: false
-	},
-	biography: {
-		type: Sequelize.STRING,
-		allowNull: false
-	},
-	rating: {
-		type: Sequelize.INTEGER
-	}
+  username: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  location: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  biography: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  rating: {
+    type: Sequelize.INTEGER
+  }
 });
 
 //Defined the message model that has tow foreign keys: A userId corresponding to 
 //the Users table and a conversationId corresponding to the conversations table: 
 const Message = DB.define('message', {
-	text: {
-		type: Sequelize.STRING,
-		allowNull: false
-	},
-	userId: {
-		type: Sequelize.INTEGER,
-		model: 'user',
-		key: 'id'
-	},
-	conversationId: {
-		type: Sequelize.INTEGER,
-		model: 'conversation',
-		key: 'id'
-	}
+  text: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  userId: {
+    type: Sequelize.INTEGER,
+    model: 'user',
+    key: 'id'
+  },
+  conversationId: {
+    type: Sequelize.INTEGER,
+    model: 'conversation',
+    key: 'id'
+  }
 });
 
 //This is the the conversations table. Both properties are forein keys each relating to the Users table:
