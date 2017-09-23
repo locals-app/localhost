@@ -24,7 +24,11 @@
     "pg": "^7.3.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-motion": "^0.5.1",
+    "react-toggle-button": "^2.1.0",
+    "react-toggle-switch": "^3.0.3",
     "sequelize": "^4.8.4",
+    "simple-react-forms": "^1.5.0",
     "sqlite3": "^3.1.11",
     "url-loader": "^0.5.9",
     "webpack": "^3.6.0"
