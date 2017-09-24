@@ -11,6 +11,7 @@ module.exports.getMessagesByUser = (req, res) => {
     where: { username, }
   }).then((user) => {
     userId = user[0].id;
+    console.log(userId)
     DB.Conversation.findAll({
       where: { firstUser: user[0].id }
     }).then((conversations) => {
@@ -26,10 +27,12 @@ module.exports.getMessagesByUser = (req, res) => {
           where: { conversationId: convoIdArray },
           raw: true
         }).then((messages) => {
-          console.log(messages);
+          
           usersToHash = [];
           let conversationKey = {};
-          messages.forEach((message) => usersToHash.push(message.id));
+          messages.forEach((message) => {
+            usersToHash.push(message.userId);
+          });
           DB.User.findAll({
             where: { id: usersToHash },
             raw: true
@@ -61,8 +64,6 @@ module.exports.postMessage = (req, res) => {
       userIds.push(userId.id);
       userIds.forEach((id) => sortedIds.push(id));
       sortedIds.sort()
-      console.log('userIds', userIds);
-      console.log('sortedIds', sortedIds);
 
     }).then((both) => {
       DB.Conversation.findOne({
@@ -71,7 +72,6 @@ module.exports.postMessage = (req, res) => {
           secondUser: sortedIds[1]
         }
       }).then((conversation) =>{
-        console.log(conversation);
         DB.Message.create({
           text: req.body.text,
           userId: userIds[0],
@@ -180,7 +180,6 @@ module.exports.deleteConversation = (req, res) => {
     }).then((user2) => {
       userIds.push(user2[0].id);
       userIds.sort();
-      console.log(userIds);
       DB.Conversation.findOne({
         where: {
           firstUser: userIds[0],
@@ -188,11 +187,9 @@ module.exports.deleteConversation = (req, res) => {
         },
         raw: true
       }).then((destruction) => {
-        console.log(destruction.id);
         DB.Message.destroy({
           where: { conversationId: destruction.id }
         }).then((moreDestruction) => {
-          console.log(moreDestruction);
           DB.Conversation.destroy({
             where: { id: destruction.id }
           }).then((done) => {
@@ -209,11 +206,13 @@ module.exports.deleteConversation = (req, res) => {
 //This method adds a new profile to the Users table
 //TODO: if user properties are changed, update this method
 module.exports.addProfile = (req, res) => {
+  console.log(req.body)
   DB.User.create({
     username: req.body.username,
     location: req.body.location,
     biography: req.body.biography,
-    rating: req.body.rating
+    rating: req.body.rating,
+    isLocal: req.body.isLocal
   }).then((newUser) => {
     res.status(201).json(newUser);
   }).catch((err) => {
@@ -232,6 +231,24 @@ module.exports.getProfile = (req, res) => {
     res.status(404).json(err);
   });
 };
+
+module.exports.changeProfile = (req, res) => {
+  const username = req.params.username;
+  console.log(req.body)
+  DB.User.findOne({
+    where: { username, }
+  }).then((profile) => {
+    profile.update({
+      location: req.body.location,
+      biography: req.body.biography,
+      isLocal: req.body.isLocal
+    }).then((user) => {
+      res.status(201).json(user);
+    }).catch((err) => {
+      res.status(404).json(err);
+    });
+  });
+}
 
 //This method deletes a profile based on a username
 //All messages belonging to this user are deleted automatically on cascade
