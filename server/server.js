@@ -16,15 +16,12 @@ app.use('/api', router);
 app.use(express.static(__dirname + '/../client/static'));
 
 io.on('connection', (socket) => {
-  socket.on('message', (text) => {
+  socket.on('message', (message) => {
     socket.broadcast.emit('message', {
-      text,
-      userId,
+      text: message.text,
+      userId: message.userId,
     });
   });
-  console.log('====================================');
-  console.log('socket connected');
-  console.log('====================================');
 });
 
 server.listen(port, () => console.log('server listening on port: ' + port));

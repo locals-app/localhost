@@ -36,6 +36,13 @@ class Chat extends Component {
     }
   }
 
+  componentDidMount() {
+    this.socket = io('/');
+    this.socket.on('message', message => {
+      this.setState({messages: [message, ...this.state.messages]})
+    })
+  }
+
   handleSubmit (event) {
     const text = event.target.value;
     if (event.key == 'Enter' && text) {
@@ -44,7 +51,7 @@ class Chat extends Component {
         userId: this.state.currentUser,
       }
       this.setState({messages: [message, ...this.state.messages]})
-      this.socket.emit('message', text)
+      this.socket.emit('message', message)
       event.target.value = '';
     }
   }
