@@ -31,16 +31,15 @@ class Chat extends Component {
           "createdAt": "2017-09-25T22:09:40.955Z",
           "updatedAt": "2017-09-25T22:09:40.955Z"
         }],
-      initializingUser: 'Max', // this needs to be passed down in props
+      currentUser: 'Max', // this needs to be passed down in props
       conversationId: null,
-      initiatingUser: '',
     }
   }
 
   render() {
     return (
       <div>
-        <Messages messages={this.state.messages}/>
+        <Messages messages={this.state.messages} currentUser={this.state.currentUser}/>
       </div>
     )
   }
