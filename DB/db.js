@@ -128,12 +128,12 @@ User.sync({ force: true }).then(() => {
                       conversationId: 1
                     }).then(() => {
                       return Message.create({
-                        text: 'and Back',
+                        text: 'Hi Alex!',
                         userId: 3,
                         conversationId: 1
                       }).then(() => {
                         Message.create({
-                          text: 'And back again',
+                          text: 'Hey Max!',
                           userId: 1,
                           conversationId: 1
                         }).then(() => {
@@ -143,12 +143,12 @@ User.sync({ force: true }).then(() => {
                             conversationId: 2
                           }).then(() => {
                             return Message.create({
-                              text: 'and Back',
+                              text: 'Hi Jeff!',
                               userId: 3,
                               conversationId: 2
                             }).then(() => {
                               Message.create({
-                                text: 'And back again',
+                                text: 'Hi Max!',
                                 userId: 2,
                                 conversationId: 2
                               }).then(() => {
@@ -158,12 +158,12 @@ User.sync({ force: true }).then(() => {
                                   conversationId: 3
                                 }).then(() => {
                                   return Message.create({
-                                    text: 'and Back',
+                                    text: 'Hi Tiffany!',
                                     userId: 3,
                                     conversationId: 3
                                   }).then(() => {
                                     Message.create({
-                                      text: 'And back again',
+                                      text: 'Hi Max!',
                                       userId: 4,
                                       conversationId: 3
                                     });
