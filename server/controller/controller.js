@@ -11,7 +11,6 @@ module.exports.getMessagesByUser = (req, res) => {
     where: { username, }
   }).then((user) => {
     userId = user[0].id;
-    console.log(userId)
     DB.Conversation.findAll({
       where: { firstUser: user[0].id }
     }).then((conversations) => {
@@ -63,8 +62,7 @@ module.exports.postMessage = (req, res) => {
     }).then((userId) => {
       userIds.push(userId.id);
       userIds.forEach((id) => sortedIds.push(id));
-      sortedIds.sort()
-
+      sortedIds.sort();
     }).then((both) => {
       DB.Conversation.findOne({
         where: { 
@@ -72,7 +70,7 @@ module.exports.postMessage = (req, res) => {
           secondUser: sortedIds[1]
         }
       }).then((conversation) =>{
-        if(conversation !== null) {
+        if (conversation !== null) {
           DB.Message.create({
             text: req.body.text,
             userId: userIds[0],
@@ -210,7 +208,6 @@ module.exports.deleteConversation = (req, res) => {
 //This method adds a new profile to the Users table
 //TODO: if user properties are changed, update this method
 module.exports.addProfile = (req, res) => {
-  console.log(req.body)
   DB.User.create({
     username: req.body.username,
     location: req.body.location,
@@ -238,7 +235,6 @@ module.exports.getProfile = (req, res) => {
 
 module.exports.changeProfile = (req, res) => {
   const username = req.params.username;
-  console.log(req.body)
   DB.User.findOne({
     where: { username, }
   }).then((profile) => {
@@ -252,7 +248,7 @@ module.exports.changeProfile = (req, res) => {
       res.status(404).json(err);
     });
   });
-}
+};
 
 //This method deletes a profile based on a username
 //All messages belonging to this user are deleted automatically on cascade
