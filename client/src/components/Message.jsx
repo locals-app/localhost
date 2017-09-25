@@ -10,7 +10,6 @@ const Message = ({message, currentUser}) => {
       <li className='otherUser'><b>{message.userId} --- </b>{message.text}</li> // assigning classnames to both users for styling purposes
     );
   }
-
 };
 
 export default Message;

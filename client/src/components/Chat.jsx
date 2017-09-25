@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import io from 'socket.io';
+import io from 'socket.io-client';
 import axios from 'axios';
 import Messages from './Messages';
 
@@ -36,9 +36,23 @@ class Chat extends Component {
     }
   }
 
+  handleSubmit (event) {
+    const text = event.target.value;
+    if (event.key == 'Enter' && text) {
+      const message = {
+        text,
+        userId: this.state.currentUser,
+      }
+      this.setState({messages: [message, ...this.state.messages]})
+      this.socket.emit('message', text)
+      event.target.value = '';
+    }
+  }
+
   render() {
     return (
       <div>
+        <input type="text" placeholder='Enter a message...' onKeyUp={this.handleSubmit.bind(this)}/>
         <Messages messages={this.state.messages} currentUser={this.state.currentUser}/>
       </div>
     )
