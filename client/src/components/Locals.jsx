@@ -20,6 +20,7 @@ class Locals extends Component {
         this.setState({
           locals: results.data,
           ready: true,
+    
         });
       })
       .catch( (err) => {
