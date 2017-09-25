@@ -39,7 +39,7 @@ class Chat extends Component {
   componentDidMount() {
     this.socket = io('/');
     this.socket.on('message', message => {
-      this.setState({messages: [message, ...this.state.messages]})
+      this.setState({messages: [...this.state.messages, message]})
     })
   }
 
@@ -49,8 +49,9 @@ class Chat extends Component {
       const message = {
         text,
         userId: this.state.currentUser,
+        id: this.state.messages[this.state.messages.length-1].id+1,
       }
-      this.setState({messages: [message, ...this.state.messages]})
+      this.setState({messages: [...this.state.messages, message]})
       this.socket.emit('message', message)
       event.target.value = '';
     }

@@ -20,6 +20,7 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('message', {
       text: message.text,
       userId: message.userId,
+      id: message.id+1,
     });
   });
 });
