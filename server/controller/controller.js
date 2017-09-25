@@ -72,15 +72,19 @@ module.exports.postMessage = (req, res) => {
           secondUser: sortedIds[1]
         }
       }).then((conversation) =>{
-        DB.Message.create({
-          text: req.body.text,
-          userId: userIds[0],
-          conversationId: conversation.id
-        }).then((message) => {
-          res.status(201).json(message);
-        }).catch((err) => {
-          res.status(404).json(message);
-        });
+        if(conversation !== null) {
+          DB.Message.create({
+            text: req.body.text,
+            userId: userIds[0],
+            conversationId: conversation.id
+          }).then((message) => {
+            res.status(201).json(message);
+          }).catch((err) => {
+            res.status(404).json(message);
+          });
+        } else {
+          res.status(404).json('this conversation does not exist');
+        }
       });
     });
   });

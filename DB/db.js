@@ -111,10 +111,10 @@ User.sync({ force: true }).then(() => {
           Conversation.sync({ force: true }).then(() => {
             return Conversation.create({
               firstUser: 1,
-              secondUser: 2
+              secondUser: 3
             }).then(() => {
               return Conversation.create({
-                firstUser: 1,
+                firstUser: 2,
                 secondUser: 3
               }).then(() => {
                 return Conversation.create({
@@ -123,19 +123,55 @@ User.sync({ force: true }).then(() => {
                 }).then(() => {
                   Message.sync({ force: true }).then(() => {
                     return Message.create({
-                      text: 'a new message',
+                      text: 'From Alex to Max',
                       userId: 1,
                       conversationId: 1
                     }).then(() => {
                       return Message.create({
-                        text: 'another new message',
-                        userId: 2,
+                        text: 'Hi Alex!',
+                        userId: 3,
                         conversationId: 1
                       }).then(() => {
                         Message.create({
-                          text: 'yet another one',
-                          userId: 3,
-                          conversationId: 3
+                          text: 'Hey Max!',
+                          userId: 1,
+                          conversationId: 1
+                        }).then(() => {
+                          return Message.create({
+                            text: 'From Jeff to Max',
+                            userId: 2,
+                            conversationId: 2
+                          }).then(() => {
+                            return Message.create({
+                              text: 'Hi Jeff!',
+                              userId: 3,
+                              conversationId: 2
+                            }).then(() => {
+                              Message.create({
+                                text: 'Hi Max!',
+                                userId: 2,
+                                conversationId: 2
+                              }).then(() => {
+                                return Message.create({
+                                  text: 'From Tiffany to Max',
+                                  userId: 4,
+                                  conversationId: 3
+                                }).then(() => {
+                                  return Message.create({
+                                    text: 'Hi Tiffany!',
+                                    userId: 3,
+                                    conversationId: 3
+                                  }).then(() => {
+                                    Message.create({
+                                      text: 'Hi Max!',
+                                      userId: 4,
+                                      conversationId: 3
+                                    });
+                                  });
+                                });
+                              })
+                            });
+                          });
                         });
                       });
                     });
