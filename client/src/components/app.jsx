@@ -3,6 +3,7 @@ import axios from 'axios';
 import ConversationStubs from './ConversationStubs.jsx';
 import Auth from './../Auth/Auth.jsx';
 import { Navbar, Button } from 'react-bootstrap';
+import { Auth0Lock } from 'auth0-lock';
 
 // from Hugo
 import { BrowserRouter } from 'react-router-dom';
@@ -15,42 +16,17 @@ class App extends Component {
     this.state = {
       userLocationSet: false,
     }
-    this.auth = new Auth();
   }
 
-
+  componentWillMount () {
+    this.lock = new Auth0Lock('kaQTBjg6m1VWXujuWrjYNDahHpDyJBEk', 'localhost-app.auth0.com');
+  }
 
   render() {
-    const { isAuthenticated } = this.auth;
-    // return (<div>hi</div>)
-
-    // if (this.state.userLocationSet) {
-      
-    //   return (
-    //     <div>
-    //       <input type="text" name="whereTo"/>
-    //       <h1>Ongoing Conversations</h1>
-    //       {/* <ConversationStubs /> */}
-    //     </div>
-    //   )
-    // } 
-    
-    // else {
-    //   return (
-    //     <div> Set your location </div>
-    //   )
-    // }
-
-  // }
-
-
     return (
-        <BrowserRouter>
-          <div>
-            <NavBar />
-            <Routes />
-          </div>
-        </BrowserRouter>
+      <div>
+        hello worls
+      </div>
     );
   }
 }
