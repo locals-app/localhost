@@ -20,8 +20,8 @@ webpackConfig.module.loaders.push({
   exclude: /node_modules/,
   loader: 'babel-loader',
   options: { 
-  presets: ['es2015', 'react'],  
-  plugins: ["transform-es2015-arrow-functions"] 
+    presets: ['es2015', 'react'],  
+    plugins: ['transform-es2015-arrow-functions'] 
   },
 });
 
