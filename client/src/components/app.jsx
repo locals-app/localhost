@@ -4,6 +4,11 @@ import ConversationStubs from './ConversationStubs.jsx';
 import Auth from './../Auth/Auth.jsx';
 import { Navbar, Button } from 'react-bootstrap';
 
+// from Hugo
+import { BrowserRouter } from 'react-router-dom';
+import NavBar from './NavBar';
+import Routes from './Routes';
+
 class App extends Component {
   constructor (props) {
     super();
@@ -11,18 +16,6 @@ class App extends Component {
       userLocationSet: false,
     }
     this.auth = new Auth();
-  }
-
-  goTo(route) {
-    this.history.replace(`/${route}`);
-  }
-
-  login() {
-    this.auth.login();
-  }
-
-  logout() {
-    this.auth.logout();
   }
 
 
@@ -51,45 +44,13 @@ class App extends Component {
   // }
 
 
-  return (
-      <div>
-        <Navbar fluid>
-          <Navbar.Header>
-            <Navbar.Brand>
-              <a href="#">Auth0 - React</a>
-            </Navbar.Brand>
-            <Button
-              bsStyle="primary"
-              className="btn-margin"
-              onClick={this.goTo.bind(this, 'home')}
-            >
-              Home
-            </Button>
-            {
-              !isAuthenticated() && (
-                  <Button
-                    bsStyle="primary"
-                    className="btn-margin"
-                    onClick={this.login.bind(this)}
-                  >
-                    Log In
-                  </Button>
-                )
-            }
-            {
-              isAuthenticated() && (
-                  <Button
-                    bsStyle="primary"
-                    className="btn-margin"
-                    onClick={this.logout.bind(this)}
-                  >
-                    Log Out
-                  </Button>
-                )
-            }
-          </Navbar.Header>
-        </Navbar>
-      </div>
+    return (
+        <BrowserRouter>
+          <div>
+            <NavBar />
+            <Routes />
+          </div>
+        </BrowserRouter>
     );
   }
 }
