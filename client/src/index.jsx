@@ -1,5 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Chat from './components/Chat';
+import App from './components/App';
 
-ReactDOM.render(<Chat />, document.getElementById('app')); 
+ReactDOM.render(<App />, document.getElementById('app')); 

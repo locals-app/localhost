@@ -18,9 +18,6 @@ app.use(express.static(__dirname + '/../client/static'));
 
 io.on('connection', (socket) => {
   socket.on('message', (message) => {
-    console.log('====================================');
-    console.log('here is conversationId', message);
-    console.log('====================================');
     socket.broadcast.emit('message', {
       text: message.text,
       userId: message.userId,
