@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import ConversationStubs from './ConversationStubs.jsx';
 import Auth from './../Auth/Auth.jsx';
-import { Navbar, Button } from 'react-bootstrap';
+import { Grid, Row, Col ,Navbar, Button } from 'react-bootstrap';
+import Header from './Header';
 
 // from Hugo
 import { BrowserRouter } from 'react-router-dom';
@@ -15,44 +16,33 @@ class App extends Component {
     this.state = {
       userLocationSet: false,
     }
-    this.auth = new Auth();
   }
 
-
+  componentWillMount () {
+    this.lock = new Auth0Lock('kaQTBjg6m1VWXujuWrjYNDahHpDyJBEk', 'localhost-app.auth0.com');
+  }
 
   render() {
-    const { isAuthenticated } = this.auth;
-    // return (<div>hi</div>)
-
-    // if (this.state.userLocationSet) {
-      
-    //   return (
-    //     <div>
-    //       <input type="text" name="whereTo"/>
-    //       <h1>Ongoing Conversations</h1>
-    //       {/* <ConversationStubs /> */}
-    //     </div>
-    //   )
-    // } 
-    
-    // else {
-    //   return (
-    //     <div> Set your location </div>
-    //   )
-    // }
-
-  // }
-
-
     return (
-        <BrowserRouter>
-          <div>
-            <NavBar />
-            <Routes />
-          </div>
-        </BrowserRouter>
+      <div>
+        hellow worls
+        <div>
+        <Header lock={this.lock}></Header>
+        <Grid>
+          <Row>
+            <Col xs={12} md={3}>
+            </Col>
+            <Col xs={12} md={9}>
+              {this.props.children}
+            </Col>
+          </Row>
+        </Grid>
+      </div>
+      </div>
     );
   }
 }
 
 export default App;
+
+//https://scotch.io/tutorials/build-a-react-flux-app-with-user-authentication
