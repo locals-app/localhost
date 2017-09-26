@@ -7,17 +7,14 @@ const path = require('path');
 const db = require('../DB/db.js');
 //instantiate server and socketIo
 const cors = require('cors');
-
-const authCheck = jwt({
-  secret: new Buffer('Vwx3MnEbWbwwYMJ9WzeaqVXXbk0bABOhVbhaUM9uApzwF-uV3FRNUGI63D2HscNx', 'base64'),
-  audience: 'kaQTBjg6m1VWXujuWrjYNDahHpDyJBEk'
-});
+const jwt = require('express-jwt');
 
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 const port = process.env.PORT || 3000;
-//middleware
+
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use('/api', router);
@@ -60,3 +57,5 @@ server.listen(port, () => console.log('server listening on port: ' + port));
 //   "expires_in":86400,
 //   "token_type":"Bearer"
 // }
+
+// module.exports = server;
