@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import ConversationStubs from './ConversationStubs.jsx';
-import Auth from './../Auth/Auth.jsx';
 import { Grid, Row, Col ,Navbar, Button } from 'react-bootstrap';
 import Header from './Header';
 

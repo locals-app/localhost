@@ -1,5 +1,5 @@
 {
-  "name": "tapractice5",
+  "name": "localhost-app",
   "version": "1.0.0",
   "description": "",
   "main": "server/server.js",
@@ -8,7 +8,7 @@
     "compile": "webpack --watch",
     "start": "nodemon server/server.js"
   },
-  "author": "Alex Leigh",
+  "author": "DROP DATABASE",
   "license": "ISC",
   "dependencies": {
     "auth0-js": "^8.10.1",
@@ -25,6 +25,7 @@
     "express-jwt": "^5.3.0",
     "file-loader": "^0.11.2",
     "fs": "0.0.1-security",
+    "jwks-rsa": "^1.2.0",
     "path": "^0.12.7",
     "pg": "^7.3.0",
     "prop-types": "^15.6.0",
