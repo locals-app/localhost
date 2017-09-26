@@ -44,3 +44,5 @@ class App extends Component {
 }
 
 export default App;
+
+//https://scotch.io/tutorials/build-a-react-flux-app-with-user-authentication
