@@ -7,7 +7,7 @@ import { Navbar, Button } from 'react-bootstrap';
 // from Hugo
 import { BrowserRouter } from 'react-router-dom';
 import NavBar from './NavBar';
-// import Routes from './Routes';
+import Routes from './Routes';
 
 class App extends Component {
   constructor (props) {
@@ -16,18 +16,6 @@ class App extends Component {
       userLocationSet: false,
     }
     this.auth = new Auth();
-  }
-
-  goTo(route) {
-    this.history.replace(`/${route}`);
-  }
-
-  login() {
-    this.auth.login();
-  }
-
-  logout() {
-    this.auth.logout();
   }
 
 
@@ -59,7 +47,8 @@ class App extends Component {
     return (
         <BrowserRouter>
           <div>
-          <NavBar />
+            <NavBar />
+            <Routes />
           </div>
         </BrowserRouter>
     );
