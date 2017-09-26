@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import ConversationStubs from './ConversationStubs.jsx';
 import Auth from './../Auth/Auth.jsx';
-import { Navbar, Button } from 'react-bootstrap';
-import { Auth0Lock } from 'auth0-lock';
+import { Grid, Row, Col ,Navbar, Button } from 'react-bootstrap';
+import Header from './Header';
 
 // from Hugo
 import { BrowserRouter } from 'react-router-dom';
@@ -25,7 +25,19 @@ class App extends Component {
   render() {
     return (
       <div>
-        hello worls
+        hellow worls
+        <div>
+        <Header lock={this.lock}></Header>
+        <Grid>
+          <Row>
+            <Col xs={12} md={3}>
+            </Col>
+            <Col xs={12} md={9}>
+              {this.props.children}
+            </Col>
+          </Row>
+        </Grid>
+      </div>
       </div>
     );
   }
