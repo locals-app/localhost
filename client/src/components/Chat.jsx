@@ -32,7 +32,7 @@ class Chat extends Component {
           "updatedAt": "2017-09-25T22:09:40.955Z"
         }],
       currentUser: 'Max', // this needs to be passed down in props
-      conversationId: null,
+      conversationId: 3, // this needs to be passed down in props
     }
   }
 
@@ -48,6 +48,7 @@ class Chat extends Component {
     if (event.key == 'Enter' && text) {
       const message = {
         text,
+        conversationId: this.state.conversationId,
         userId: this.state.currentUser,
         id: this.state.messages[this.state.messages.length-1].id+1,
       }
