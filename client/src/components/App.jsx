@@ -42,6 +42,7 @@ class App extends Component {
     return idToken;
   }
   
+  // renders Landing component which is currently functioning as our sign-in page or is attempting to make a GET request by rendering the Locals component
   render() {
     if (this.state.idToken) {
       return (<Locals lock={this.lock} idToken={this.state.idToken} />);
