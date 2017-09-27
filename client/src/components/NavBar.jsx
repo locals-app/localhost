@@ -17,10 +17,10 @@ class NavBar extends Component {
           <BrowserRouter>
             <div>
               <div>
-                <li><NavLink>Home</NavLink></li>
-                <li><NavLink>Locals</NavLink></li>
-                <li><NavLink>My Profile</NavLink></li>
-                <li><NavLink>Logout</NavLink></li>
+                <li><NavLink to='/home'>Home</NavLink></li>
+                <li><NavLink to='/locals'>Locals</NavLink></li>
+                <li><NavLink to='/myProfile'>My Profile</NavLink></li>
+                <li><NavLink to='/logout'>Logout</NavLink></li>
               </div>
               <Route path='/home' component={Landing}/>
               <Route path='/locals' component={Locals}/>
