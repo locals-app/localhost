@@ -19,31 +19,27 @@ const port = process.env.PORT || 3000;
 //   secret: new Buffer('Vwx3MnEbWbwwYMJ9WzeaqVXXbk0bABOhVbhaUM9uApzwF-uV3FRNUGI63D2HscNx', 'base64'),
 //   audience: 'kaQTBjg6m1VWXujuWrjYNDahHpDyJBEk'
 // });
+// const authCheck = jwt({
+//   secret: jwks.expressJwtSecret({
+//     cache: true,
+//     rateLimit: true,
+//     jwksRequestsPerMinute: 20,
+//     // YOUR-AUTH0-DOMAIN name e.g prosper.auth0.com
+//     jwksUri: "https://localhost-app.auth0.com/.well-known/jwks.json"      
+//   }),
+//   // This is the identifier we set when we created the API
+//   audience: 'identifier-localhost-app-api',
+//   issuer: 'localhost-app.auth0.com',
+//   algorithms: ['RS256']
+// });
+// app.use('/api', authCheck);
 
-const authCheck = jwt({
-  secret: jwks.expressJwtSecret({
-        cache: true,
-        rateLimit: true,
-        jwksRequestsPerMinute: 20,
-        // YOUR-AUTH0-DOMAIN name e.g prosper.auth0.com
-        jwksUri: "https://localhost-app.auth0.com/.well-known/jwks.json"
-
-        
-    }),
-    // This is the identifier we set when we created the API
-    audience: 'identifier-localhost-app-api',
-    issuer: 'localhost-app.auth0.com',
-    algorithms: ['RS256']
-});
-
-app.use('/api', authCheck);
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use('/api/authTest', express.static(__dirname + '/client/static/authTest.html'));
 app.use('/api', router);
 app.use(express.static(__dirname + '/../client/static'));
-
 
 io.on('connection', (socket) => {
   socket.on('message', (message) => {

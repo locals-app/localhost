@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, NavLink } from 'react-router-dom';
-import { Link } from 'react-router';
 import axios from 'axios';
-import ConversationStubs from './ConversationStubs.jsx';
 import NavBar from './NavBar';
 import { requireAuth, login, logout, isLoggedIn } from '../utils/AuthService.jsx';
-import Profile from './Profile';
-import Locals from './Locals';
-import Landing from './Landing';
+import Profile from './profile/Profile.jsx';
+import Locals from './locals/Locals';
+import Landing from './splash/Landing';
 import Callback from '../utils/Callback.jsx';
 
 class App extends Component {
@@ -44,13 +42,6 @@ class App extends Component {
                 <li><div onClick={()=>{console.log(isLoggedIn())}}> is it logged in? </div></li>
               </div>
             </BrowserRouter>
-          </div>
-          <div>
-            {/* <li><NavLink to='/Home'>Home</NavLink></li>
-            <li><NavLink to='/Locals'>Locals</NavLink></li>
-            <li><NavLink to='/MyProfile'>My Profile</NavLink></li>
-            <li><NavLink to='/Logout'>Logout</NavLink></li>
-            <li><NavLink to='/Login'>Login</NavLink></li> */}
           </div>
         </div>
       </div>
