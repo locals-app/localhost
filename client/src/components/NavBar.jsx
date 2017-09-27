@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, NavLink } from 'react-router-dom';
 import { login, logout, isLoggedIn } from '../utils/AuthService.jsx';
-import Profile from './Profile';
-import Locals from './Locals';
-import Landing from './Landing';
+import Profile from './profile/Profile';
+import Locals from './locals/Locals';
+import Landing from './splash/Landing';
 
 
 class NavBar extends Component {
