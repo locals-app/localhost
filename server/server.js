@@ -15,8 +15,8 @@ const io = socketIo(server);
 const port = process.env.PORT || 3000;
 
 
-app.use('/api', authMiddleware.jwtCheck);
-app.use('/api', authMiddleware.readScope);
+// app.use('/api', authMiddleware.jwtCheck);
+// app.use('/api', authMiddleware.readScope);
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));

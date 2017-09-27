@@ -5,6 +5,7 @@ import NavBar from './NavBar';
 import { requireAuth, login, logout, isLoggedIn } from '../utils/AuthService.jsx';
 import Profile from './profile/Profile.jsx';
 import LoggedIn from './splash/LoggedIn';
+import Locals from './locals/Locals';
 import Landing from './splash/Landing';
 import Callback from '../utils/Callback.jsx';
 
@@ -47,7 +48,7 @@ class App extends Component {
   
   render() {
     if (this.state.idToken) {
-      return (<LoggedIn lock={this.lock} idToken={this.state.idToken} />);
+      return (<Locals lock={this.lock} idToken={this.state.idToken} />);
     } else {
       return (<Landing lock={this.lock} />);
     }
