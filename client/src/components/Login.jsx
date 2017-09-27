@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-//for get and post requests, use axios.get, axios.post
+// for get and post requests, use axios.get, axios.post
 import axios from 'axios';
 
 class Login extends Component {

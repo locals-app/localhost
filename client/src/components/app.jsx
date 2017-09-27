@@ -2,22 +2,19 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import ConversationStubs from './ConversationStubs.jsx';
 import NavBar from './NavBar';
+import AuthService from '../utils/AuthService.jsx';
 
 class App extends Component {
-  constructor (props) {
-    super();
-    this.state = {
-      userLocationSet: false,
-    }
-  }
-
+  
   render() {
+    console.log('====================================')
+    console.log(AuthService);
+    console.log('====================================')
     return (
       <div>
-        hellow worls
-        <div>
-          <NavBar />
-        </div>
+      {
+        (AuthService.isLoggedIn() ? <NavBar/> : 'Not Logged In')
+      }
       </div>
     );
   }

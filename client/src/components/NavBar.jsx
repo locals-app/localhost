@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, NavLink } from 'react-router-dom';
-import { login, logout, isLoggedIn } from '../utils/AuthService.js';
+import { login, logout, isLoggedIn } from '../utils/AuthService.jsx';
 import Profile from './Profile';
 import Locals from './Locals';
 import Landing from './Landing';

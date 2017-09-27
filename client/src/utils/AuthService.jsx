@@ -70,7 +70,7 @@ export function setIdToken() {
   localStorage.setItem(ID_TOKEN_KEY, idToken);
 }
 
-export function isLoggedIn() {
+function isLoggedIn() {
   const idToken = getIdToken();
   return !!idToken && !isTokenExpired(idToken);
 }
@@ -88,4 +88,19 @@ function getTokenExpirationDate(encodedToken) {
 function isTokenExpired(token) {
   const expirationDate = getTokenExpirationDate(token);
   return expirationDate < new Date();
+}
+
+
+module.exports = {
+  login,
+  logout,
+  requireAuth,
+  getIdToken,
+  getAccessToken,
+  clearIdToken,
+  clearAccessToken,
+  setIdToken,
+  isLoggedIn,
+  getTokenExpirationDate,
+  isTokenExpired,
 }
