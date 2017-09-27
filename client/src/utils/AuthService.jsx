@@ -6,7 +6,7 @@ const ACCESS_TOKEN_KEY = 'access_token';
 
 const CLIENT_ID = 'Mg4MZmQkghpTrMFJ4obiXXiqCD1zRL1t';
 const CLIENT_DOMAIN = 'localhost-app.auth0.com';
-const REDIRECT = 'http://127.0.0.1/api/authTest';
+const REDIRECT = 'http://localhost:3000/';
 const SCOPE = 'read:app';
 const AUDIENCE = 'identifier-localhost-app-api';
 
@@ -15,7 +15,7 @@ var auth = new auth0.WebAuth({
   domain: CLIENT_DOMAIN
 });
 
-export function login() {
+function login() {
   auth.authorize({
     responseType: 'token id_token',
     redirectUri: REDIRECT,
@@ -24,23 +24,23 @@ export function login() {
   });
 }
 
-export function logout() {
+function logout() {
   clearIdToken();
   clearAccessToken();
   browserHistory.push('/');
 }
 
-export function requireAuth(nextState, replace) {
+function requireAuth(nextState, replace) {
   if (!isLoggedIn()) {
     replace({pathname: '/'});
   }
 }
 
-export function getIdToken() {
+function getIdToken() {
   return localStorage.getItem(ID_TOKEN_KEY);
 }
 
-export function getAccessToken() {
+function getAccessToken() {
   return localStorage.getItem(ACCESS_TOKEN_KEY);
 }
 
@@ -59,13 +59,13 @@ function getParameterByName(name) {
 }
 
 // Get and store access_token in local storage
-export function setAccessToken() {
+function setAccessToken() {
   let accessToken = getParameterByName('access_token');
   localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
 }
 
 // Get and store id_token in local storage
-export function setIdToken() {
+function setIdToken() {
   let idToken = getParameterByName('id_token');
   localStorage.setItem(ID_TOKEN_KEY, idToken);
 }
@@ -96,6 +96,7 @@ module.exports = {
   logout,
   requireAuth,
   getIdToken,
+  setAccessToken,
   getAccessToken,
   clearIdToken,
   clearAccessToken,

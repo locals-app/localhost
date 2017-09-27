@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import {setAccessToken, setIdToken} from './AuthService';
 class Callback extends Component {
   constructor(props) {
     super(props);
@@ -7,12 +7,14 @@ class Callback extends Component {
     }
   }
 
+  componentDidMount() {
+    setAccessToken();
+    setIdToken();
+    window.location.href = '/';
+  }
+
   render() {
-    return (
-      <div style={style}>
-        <img src={loading} alt="loading"/>
-      </div>
-    );
+    return null;
   }
 }
 
