@@ -23,10 +23,6 @@ class App extends Component {
     this.setState({idToken: this.getIdToken()})
   }
 
-  createLock() {
-    this.lock = new Auth0Lock(this.props.clientId, this.props.domain);
-  }
-
   getIdToken() {
     // First, check if there is already a JWT in local storage
     var idToken = localStorage.getItem('id_token');
