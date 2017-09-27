@@ -25,7 +25,7 @@ const port = process.env.PORT || 3000;
 //     rateLimit: true,
 //     jwksRequestsPerMinute: 20,
 //     // YOUR-AUTH0-DOMAIN name e.g prosper.auth0.com
-//     jwksUri: "https://localhost-app.auth0.com/.well-known/jwks.json"      
+//     jwksUri: "https://localhost-app.auth0.com/"      
 //   }),
 //   // This is the identifier we set when we created the API
 //   audience: 'identifier-localhost-app-api',
