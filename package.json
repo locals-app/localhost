@@ -1,5 +1,5 @@
 {
-  "name": "tapractice5",
+  "name": "localhost-app",
   "version": "1.0.0",
   "description": "",
   "main": "server/server.js",
@@ -8,7 +8,7 @@
     "compile": "webpack --watch",
     "start": "nodemon server/server.js"
   },
-  "author": "Alex Leigh",
+  "author": "DROP DATABASE",
   "license": "ISC",
   "dependencies": {
     "auth0-js": "^8.10.1",
@@ -21,11 +21,11 @@
     "babel-preset-react": "^6.24.1",
     "body-parser": "^1.18.1",
     "cors": "^2.8.4",
-    "express": "^4.15.4",
-    "fs": "0.0.1-security",
     "express": "^4.15.5",
     "express-jwt": "^5.3.0",
     "file-loader": "^0.11.2",
+    "fs": "0.0.1-security",
+    "jwks-rsa": "^1.2.0",
     "path": "^0.12.7",
     "pg": "^7.3.0",
     "prop-types": "^15.6.0",
@@ -33,6 +33,7 @@
     "react-bootstrap": "^0.31.3",
     "react-dom": "^15.6.1",
     "react-motion": "^0.5.1",
+    "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-toggle-button": "^2.1.0",
     "react-toggle-switch": "^3.0.3",

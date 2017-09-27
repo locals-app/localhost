@@ -1,65 +1,34 @@
-import Auth from './../Auth/Auth.jsx';
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Navbar, Button } from 'react-bootstrap';
+import { BrowserRouter, Route, NavLink } from 'react-router-dom';
+import { login, logout, isLoggedIn } from '../utils/AuthService.js';
+import Profile from './Profile';
+import Locals from './Locals';
+import Landing from './Landing';
+
 
 class NavBar extends Component {
     constructor (props) {
       super();
-      this.auth = new Auth();
-    }
-
-    goTo(route) {
-      this.history.replace(`/${route}`);
-    }
-    
-    login() {
-      this.auth.login();
-    }
-    
-    logout() {
-      this.auth.logout();
     }
 
     render() {
-      const { isAuthenticated } = this.auth;
       return (
-        <Navbar fluid>
-        <Navbar.Header>
-          <Navbar.Brand>
-            <a href="#">Auth0 - React</a>
-          </Navbar.Brand>
-          <Button
-            bsStyle="primary"
-            className="btn-margin"
-            onClick={this.goTo.bind(this, 'home')}
-          >
-            Home
-          </Button>
-          {
-            !isAuthenticated() && (
-                <Button
-                  bsStyle="primary"
-                  className="btn-margin"
-                  onClick={this.login.bind(this)}
-                >
-                  Log In
-                </Button>
-              )
-          }
-          {
-            isAuthenticated() && (
-                <Button
-                  bsStyle="primary"
-                  className="btn-margin"
-                  onClick={this.logout.bind(this)}
-                >
-                  Log Out
-                </Button>
-              )
-          }
-        </Navbar.Header>
-      </Navbar>
+        <div>
+          <BrowserRouter>
+            <div>
+              <div>
+                <li><NavLink to='/home'>Home</NavLink></li>
+                <li><NavLink to='/locals'>Locals</NavLink></li>
+                <li><NavLink to='/myProfile'>My Profile</NavLink></li>
+                <li><NavLink to='/logout'>Logout</NavLink></li>
+              </div>
+              <Route path='/home' component={Landing}/>
+              <Route path='/locals' component={Locals}/>
+              <Route path='/myProfile' component={Profile}/>
+              <Route path='/logout' component={Profile}/>
+            </div>
+          </BrowserRouter>
+        </div>
       )
     }
 }

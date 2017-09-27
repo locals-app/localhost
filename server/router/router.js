@@ -5,21 +5,18 @@ const path = require('path');
 const cors = require('cors');
 const jwt = require('express-jwt');
 
-//TODO : add a route for posting to ratings
-const authCheck = jwt({
-  secret: new Buffer('Vwx3MnEbWbwwYMJ9WzeaqVXXbk0bABOhVbhaUM9uApzwF-uV3FRNUGI63D2HscNx', 'base64'),
-  audience: 'kaQTBjg6m1VWXujuWrjYNDahHpDyJBEk'
-});
 
-//router.route('/messages/:username')
+//TODO : add a route for posting to ratings
+
+router.route('/messages/:username')
 // This route returns all messages that are relevant to one user for when the app is started
-router.get('/messages/:username', authCheck, controller.getMessagesByUser) 
+.get(controller.getMessagesByUser) 
 //This route posts a single message to the database. A recipient property needs to be found on the body
 //and needs to be called "otherUser". The message must also have a text property
 //It finds the conversation Id and puts in all pertinent information to the message entry
-router.post('/messages/:username', authCheck, controller.postMessage)
+.post(controller.postMessage)
 // This route deletes all messages by one user. It does not currently delete entries in the conversations table
-router.delete('/messages/:username', authCheck, controller.deleteAllByUser); 
+.delete(controller.deleteAllByUser); 
 
 router.route('/deletemessage')
 //this route allows user to delete a message that they made, but should not allow deletion of any others. Takes a message id
