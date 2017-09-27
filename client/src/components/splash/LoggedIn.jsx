@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+// This is taken from the tutorial and will be usefull in getting profile images and text
+
 var LoggedIn = React.createClass({
   getInitialState: function() {
     return {
