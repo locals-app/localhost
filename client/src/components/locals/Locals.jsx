@@ -31,8 +31,8 @@ class Locals extends Component {
       return (
         <div>
           {
-            this.state.locals.map((local) => {
-              return <Local local={local} />
+            this.state.locals.map((local, i) => {
+              return <Local local={local} key={i}/>
             })
           }
         </div>
