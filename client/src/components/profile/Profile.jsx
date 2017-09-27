@@ -17,6 +17,7 @@ class Profile extends Component {
     console.log(data); 
   }
 
+  // not currently being implemented anywhere
   toggleSwitch () {
     this.setState({
       localToggle: !localToggle,
