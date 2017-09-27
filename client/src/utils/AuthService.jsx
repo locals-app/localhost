@@ -4,9 +4,9 @@ import auth0 from 'auth0-js';
 const ID_TOKEN_KEY = 'id_token';
 const ACCESS_TOKEN_KEY = 'access_token';
 
-const CLIENT_ID = 'Mg4MZmQkghpTrMFJ4obiXXiqCD1zRL1t';
+const CLIENT_ID = 'kaQTBjg6m1VWXujuWrjYNDahHpDyJBEk';
 const CLIENT_DOMAIN = 'localhost-app.auth0.com';
-const REDIRECT = 'http://localhost:3000/';
+const REDIRECT = 'http://localhost:3000/callback';
 const SCOPE = 'read:app';
 const AUDIENCE = 'identifier-localhost-app-api';
 
@@ -41,6 +41,7 @@ function getIdToken() {
 }
 
 function getAccessToken() {
+  console.log(localStorage);
   return localStorage.getItem(ACCESS_TOKEN_KEY);
 }
 

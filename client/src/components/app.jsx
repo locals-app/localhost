@@ -23,7 +23,10 @@ class App extends Component {
                   !isLoggedIn() ? 
                     login()   
                   (
-                    <Redirect to="/Home"/>
+                    <div>
+                      <Callback />
+                      <Redirect to="/Home"/>
+                    </div>
                   )
                    : (
                     <Redirect to="/MyProfile"/>
@@ -38,7 +41,7 @@ class App extends Component {
                 <li><NavLink to='/Locals'>Locals</NavLink></li>
                 <li><NavLink to='/MyProfile'>My Profile</NavLink></li>
                 <li><NavLink to='/Logout'>Logout</NavLink></li>
-                <li><NavLink to='/Login'>Login</NavLink></li>
+                <li><div onClick={()=>{console.log(isLoggedIn())}}> is it logged in? </div></li>
               </div>
             </BrowserRouter>
           </div>

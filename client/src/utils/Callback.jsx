@@ -10,11 +10,16 @@ class Callback extends Component {
   componentDidMount() {
     setAccessToken();
     setIdToken();
+    console.log(window);
     window.location.href = '/';
   }
 
   render() {
-    return null;
+    return (
+      <div>
+        Loading
+      </div>
+    )
   }
 }
 
