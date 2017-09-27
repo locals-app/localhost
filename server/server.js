@@ -1,39 +1,22 @@
 const express = require('express');
-const router = require('./router/router.js');
 const http = require('http');
 const socketIo = require('socket.io');
 const bodyParser = require('body-parser');
 const path = require('path');
+const cors = require('cors');
+const authMiddleware = require('./auth.middleware');
+const router = require('./router/router.js');
 const db = require('../DB/db.js');
 //instantiate server and socketIo
-const cors = require('cors');
-const jwt = require('express-jwt');
-const jwks = require('jwks-rsa');
 
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 const port = process.env.PORT || 3000;
 
-// const authCheck = jwt({
-//   secret: new Buffer('Vwx3MnEbWbwwYMJ9WzeaqVXXbk0bABOhVbhaUM9uApzwF-uV3FRNUGI63D2HscNx', 'base64'),
-//   audience: 'kaQTBjg6m1VWXujuWrjYNDahHpDyJBEk'
-// });
-// const authCheck = jwt({
-//   secret: jwks.expressJwtSecret({
-//     cache: true,
-//     rateLimit: true,
-//     jwksRequestsPerMinute: 20,
-//     // YOUR-AUTH0-DOMAIN name e.g prosper.auth0.com
-//     jwksUri: "https://localhost-app.auth0.com/"      
-//   }),
-//   // This is the identifier we set when we created the API
-//   audience: 'identifier-localhost-app-api',
-//   issuer: 'localhost-app.auth0.com',
-//   algorithms: ['RS256']
-// });
-// app.use('/api', authCheck);
 
+app.use('/api', authMiddleware.jwtCheck);
+app.use('/api', authMiddleware.readScope);
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
