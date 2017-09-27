@@ -13,6 +13,7 @@ class Locals extends Component {
     this.getLocals = this.getLocals.bind(this);
   }
 
+  // axios request to get locals by location
   getLocals (location) {
     location = location.split(' ').join('_');
     console.log(localStorage.getItem('id_token'));

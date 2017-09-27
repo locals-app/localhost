@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 // This is taken from the tutorial and will be usefull in getting profile images and text
 
 var LoggedIn = React.createClass({
+  
   getInitialState: function() {
     return {
       profile: null
@@ -17,7 +18,7 @@ var LoggedIn = React.createClass({
         console.log("Error loading the Profile", err);
         return;
       }
-      this.setState({profile: profile});
+      this.setState({profile});
     }.bind(this));
   },
 
@@ -35,6 +36,7 @@ var LoggedIn = React.createClass({
       );
     }
   }
+
 });
 
 export default LoggedIn;

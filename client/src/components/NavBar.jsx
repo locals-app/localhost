@@ -1,16 +1,16 @@
+// dependencies
 import React, { Component } from 'react';
 import { BrowserRouter, Route, NavLink } from 'react-router-dom';
-import { login, logout, isLoggedIn } from '../utils/AuthService.jsx';
+// components
 import Profile from './profile/Profile';
 import Locals from './locals/Locals';
 import Landing from './splash/Landing';
 
-
+// creates navigation bar by which users will navigate through app
 class NavBar extends Component {
     constructor (props) {
       super();
     }
-
     render() {
       return (
         <div>
