@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+const Rating = require('react-rating');
 
 const Local  = ({local}) => {
 
@@ -12,6 +13,10 @@ const Local  = ({local}) => {
       </div>
       <div>
       Location:  {local.location}
+      </div>
+      <div>
+      Rating:  {local.rating}
+      <Rating   empty="fa fa-star-o fa-2x" full="fa fa-star fa-2x" fractions={2}/>
       </div>
     </div>
   )

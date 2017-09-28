@@ -88,24 +88,28 @@ User.sync({ force: true }).then(() => {
     username: 'Alex',
     location: 'Santa Monica',
     biography: 'some stuff about me',
+    rating: 4.2,
     isLocal: false
   }).then(() => {
     return User.create({
       username: 'Jeff',
       location: 'North Hollywood',
       biography: 'Some other stuffs',
+      rating: 4.2,
       isLocal: false
     }).then(() => {
       return User.create({
         username: 'Max',
         location: 'Portland',
         biography: 'Another bio',
+        rating: 4.2,
         isLocal: true
       }).then(() => {
         return User.create({
           username: 'Tiffany',
           location: 'Los Angeles',
           biography: 'yet another one',
+          rating: 4.2,
           isLocal: false
         }).then(() => {
           Conversation.sync({ force: true }).then(() => {
