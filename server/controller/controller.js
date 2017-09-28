@@ -132,7 +132,10 @@ module.exports.getByLocation = (req, res) => {
     //ALSO WE NEED TO HANDLE THE SECRET HERE
     console.log('REQ.BODY IS:::::::', req.body);
     let myToken = jwt.sign({}, 'ZpKC8X1rf07Nl0vVKipJy-HbeXBDkaorWZV3bELGIoZ6qBFCNXaU9G0mTutpwU2i')
-    res.status(200).json(myToken);
+    res.status(200).json({
+      token: myToken,
+      userList: users
+    });
   }).catch((err) => {
     res.status(404).json(err);
   });
