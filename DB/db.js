@@ -35,6 +35,9 @@ const User = DB.define('user', {
   },
   isLocal: {
     type: Sequelize.BOOLEAN
+  },
+  imageUrl: {
+    type: Sequelize.STRING
   }
 });
 

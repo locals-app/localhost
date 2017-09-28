@@ -1,7 +1,6 @@
 // dependencies
 import React, { Component } from 'react';
 import { withRouter, BrowserRouter, Route, NavLink } from 'react-router-dom';
-import { createBrowserHistory } from 'history'; 
 import axios from 'axios';
 import PropTypes from 'prop-types';
 // components
@@ -10,22 +9,62 @@ import Locals from './locals/Locals';
 import Chat from './chat/Chat';
 import Splash from './splash/Splash';
 
+
 // creates navigation bar by which users will navigate through app
-const history = createBrowserHistory();
 
 class Navigator extends Component {
 
     constructor (props) {
       super(props);
-    }
-
-    handleKeyPress (event) {
-      if(event.key == 'Enter'){
-        console.log(event.target.value);
-        this.props.history.push('/Locals');
-        event.target.value = '';
+      this.state = {
+        locationQuery: '',
+        profile: null,
+        userData: {},
       }
     }
+
+    componentDidMount() {
+      // The token is passed down from the App component 
+      // and used to retrieve the profile
+      this.props.lock.getProfile(this.props.idToken, function (err, profile) {
+        if (err) {
+          console.log("Error loading the Profile", err);
+          return;
+        }
+        this.setState({ profile }, () => {
+          axios.get(`/api/profiles/${this.state.profile.given_name}_${this.state.profile.family_name}`)
+            .then( (results) => {
+              if (results.data) {
+                console.log('results found', results.data)
+                this.setState({userData: results.data});
+              } else {
+                console.log('results not found', results.data)
+                axios.post('/api/profiles/createnew', {
+                  username: `${this.state.profile.given_name}_${this.state.profile.family_name}`,
+                  location: '',
+                  biography: '',
+                  isLocal: false,
+                  rating: '[]',
+                  imageUrl: this.state.profile.picture_large,
+                }).then(results => this.setState({userData: results.data}))
+                  .catch(err => console.error(err));
+              }
+            })
+            .catch( (err) => {
+              throw err;
+            })
+        });
+      }.bind(this));
+
+    }
+
+    handleKeyPress (val, event) {
+      if(event.key == 'Enter'){
+        val.history.push('/Locals');
+      }
+      this.setState({ locationQuery: val.text });
+    }
+    
 
     render() {
       return (
@@ -39,7 +78,7 @@ class Navigator extends Component {
                       {...props}
                       lock={this.props.lock}
                       idToken={this.props.idToken}
-                      handleKeyPress={this.handleKeyPress}
+                      handleKeyPress={this.handleKeyPress.bind(this)}
                     />
                   )}/>
                   <Route path='/Locals' render={(props) => (
@@ -47,6 +86,7 @@ class Navigator extends Component {
                       {...props}
                       lock={this.props.lock}
                       idToken={this.props.idToken}
+                      locationQuery={this.state.locationQuery}
                     />
                   )}/>
                   <Route path='/Profile' render={(props) => (
@@ -63,7 +103,7 @@ class Navigator extends Component {
                       idToken={this.props.idToken}
                     />
                   )}/>
-
+                  <li><NavLink to='/'>Home</NavLink></li>
                   <li><NavLink to='/Profile' >Profile</NavLink></li>
                   <li><NavLink to='/Chat'>Chat</NavLink></li>
                   <li><NavLink to='/Locals'>Locals</NavLink></li>
@@ -79,4 +119,3 @@ class Navigator extends Component {
 }
 
 export default Navigator;
-
