@@ -15,7 +15,7 @@ const server = http.createServer(app);
 const io = socketIo(server);
 const port = process.env.PORT || 3000;
 // middleware
-// app.use('/api', authMiddleware.jwtCheck);    --> these checks are what will need to be figured out
+// app.use('/api', authMiddleware.jwtCheck);   // --> these checks are what will need to be figured out
 // app.use('/api', authMiddleware.readScope);    --> these checks are what will need to be figured out
 app.use(cors());
 app.use(bodyParser.json());
