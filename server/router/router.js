@@ -1,5 +1,10 @@
 const router = require('express').Router();
 const controller = require('../controller/controller.js');
+const server = require('../server');
+const path = require('path');
+const cors = require('cors');
+const jwt = require('express-jwt');
+
 
 //TODO : add a route for posting to ratings
 

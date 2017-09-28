@@ -13,18 +13,20 @@ class Locals extends Component {
     this.getLocals = this.getLocals.bind(this);
   }
 
+  // axios request to get locals by location
   getLocals (location) {
     location = location.split(' ').join('_');
-    axios.get(`/api/${location}`) //might need to do something w/ React Router to make this work;
-      .then( (results) => {
+    console.log(localStorage.getItem('id_token'));
+    axios.get(`/api/${location}`, {
+      headers: {'Authorization': 'Bearer ' + localStorage.getItem('id_token')}
+    }).then((results) => {
         this.setState({
           locals: results.data,
           ready: true,
-    
         });
       })
       .catch( (err) => {
-        console.log(err)
+        console.log('it errored', err);
       });
   }
 
@@ -33,8 +35,8 @@ class Locals extends Component {
       return (
         <div>
           {
-            this.state.locals.map((local) => {
-              return <Local local={local} />
+            this.state.locals.map((local, i) => {
+              return <Local local={local} key={i}/>
             })
           }
         </div>
