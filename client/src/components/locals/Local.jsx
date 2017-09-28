@@ -16,7 +16,7 @@ const Local  = ({local}) => {
       </div>
       <div>
       Rating:  {local.rating}
-      <Rating   empty="fa fa-star-o fa-2x" full="fa fa-star fa-2x" fractions={2}/>
+      <Rating empty="fa fa-star-o fa-2x" full="fa fa-star fa-2x" placeholder="fa fa-star fa-2x" fractions={2} placeholderRate={local.rating}/>
       </div>
     </div>
   )
