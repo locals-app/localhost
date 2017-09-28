@@ -4,23 +4,50 @@ import { BrowserRouter, Route, NavLink } from 'react-router-dom';
 // components
 import Profile from './profile/Profile';
 import Locals from './locals/Locals';
-import Landing from './splash/Landing';
+import Chat from './chat/Chat';
+import Splash from './splash/Splash'
+
 
 // creates navigation bar by which users will navigate through app
 class NavBar extends Component {
     constructor (props) {
       super();
     }
+
+    logout() {
+      localStorage.removeItem('id_token');
+    }
+
     render() {
       return (
         <div>
-          <li><NavLink to='/Home'>Home</NavLink></li>
-          <li><NavLink to='/Locals'>Locals</NavLink></li>
-          <li><NavLink to='/MyProfile'>My Profile</NavLink></li>
-          <li><NavLink to='/Logout'>Logout</NavLink></li>
+          <div>
+            <div>
+              <BrowserRouter lock={this.props.lock}>
+                <div>
+                  <Route exact path='/' render={(props) => (
+                    <Splash {...props} lock={this.props.lock} idToken={this.props.idToken}/>
+                  )}/>
+                  <Route path='/Locals' render={(props) => (
+                    <Locals {...props} lock={this.props.lock} idToken={this.props.idToken}/>
+                  )}/>
+                  <Route path='/Profile' render={(props) => (
+                    <Profile {...props} lock={this.props.lock} idToken={this.props.idToken}/>
+                  )}/>
+                  <Route path='/Chat' render={(props) => (
+                    <Chat {...props} lock={this.props.lock} idToken={this.props.idToken}/>
+                  )}/>
+                  <li><NavLink to='/Profile' >Profile</NavLink></li>
+                  <li><NavLink to='/Chat'>Chat</NavLink></li>
+                  <div className='logoutButton' onClick={this.logout.bind(this)}>Logout</div>
+                </div>
+              </BrowserRouter>
+            </div>
+          </div>
         </div>
       )
     }
 }
 
 export default NavBar;
+

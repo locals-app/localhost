@@ -7,15 +7,10 @@ module.exports = {
   readScope: jwtAuthz([ 'read:all' ]),
 
   jwtCheck: jwt({
-    secret: jwks.expressJwtSecret({
-      cache: true,
-      rateLimit: true,
-      jwksRequestsPerMinute: 20,
-      jwksUri: "https://localhost-app.auth0.com/.well-known/jwks.json"
-    }),
+    secret: 'Vwx3MnEbWbwwYMJ9WzeaqVXXbk0bABOhVbhaUM9uApzwF-uV3FRNUGI63D2HscNx',
     audience: 'http://localhost:3000',
     issuer: "https://localhost-app.auth0.com",
-    algorithms: ['RS256']
+    algorithms: ['HS256']
   }),
 
 };

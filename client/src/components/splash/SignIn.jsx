@@ -1,6 +1,6 @@
 import React, { Component} from 'react';
 
-class Landing extends Component {
+class SignIn extends Component {
 
   constructor(props) {
     super(props);
@@ -10,7 +10,6 @@ class Landing extends Component {
   render() {
     return (
       <div>      
-        <div> this is the Landing component </div>
         <div className="login-box">
           <a onClick={this.showLock}>Sign In</a>
         </div>
@@ -19,4 +18,4 @@ class Landing extends Component {
   }
 }
 
-export default Landing;
+export default SignIn;
