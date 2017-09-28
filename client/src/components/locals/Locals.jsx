@@ -9,18 +9,31 @@ class Locals extends Component {
     this.state = {
       locals: [],
       ready: false,
+      token: ''
     };
     this.getLocals = this.getLocals.bind(this);
+  }
+
+  getToken() {
+    axios.get('/', {
+      headers: {'Authorization': 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MDY1ODAyNDB9.Pee31kQpxLymOUjvi4ZAfuGw-OTn1V7Xv7ebZOtf874'}
+    })
+      .then((results) => {
+        this.setState({
+          token: results.data.token
+        });
+      })
   }
 
   getLocals (location) {
     location = location.split(' ').join('_');
     console.log(localStorage.getItem('id_token'));
     axios.get(`/api/${location}`, {
-      headers: {'Authorization': 'Bearer ' + localStorage.getItem('id_token')}
+      // headers: {'Authorization': 'Bearer ' + localStorage.getItem('id_token')}
+      headers: {'Authorization': 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MDY1ODAyNDB9.Pee31kQpxLymOUjvi4ZAfuGw-OTn1V7Xv7ebZOtf874'}
     }).then((results) => {
         this.setState({
-          locals: results.data,
+          locals: results.data.userList,
           ready: true,
         });
       })
