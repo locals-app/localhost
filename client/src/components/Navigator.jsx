@@ -93,11 +93,9 @@ class Navigator extends Component {
 
               <BrowserRouter lock={this.props.lock}>
                 <div>
-
                   <li><NavLink to='/'>Home</NavLink></li>
                   <li><NavLink to='/Profile' >Profile</NavLink></li>
                   <div className='logoutButton' onClick={this.props.logout}>Logout</div>
-
                   <Route exact path='/' render={(props) => (
                     <Splash
                       {...props}
@@ -130,6 +128,10 @@ class Navigator extends Component {
                       idToken={this.props.idToken}
                     />
                   )}/>
+<<<<<<< HEAD
+=======
+                  
+>>>>>>> refactor navbar elements
                 </div>
               </BrowserRouter>
             </div>
