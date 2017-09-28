@@ -9,6 +9,7 @@ import Locals from './locals/Locals';
 import Chat from './chat/Chat';
 import Splash from './splash/Splash';
 
+
 // creates navigation bar by which users will navigate through app
 
 class Navigator extends Component {
@@ -17,7 +18,44 @@ class Navigator extends Component {
       super(props);
       this.state = {
         locationQuery: '',
+        profile: null,
+        userData: {},
       }
+    }
+
+    componentDidMount() {
+      // The token is passed down from the App component 
+      // and used to retrieve the profile
+      this.props.lock.getProfile(this.props.idToken, function (err, profile) {
+        if (err) {
+          console.log("Error loading the Profile", err);
+          return;
+        }
+        this.setState({ profile }, () => {
+          axios.get(`/api/profiles/${this.state.profile.given_name}_${this.state.profile.family_name}`)
+            .then( (results) => {
+              if (results.data) {
+                console.log('results found', results.data)
+                this.setState({userData: results.data});
+              } else {
+                console.log('results not found', results.data)
+                axios.post('/api/profiles/createnew', {
+                  username: `${this.state.profile.given_name}_${this.state.profile.family_name}`,
+                  location: '',
+                  biography: '',
+                  isLocal: false,
+                  rating: '[]',
+                  imageUrl: this.state.profile.picture_large,
+                }).then(results => this.setState({userData: results.data}))
+                  .catch(err => console.error(err));
+              }
+            })
+            .catch( (err) => {
+              throw err;
+            })
+        });
+      }.bind(this));
+
     }
 
     handleKeyPress (val, event) {
@@ -26,6 +64,7 @@ class Navigator extends Component {
       }
       this.setState({ locationQuery: val.text });
     }
+    
 
     render() {
       return (

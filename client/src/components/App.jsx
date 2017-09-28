@@ -25,7 +25,6 @@ class App extends Component {
     this.setState({idToken: this.getIdToken()})
   }
 
-
   logout() {
     localStorage.removeItem('id_token');
     this.setState({idToken: ''});
