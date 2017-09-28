@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, NavLink } from 'react-router-dom';
 import axios from 'axios';
 // components
-import NavBar from './NavBar';
+import Navigator from './Navigator';
 import Profile from './profile/Profile.jsx';
 import LoggedIn from './splash/LoggedIn';
 import Locals from './locals/Locals';
@@ -23,6 +23,12 @@ class App extends Component {
   componentWillMount() {
     this.lock = new Auth0Lock('kaQTBjg6m1VWXujuWrjYNDahHpDyJBEk', 'localhost-app.auth0.com');
     this.setState({idToken: this.getIdToken()})
+  }
+
+
+  logout() {
+    localStorage.removeItem('id_token');
+    this.setState({idToken: ''});
   }
 
   // function for getting idToken from Auth0
@@ -50,7 +56,7 @@ class App extends Component {
     if (this.state.idToken) {
       return (
         <div>
-          <NavBar lock={this.lock} idToken={this.state.idToken} />
+          <Navigator lock={this.lock} idToken={this.state.idToken} logout={this.logout.bind(this)}/>
         </div>
       );
     } else {

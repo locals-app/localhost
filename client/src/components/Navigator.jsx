@@ -5,17 +5,12 @@ import { BrowserRouter, Route, NavLink } from 'react-router-dom';
 import Profile from './profile/Profile';
 import Locals from './locals/Locals';
 import Chat from './chat/Chat';
-import Splash from './splash/Splash'
-
+import Splash from './splash/Splash';
 
 // creates navigation bar by which users will navigate through app
-class NavBar extends Component {
+class Navigator extends Component {
     constructor (props) {
       super();
-    }
-
-    logout() {
-      localStorage.removeItem('id_token');
     }
 
     render() {
@@ -39,7 +34,7 @@ class NavBar extends Component {
                   )}/>
                   <li><NavLink to='/Profile' >Profile</NavLink></li>
                   <li><NavLink to='/Chat'>Chat</NavLink></li>
-                  <div className='logoutButton' onClick={this.logout.bind(this)}>Logout</div>
+                  <div className='logoutButton' onClick={this.props.logout}>Logout</div>
                 </div>
               </BrowserRouter>
             </div>
@@ -49,5 +44,5 @@ class NavBar extends Component {
     }
 }
 
-export default NavBar;
+export default Navigator;
 
