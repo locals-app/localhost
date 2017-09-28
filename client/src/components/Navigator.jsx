@@ -73,6 +73,9 @@ class Navigator extends Component {
             <div>
               <BrowserRouter lock={this.props.lock}>
                 <div>
+                  <li><NavLink to='/'>Home</NavLink></li>
+                  <li><NavLink to='/Profile' >Profile</NavLink></li>
+                  <div className='logoutButton' onClick={this.props.logout}>Logout</div>
                   <Route exact path='/' render={(props) => (
                     <Splash
                       {...props}
@@ -103,12 +106,7 @@ class Navigator extends Component {
                       idToken={this.props.idToken}
                     />
                   )}/>
-                  <li><NavLink to='/'>Home</NavLink></li>
-                  <li><NavLink to='/Profile' >Profile</NavLink></li>
-                  <li><NavLink to='/Chat'>Chat</NavLink></li>
-                  <li><NavLink to='/Locals'>Locals</NavLink></li>
-                  <div className='logoutButton' onClick={this.props.logout}>Logout</div>
-
+                  
                 </div>
               </BrowserRouter>
             </div>
