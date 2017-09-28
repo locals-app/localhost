@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Form, Field} from 'simple-react-forms';
 import ToggleButton from 'react-toggle-button'
+import Geosuggest from 'react-geosuggest';
 
 class Profile extends Component {
 
@@ -32,6 +33,12 @@ class Profile extends Component {
         <div className='profilePic'>
           <img src='https://ih1.redbubble.net/image.79519809.4870/flat,800x800,075,f.u1.jpg' alt=''/> 
         </div>
+
+        <div>
+          <span>Location</span>
+          <Geosuggest />
+        </div>
+
         <div className='username'>
           <span>User name would eventually go here</span>
         </div>
