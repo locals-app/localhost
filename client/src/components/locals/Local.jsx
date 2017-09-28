@@ -9,6 +9,10 @@ class Local extends Component {
       inputRating: ''
     }
     this.changeRating = this.changeRating.bind(this);
+    this.parsedRating = JSON.parse(this.props.local.rating);
+    this.averagedParsedRating = ((this.parsedRating.reduce((acc, rating) => {
+      return acc + rating
+    }, 0))/this.parsedRating.length);
   }
 
   changeRating(input) {
@@ -17,8 +21,9 @@ class Local extends Component {
       this.setState({
         inputRating: input
       });
-      let newRating = {
-        inputRating: input
+      this.parsedRating.push(input);
+      const newRating = {
+        inputRating: JSON.stringify(this.parsedRating)
       };
       console.log('state has been set');
       axios.post(`/api/changerating/${this.props.local.username}`, newRating)
@@ -44,7 +49,7 @@ class Local extends Component {
         Location:  {this.props.local.location}
         </div>
         <div>
-          <Rating empty="fa fa-star-o fa-2x" full="fa fa-star fa-2x" placeholder="fa fa-star fa-2x" fractions={2}  onChange={this.changeRating} placeholderRate={this.props.local.rating}/>
+          <Rating empty="fa fa-star-o fa-2x" full="fa fa-star fa-2x" placeholder="fa fa-star fa-2x" fractions={2}  onChange={this.changeRating} placeholderRate={this.averagedParsedRating}/>
         </div>
       </div>
     )
