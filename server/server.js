@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 //we should add the secret in a separate file and .gitignore it
 // "unless" is used to make some routes NOT require a JWT. if you add something, it won't require a JWT authorization token
-app.use(expressJWT({ secret: 'ZpKC8X1rf07Nl0vVKipJy-HbeXBDkaorWZV3bELGIoZ6qBFCNXaU9G0mTutpwU2i'}).unless({ path: ['/', '/bundle.js','/api/Los_Angeles']}));
+app.use(expressJWT({ secret: 'ZpKC8X1rf07Nl0vVKipJy-HbeXBDkaorWZV3bELGIoZ6qBFCNXaU9G0mTutpwU2i'}).unless({ path: ['/', '/bundle.js', '']}));
 app.use('/api', router);
 app.use(express.static(__dirname + '/../client/static'));
 // socket.io chat
