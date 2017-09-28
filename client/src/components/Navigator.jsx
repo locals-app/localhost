@@ -1,7 +1,6 @@
 // dependencies
 import React, { Component } from 'react';
 import { withRouter, BrowserRouter, Route, NavLink } from 'react-router-dom';
-import { createBrowserHistory } from 'history'; 
 import axios from 'axios';
 import PropTypes from 'prop-types';
 // components
@@ -11,20 +10,21 @@ import Chat from './chat/Chat';
 import Splash from './splash/Splash';
 
 // creates navigation bar by which users will navigate through app
-const history = createBrowserHistory();
 
 class Navigator extends Component {
 
     constructor (props) {
       super(props);
+      this.state = {
+        locationQuery: '',
+      }
     }
 
-    handleKeyPress (event) {
+    handleKeyPress (val, event) {
       if(event.key == 'Enter'){
-        console.log(event.target.value);
-        this.props.history.push('/Locals');
-        event.target.value = '';
+        val.history.push('/Locals');
       }
+      this.setState({ locationQuery: val.text });
     }
 
     render() {
@@ -39,7 +39,7 @@ class Navigator extends Component {
                       {...props}
                       lock={this.props.lock}
                       idToken={this.props.idToken}
-                      handleKeyPress={this.handleKeyPress}
+                      handleKeyPress={this.handleKeyPress.bind(this)}
                     />
                   )}/>
                   <Route path='/Locals' render={(props) => (
@@ -47,6 +47,7 @@ class Navigator extends Component {
                       {...props}
                       lock={this.props.lock}
                       idToken={this.props.idToken}
+                      locationQuery={this.state.locationQuery}
                     />
                   )}/>
                   <Route path='/Profile' render={(props) => (
@@ -63,7 +64,7 @@ class Navigator extends Component {
                       idToken={this.props.idToken}
                     />
                   )}/>
-
+                  <li><NavLink to='/'>Home</NavLink></li>
                   <li><NavLink to='/Profile' >Profile</NavLink></li>
                   <li><NavLink to='/Chat'>Chat</NavLink></li>
                   <li><NavLink to='/Locals'>Locals</NavLink></li>
@@ -79,4 +80,3 @@ class Navigator extends Component {
 }
 
 export default Navigator;
-
