@@ -7,6 +7,8 @@ const jwt = require('express-jwt');
 
 
 //TODO : add a route for posting to ratings
+router.route('/changerating/:username')
+.post(controller.addRatingToUser);
 
 router.route('/messages/:username')
 // This route returns all messages that are relevant to one user for when the app is started
