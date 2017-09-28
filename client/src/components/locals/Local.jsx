@@ -1,26 +1,34 @@
 import React, { Component } from 'react';
 const Rating = require('react-rating');
 
-const Local  = ({local}) => {
+class Local extends Component {
+  constructor(props) {
+    super(props);
+    this.changeRating = this.changeRating.bind(this);
+  }
 
-  return (
-    <div>
-      <div>
-      Username:  {local.username}
-      </div>
-      <div>
-      Bio:  {local.biography}
-      </div>
-      <div>
-      Location:  {local.location}
-      </div>
-      <div>
-      Rating:  {local.rating}
-      <Rating empty="fa fa-star-o fa-2x" full="fa fa-star fa-2x" placeholder="fa fa-star fa-2x" fractions={2} placeholderRate={local.rating}/>
-      </div>
-    </div>
-  )
+  changeRating() {
+    
+  }
 
-};
+  render() {
+    return (
+      <div>
+        <div>
+        Username:  {this.props.local.username}
+        </div>
+        <div>
+        Bio:  {this.props.local.biography}
+        </div>
+        <div>
+        Location:  {this.props.local.location}
+        </div>
+        <div>
+          <Rating empty="fa fa-star-o fa-2x" full="fa fa-star fa-2x" placeholder="fa fa-star fa-2x" fractions={2} placeholderRate={this.props.local.rating}/>
+        </div>
+      </div>
+    )
+  }
+}
 
 export default Local;
