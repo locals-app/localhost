@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, NavLink } from 'react-router-dom';
 import axios from 'axios';
+import ReactDOM from 'react-dom';
 // components
 import Navigator from './Navigator';
 import Profile from './profile/Profile.jsx';
