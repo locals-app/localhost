@@ -4,6 +4,7 @@ const server = require('../server');
 const path = require('path');
 const cors = require('cors');
 const jwt = require('express-jwt');
+const jwtCheck = require('../auth.middleware').jwtCheck;
 
 
 //TODO : add a route for posting to ratings

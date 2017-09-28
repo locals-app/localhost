@@ -19,6 +19,7 @@ class Locals extends Component {
     axios.get(`/api/${location}`, {
       headers: {'Authorization': 'Bearer ' + localStorage.getItem('id_token')}
     }).then((results) => {
+      console.log(results.data);
         this.setState({
           locals: results.data,
           ready: true,
