@@ -7,6 +7,7 @@ const path = require('path');
 const cors = require('cors');
 let expressJWT = require('express-jwt');
 let jwt = require('jsonwebtoken');
+let expressUnless = require('express-unless');
 // import files
 const authMiddleware = require('./auth.middleware');
 const router = require('./router/router.js');
@@ -23,7 +24,8 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 //we should add the secret in a separate file and .gitignore it
-app.use(expressJWT({ secret: ''}))
+// "unless" is used to make some routes NOT require a JWT. if you add something, it won't require a JWT authorization token
+app.use(expressJWT({ secret: 'ZpKC8X1rf07Nl0vVKipJy-HbeXBDkaorWZV3bELGIoZ6qBFCNXaU9G0mTutpwU2i'}).unless({ path: ['/', '/bundle.js','/api/Los_Angeles']}));
 app.use('/api', router);
 app.use(express.static(__dirname + '/../client/static'));
 // socket.io chat

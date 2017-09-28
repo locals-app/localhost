@@ -1,4 +1,5 @@
 const DB = require('../../DB/db.js');
+let jwt = require('jsonwebtoken');
 
 //Goes to all the places required and fetches all messages that pertain to a single user
 //(To be used on signin). It also sends back the user Id and a table of users that 
@@ -116,7 +117,7 @@ module.exports.deleteSingleMessage = (req, res) => {
 
 //gets profiles by location
 module.exports.getByLocation = (req, res) => {
-  console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!REQUEST IS: ', req);
+  console.log('!!!REQUEST BODY IS: ', req.body);
   let location = req.params.location;
   location = location.split('');
   for (let i = 0; i < location.length; i++) {
@@ -128,7 +129,10 @@ module.exports.getByLocation = (req, res) => {
   DB.User.findAll({
     where: { location, }
   }).then((users) => {
-    res.status(200).json(users);
+    //ALSO WE NEED TO HANDLE THE SECRET HERE
+    console.log('REQ.BODY IS:::::::', req.body);
+    let myToken = jwt.sign({}, 'ZpKC8X1rf07Nl0vVKipJy-HbeXBDkaorWZV3bELGIoZ6qBFCNXaU9G0mTutpwU2i')
+    res.status(200).json(myToken);
   }).catch((err) => {
     res.status(404).json(err);
   });
