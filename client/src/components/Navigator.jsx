@@ -1,8 +1,9 @@
 // dependencies
 import React, { Component } from 'react';
-import { BrowserRouter, Route, NavLink } from 'react-router-dom';
+import { withRouter, BrowserRouter, Route, NavLink } from 'react-router-dom';
 import { createBrowserHistory } from 'history'; 
 import axios from 'axios';
+import PropTypes from 'prop-types';
 // components
 import Profile from './profile/Profile';
 import Locals from './locals/Locals';
@@ -16,13 +17,12 @@ class Navigator extends Component {
 
     constructor (props) {
       super(props);
-      this.handleKeyPress = this.handleKeyPress.bind(this);
     }
 
     handleKeyPress (event) {
       if(event.key == 'Enter'){
         console.log(event.target.value);
-        history.push({ pathname: '/Locals' })
+        this.props.history.push('/Locals');
         event.target.value = '';
       }
     }
@@ -66,6 +66,7 @@ class Navigator extends Component {
 
                   <li><NavLink to='/Profile' >Profile</NavLink></li>
                   <li><NavLink to='/Chat'>Chat</NavLink></li>
+                  <li><NavLink to='/Locals'>Locals</NavLink></li>
                   <div className='logoutButton' onClick={this.props.logout}>Logout</div>
 
                 </div>

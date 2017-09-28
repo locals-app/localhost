@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
 import ConversationStubs from './ConversationStubs';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter} from 'react-router-dom';
 
 class Splash extends Component {
   constructor(props) {
     super(props);
+    this.handleKeyPress = this.props.handleKeyPress.bind(this);
   }
 
   render() {
     return (
       <div>
-        <input onKeyPress={this.props.handleKeyPress} type="text"/>
+        <input onKeyPress={this.handleKeyPress} type="text"/>
         <ConversationStubs />
       </div>
     )
   }
 }
 
-export default Splash;
+export default withRouter(Splash);
