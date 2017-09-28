@@ -5,6 +5,8 @@ const socketIo = require('socket.io');
 const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
+let expressJWT = require('express-jwt');
+let jwt = require('jsonwebtoken');
 // import files
 const authMiddleware = require('./auth.middleware');
 const router = require('./router/router.js');
@@ -20,6 +22,8 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+//we should add the secret in a separate file and .gitignore it
+app.use(expressJWT({ secret: ''}))
 app.use('/api', router);
 app.use(express.static(__dirname + '/../client/static'));
 // socket.io chat

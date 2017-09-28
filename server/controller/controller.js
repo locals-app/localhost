@@ -4,6 +4,7 @@ const DB = require('../../DB/db.js');
 //(To be used on signin). It also sends back the user Id and a table of users that 
 // you are having conversations with so that the client can sort the data more easily.
 module.exports.getMessagesByUser = (req, res) => {
+  console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!REQUEST IS: ', req);
   const username = req.params.username;
   let convoArray = [];
   let convoIdArray = [];
@@ -115,6 +116,7 @@ module.exports.deleteSingleMessage = (req, res) => {
 
 //gets profiles by location
 module.exports.getByLocation = (req, res) => {
+  console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!REQUEST IS: ', req);
   let location = req.params.location;
   location = location.split('');
   for (let i = 0; i < location.length; i++) {
