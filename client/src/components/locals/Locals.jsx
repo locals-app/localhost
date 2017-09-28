@@ -17,11 +17,13 @@ class Locals extends Component {
     location = location.split(' ').join('_');
     console.log(localStorage.getItem('id_token'));
     axios.get(`/api/${location}`, {
-      headers: {'Authorization': 'Bearer ' + localStorage.getItem('id_token')}
+      // headers: {'Authorization': 'Bearer ' + localStorage.getItem('id_token')}
+      headers: {'Authorization': 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MDY1ODAyNDB9.Pee31kQpxLymOUjvi4ZAfuGw-OTn1V7Xv7ebZOtf874'}
     }).then((results) => {
-      console.log(results.data);
+      console.log(results.data.userList);
+      console.log(results.data.token);
         this.setState({
-          locals: results.data,
+          locals: results.data.userList,
           ready: true,
         });
       })
