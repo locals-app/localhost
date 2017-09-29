@@ -8,14 +8,20 @@ class Profile extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      user: {},
       localToggle: false,
+      user: this.props.user,
     }
+    this.handleChange = this.handleLocationChange.bind(this);
+    this.handleProfileSubmission = this.handleProfileSubmission.bind(this);
   }
 
-  handleProfileSubmission () {
+  handleLocationChange(value) {
+    this.state.user.location = value.label;
+    console.log(this.state);
+  }
+
+  handleProfileSubmission (event) {
     const data = this.refs['updateProfile'].getFormValues();
-    console.log(data); 
   }
 
   // not currently being implemented anywhere
@@ -25,22 +31,21 @@ class Profile extends Component {
     })
   };
 
-  //this will ultimately need to take facebook prof pics and names
   render() {
     return (
       
       <div>
         <div className='profilePic'>
-          <img src='https://ih1.redbubble.net/image.79519809.4870/flat,800x800,075,f.u1.jpg' alt=''/> 
+          <img style={{width: 300}} src={this.state.user.imageUrl} alt=''/> 
+        </div>
+
+        <div className='username'>
+          <span>{this.state.user.username}</span>
         </div>
 
         <div>
           <span>Location</span>
-          <Geosuggest />
-        </div>
-
-        <div className='username'>
-          <span>User name would eventually go here</span>
+          <Geosuggest onSuggestSelect={this.handleLocationChange}/>
         </div>
 
         <div>
