@@ -6,7 +6,6 @@ import ReactDOM from 'react-dom';
 // components
 import Navigator from './Navigator';
 import Profile from './profile/Profile.jsx';
-import LoggedIn from './splash/LoggedIn';
 import Locals from './locals/Locals';
 import SignIn from './splash/SignIn';
 

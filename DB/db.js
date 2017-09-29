@@ -88,28 +88,28 @@ Conversation.belongsTo(User, { onDelete: 'cascade' });
 
 User.sync({ force: true }).then(() => {
   return User.create({
-    username: 'Alex',
+    username: 'Alex_Leigh',
     location: 'Santa Monica',
     biography: 'some stuff about me',
     rating: '[3.5, 4.5, 1.5, 3]',
     isLocal: false
   }).then(() => {
     return User.create({
-      username: 'Jeff',
+      username: 'Jeff_Jeffers',
       location: 'North Hollywood',
       biography: 'Some other stuffs',
       rating: '[3.5, 1.5, 1.5, 3]',
       isLocal: false
     }).then(() => {
       return User.create({
-        username: 'Max',
+        username: 'Max_Jacobs',
         location: 'Portland',
         biography: 'Another bio',
         rating: '[3.5, 4.5, 1.5, 4]',
         isLocal: true
       }).then(() => {
         return User.create({
-          username: 'Tiffany',
+          username: 'Tiffany_Wang',
           location: 'Los Angeles',
           biography: 'yet another one',
           rating: '[3.5, 1.5, 3.5, 4]',
