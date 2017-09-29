@@ -2,6 +2,12 @@
  * The geosuggest module
  * NOTE: duplicated font-sizes' are for browsers which don't support rem (only IE 8)
  */
+ 
+ .navbar-brand {
+  font-family: 'Comfortaa', cursive;
+ }
+ 
+ 
  .geosuggest {
     font-size: 18px;
     font-size: 1rem;
