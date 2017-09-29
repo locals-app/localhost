@@ -1,37 +1,43 @@
 import React, { Component } from 'react';
 import {Form, Field} from 'simple-react-forms';
-import ToggleButton from 'react-toggle-button'
 import Geosuggest from 'react-geosuggest';
+import axios from 'axios';
 
 class Profile extends Component {
 
   constructor (props) {
     super(props);
     this.state = {
-      localToggle: false,
       user: this.props.user,
     }
-    this.handleChange = this.handleLocationChange.bind(this);
+    this.handleLocationChange = this.handleLocationChange.bind(this);
     this.handleProfileSubmission = this.handleProfileSubmission.bind(this);
+    this.toggleLocal = this.toggleLocal.bind(this);
   }
 
   handleLocationChange(value) {
     this.state.user.location = value.label;
-    console.log(this.state);
+    this.forceUpdate();
   }
+
+  toggleLocal () {
+    this.state.user.isLocal = !this.state.user.isLocal;
+    this.forceUpdate();
+  };
 
   handleProfileSubmission (event) {
     const data = this.refs['updateProfile'].getFormValues();
+    this.state.user.biography = data.biography;
+    axios({
+      method: 'put',
+      url: `/api/profiles/${this.state.user.username}`,
+      data: this.state.user,
+    }).then(res => console.log(res))
+      .catch(err => console.log(err));
   }
 
-  // not currently being implemented anywhere
-  toggleSwitch () {
-    this.setState({
-      localToggle: !localToggle,
-    })
-  };
-
   render() {
+
     return (
       
       <div>
@@ -52,16 +58,14 @@ class Profile extends Component {
           <Form ref='updateProfile' className='updateProfile'>
             <Field
               className='bio'
-              name='bio'
+              name='biography'
               label='Say something about yourself'
               type='text'
             />
-            <Field
-              name='isLocal'
-              label='Would you like to be a local?'
-              type='text'
-            />
           </Form>
+          
+          {this.state.user.isLocal ? (<i onClick={this.toggleLocal} className="fa fa-3x fa-toggle-on" aria-hidden="true"></i>) : (<i onClick={this.toggleLocal} className="fa fa-3x fa-toggle-off" aria-hidden="true"></i>)}
+
           <button className='saveProfile' onClick={this.handleProfileSubmission.bind(this)}>Save Profile</button>
         </div>
       </div>
