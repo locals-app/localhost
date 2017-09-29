@@ -7,7 +7,7 @@ class OpenConversations extends Component {
   	super(props);
   }
 
-  render() {
+  render = () => {
   	let { myMessages } = this.props;
   	return (
   		<div>
@@ -18,5 +18,5 @@ class OpenConversations extends Component {
   	)
   }
 };
- 
+
 export default OpenConversations;
