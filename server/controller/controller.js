@@ -213,7 +213,8 @@ module.exports.addProfile = (req, res) => {
     location: req.body.location,
     biography: req.body.biography,
     rating: req.body.rating,
-    isLocal: req.body.isLocal
+    isLocal: req.body.isLocal,
+    imageUrl: req.body.picture_large,
   }).then((newUser) => {
     res.status(201).json(newUser);
   }).catch((err) => {
