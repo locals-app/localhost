@@ -262,9 +262,6 @@ module.exports.deleteProfile = (req, res) => {
 };
 
 module.exports.addRatingToUser = (req, res) => {
-  console.log('REQUEST HAS BEEN SENT ____________________________');
-  console.log('request inside controller, params: ', req.params); //{ username: 'Tiffany' }
-  console.log('request inside controller, body: ', req.body); //{ inputRating: 1.5 }
   const username = req.params.username;
   const newRating = req.body.inputRating;
   DB.User.findOne({ where: { username,} })
