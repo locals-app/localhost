@@ -6,7 +6,7 @@ class OpenConversations extends Component {
   }
 
   render = () => {
-  	console.log(this.props)
+  	console.log(this.props.myMessages)
 		return (
 		  <div>
 		    Here's where a coversation stub would go.
