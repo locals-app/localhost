@@ -128,10 +128,7 @@ class Navigator extends Component {
                       idToken={this.props.idToken}
                     />
                   )}/>
-<<<<<<< HEAD
-=======
                   
->>>>>>> refactor navbar elements
                 </div>
               </BrowserRouter>
             </div>
