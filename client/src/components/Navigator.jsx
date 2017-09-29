@@ -58,7 +58,7 @@ class Navigator extends Component {
             .then(() => {
               axios.get(`/api/messages/${this.state.userData.username}`)
               .then((results) => {
-                this.setState({myMessages: results.data})
+                this.setState({ myMessages: this.sortByRoom(results.data) })
               }).catch(err => console.error(err));
             }).catch(err => console.error(err));
         });
@@ -70,6 +70,19 @@ class Navigator extends Component {
         val.history.push('/Locals');
       }
       this.setState({ locationQuery: val.text });
+    }
+
+    sortByRoom = (messagesArray) => {
+      let objectOfConvos = {};
+      messagesArray.forEach((message) => {
+        if (objectOfConvos[message.conversationId]) {
+          objectOfConvos[message.conversationId].push(message);
+        } else {
+          objectOfConvos[message.conversationId] = [message];
+        }
+      })
+      console.log(objectOfConvos);
+      return objectOfConvos;
     }
     
 

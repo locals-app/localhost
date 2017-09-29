@@ -88,7 +88,7 @@ Conversation.belongsTo(User, { onDelete: 'cascade' });
 
 User.sync({ force: true }).then(() => {
   return User.create({
-    username: 'Alex_Leigh',
+    username: 'David_Leigh',
     location: 'Santa Monica',
     biography: 'some stuff about me',
     rating: '[3.5, 4.5, 1.5, 3]',
