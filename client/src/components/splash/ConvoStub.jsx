@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { withRouter } from 'react-router-dom';
 
 
 class ConvoStub extends Component {
@@ -8,6 +9,7 @@ class ConvoStub extends Component {
 		this.state ={
 			otherUser: '',
 			otherUserImageUrl: '',
+			history: this.props.history,
 		}
 
 		this.findOtherUser = this.findOtherUser.bind(this);
@@ -37,9 +39,9 @@ class ConvoStub extends Component {
 	}
 
 	render = () => {
-		let { messages, currentUser } = this.props;
+		let { messages, currentUser, launchChat } = this.props;
 		return (
-			<div>
+			<div onClick={launchChat.bind(null, this.state)}>
 				<span>Conversation with {this.state.otherUser.replace('_', ' ')}</span>
 				<img src={this.state.otherUserImageUrl} style={{width: 20}} alt=""/>
 				<div>
@@ -50,4 +52,4 @@ class ConvoStub extends Component {
 	}
 }
 
-export default ConvoStub;
+export default withRouter(ConvoStub);

@@ -19,6 +19,7 @@ class Navigator extends Component {
       profile: null,
       userData: {},
       myMessages: {},
+      chatMessages: [],
     }
   }
 
@@ -60,14 +61,14 @@ class Navigator extends Component {
     }.bind(this));
   }
 
-  handleKeyPress (val, event) {
+  handleKeyPress(val, event) {
     if(event.key == 'Enter'){
       val.history.push('/Locals');
     }
     this.setState({ locationQuery: val.text });
   }
 
-  sortByRoom = (messagesArray) => {
+  sortByRoom(messagesArray) {
     let objectOfConvos = {};
     messagesArray.forEach((message) => {
       if (objectOfConvos[message.conversationId]) {
@@ -78,7 +79,11 @@ class Navigator extends Component {
     });
     return objectOfConvos;
   }
-    
+
+  launchChat(val, event) {
+    val.history.push('/Chat');
+    this.setState({ chatMessages: val }, () => console.log(val));
+  }
 
   render() {
     return (
@@ -112,6 +117,7 @@ class Navigator extends Component {
                 handleKeyPress={this.handleKeyPress.bind(this)}
                 myMessages={this.state.myMessages}
                 currentUser={this.state.userData.username}
+                launchChat={this.launchChat.bind(this)}
               />
             )}/>
             <Route path='/Locals' render={(props) => (

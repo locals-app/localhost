@@ -8,11 +8,11 @@ class OpenConversations extends Component {
   }
 
   render = () => {
-  	let { myMessages, currentUser } = this.props;
+  	let { myMessages, currentUser, launchChat } = this.props;
   	return (
   		<div>
   		{_.map(myMessages, (convo, convoId) =>{
-  			return <ConvoStub key={convoId} messages={convo} currentUser={currentUser}/>
+  			return <ConvoStub key={convoId} messages={convo} currentUser={currentUser} launchChat={launchChat}/>
   		})}
   		</div>
   	)
