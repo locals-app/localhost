@@ -208,13 +208,15 @@ module.exports.deleteConversation = (req, res) => {
 //This method adds a new profile to the Users table
 //TODO: if user properties are changed, update this method
 module.exports.addProfile = (req, res) => {
+  console.log('imgurl:    ', req.body.imageUrl)
+  console.log('picture_large:    ', req.body.picture_large);
   DB.User.create({
     username: req.body.username,
     location: req.body.location,
-    biography: req.body.biography,
+    biography: req.body.biography, 
     rating: req.body.rating,
     isLocal: req.body.isLocal,
-    imageUrl: JSON.stringify(req.body.imageUrl),
+    imageUrl: req.body.imageUrl,
   }).then((newUser) => {
     res.status(201).json(newUser);
   }).catch((err) => {
@@ -264,7 +266,7 @@ module.exports.deleteProfile = (req, res) => {
 
 module.exports.addRatingToUser = (req, res) => {
   const username = req.params.username;
-  const newRating = req.body.inputRating;
+  const newRating = req.body.inputRating; 
   DB.User.findOne({ where: { username,} })
     .then((profile) => {
       profile.update({

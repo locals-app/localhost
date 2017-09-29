@@ -86,6 +86,7 @@ class Navigator extends Component {
     
 
     render() {
+      console.log('!!!!!!!!!!!!', this.state.userData.imageUrl);
       return (
         <div>
           <div>
@@ -106,7 +107,7 @@ class Navigator extends Component {
                           </li>		
                           <li className="right-list-item">                        		
                             <NavLink to='/' className="nav-link">		
-                              <span onClick={this.props.logout}>Logout</span>		
+                              <span onClick={this.props.logout}>Logout</span>	 	
                               <span>< img className='profile-pic' src={this.state.userData.imageUrl} /></span>		
                             </NavLink>		
                           </li>		
