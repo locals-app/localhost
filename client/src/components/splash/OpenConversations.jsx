@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-const ConversationStubs = (props) => {
+const OpenConversations = (props) => {
   return (
     <div>
       Here's where a coversation stub would go.
@@ -8,4 +8,4 @@ const ConversationStubs = (props) => {
   )
 };
 
-export default ConversationStubs;
+export default OpenConversations;

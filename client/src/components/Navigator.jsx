@@ -20,6 +20,7 @@ class Navigator extends Component {
         locationQuery: '',
         profile: null,
         userData: {},
+        myMessages: [],
       }
     }
 
@@ -46,16 +47,22 @@ class Navigator extends Component {
                   isLocal: false,
                   rating: '[]',
                   imageUrl: this.state.profile.picture_large,
-                }).then(results => this.setState({userData: results.data}))
-                  .catch(err => console.error(err));
-              }
-            })
+                })
+                  .then(results => this.setState({userData: results.data}))
+                  .catch(err => console.error(err))
+                }
+              })
             .catch( (err) => {
               throw err;
             })
+            .then(() => {
+              axios.get(`/api/messages/${this.state.userData.username}`)
+              .then((results) => {
+                this.setState({myMessages: results.data})
+              }).catch(err => console.error(err));
+            }).catch(err => console.error(err));
         });
       }.bind(this));
-
     }
 
     handleKeyPress (val, event) {
@@ -71,8 +78,14 @@ class Navigator extends Component {
         <div>
           <div>
             <div>
+            
               <BrowserRouter lock={this.props.lock}>
                 <div>
+
+                  <li><NavLink to='/'>Home</NavLink></li>
+                  <li><NavLink to='/Profile' >Profile</NavLink></li>
+                  <div className='logoutButton' onClick={this.props.logout}>Logout</div>
+
                   <Route exact path='/' render={(props) => (
                     <Splash
                       {...props}
@@ -103,12 +116,6 @@ class Navigator extends Component {
                       idToken={this.props.idToken}
                     />
                   )}/>
-                  <li><NavLink to='/'>Home</NavLink></li>
-                  <li><NavLink to='/Profile' >Profile</NavLink></li>
-                  <li><NavLink to='/Chat'>Chat</NavLink></li>
-                  <li><NavLink to='/Locals'>Locals</NavLink></li>
-                  <div className='logoutButton' onClick={this.props.logout}>Logout</div>
-
                 </div>
               </BrowserRouter>
             </div>
