@@ -9,7 +9,6 @@ import Locals from './locals/Locals';
 import Chat from './chat/Chat';
 import Splash from './splash/Splash';
 
-
 // creates navigation bar by which users will navigate through app
 
 class Navigator extends Component {
@@ -20,7 +19,7 @@ class Navigator extends Component {
         locationQuery: '',
         profile: null,
         userData: {},
-        myMessages: {},
+        myMessages: [],
       }
     }
 
@@ -36,10 +35,8 @@ class Navigator extends Component {
           axios.get(`/api/profiles/${this.state.profile.given_name}_${this.state.profile.family_name}`)
             .then( (results) => {
               if (results.data) {
-                console.log('results found', results.data)
                 this.setState({userData: results.data});
               } else {
-                console.log('results not found', results.data)
                 axios.post('/api/profiles/createnew', {
                   username: `${this.state.profile.given_name}_${this.state.profile.family_name}`,
                   location: '',
@@ -58,7 +55,7 @@ class Navigator extends Component {
             .then(() => {
               axios.get(`/api/messages/${this.state.userData.username}`)
               .then((results) => {
-                this.setState({ myMessages: this.sortByRoom(results.data) })
+                this.setState({myMessages: results.data});
               }).catch(err => console.error(err));
             }).catch(err => console.error(err));
         });
@@ -72,39 +69,59 @@ class Navigator extends Component {
       this.setState({ locationQuery: val.text });
     }
 
-    sortByRoom = (messagesArray) => {
-      let objectOfConvos = {};
-      messagesArray.forEach((message) => {
-        if (objectOfConvos[message.conversationId]) {
-          objectOfConvos[message.conversationId].push(message);
-        } else {
-          objectOfConvos[message.conversationId] = [message];
-        }
-      });
-      return objectOfConvos;
+    changeProfile() {
+      axios.get(`/api/profiles/${this.state.userData.username}`)
+        .then((res) => {
+          console.log(res);
+        })
+          .catch((err) => {
+            console.log('Could not change profile, error: ', err);
+          });
     }
     
 
     render() {
+      console.log(this.state.userData);
       return (
         <div>
           <div>
             <div>
-
               <BrowserRouter lock={this.props.lock}>
                 <div>
-
-                  <li><NavLink to='/'>Home</NavLink></li>
-                  <li><NavLink to='/Profile' >Profile</NavLink></li>
+                  <nav className="navbar navbar-toggleable-md navbar-light bg-faded">
+                    <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                      <span className="navbar-toggler-icon"></span>
+                    </button>
+                    <div className="collapse navbar-collapse" id="navbarNav">
+                      <ul className="navbar-nav main-nav">
+                        <li className="nav-item active left-logo">
+                        <NavLink to='/' className="navbar-brand">localhost</NavLink>
+                        </li>
+                        <li className="nav-item right-logo">
+                        <ul className="right-list">
+                          <li className="right-list-item">
+                          <NavLink to={`/api/profiles/${this.state.userData.username}`} className="nav-link">
+                              <span onClick={this.props.changeProfile}>Edit Profile</span>
+                            </NavLink>
+                          </li>
+                          <li className="right-list-item">                        
+                            <NavLink to='/Profile' className="nav-link">
+                              <span onClick={this.props.logout}>Logout</span>
+                              <span>< img className='profile-pic' src={this.state.userData.imageUrl} /></span>
+                            </NavLink>
+                          </li>
+                        </ul>
+                        </li>
+                      </ul>
+                    </div>
+                  </nav>
                   <div className='logoutButton' onClick={this.props.logout}>Logout</div>
-
                   <Route exact path='/' render={(props) => (
                     <Splash
                       {...props}
                       lock={this.props.lock}
                       idToken={this.props.idToken}
                       handleKeyPress={this.handleKeyPress.bind(this)}
-                      myMessages={this.state.myMessages}
                     />
                   )}/>
                   <Route path='/Locals' render={(props) => (
@@ -130,6 +147,7 @@ class Navigator extends Component {
                       idToken={this.props.idToken}
                     />
                   )}/>
+                  
                 </div>
               </BrowserRouter>
             </div>
@@ -137,7 +155,6 @@ class Navigator extends Component {
         </div>
       )
     }
-    
 }
 
 export default Navigator;
