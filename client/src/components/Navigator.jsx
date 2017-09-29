@@ -86,7 +86,6 @@ class Navigator extends Component {
     
 
     render() {
-      console.log('!!!!!!!!!!!!', this.state.userData.imageUrl);
       return (
         <div>
           <div>

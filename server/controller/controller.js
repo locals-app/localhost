@@ -208,8 +208,6 @@ module.exports.deleteConversation = (req, res) => {
 //This method adds a new profile to the Users table
 //TODO: if user properties are changed, update this method
 module.exports.addProfile = (req, res) => {
-  console.log('imgurl:    ', req.body.imageUrl)
-  console.log('picture_large:    ', req.body.picture_large);
   DB.User.create({
     username: req.body.username,
     location: req.body.location,
