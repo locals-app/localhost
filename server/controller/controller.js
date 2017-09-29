@@ -211,9 +211,10 @@ module.exports.addProfile = (req, res) => {
   DB.User.create({
     username: req.body.username,
     location: req.body.location,
-    biography: req.body.biography,
+    biography: req.body.biography, 
     rating: req.body.rating,
-    isLocal: req.body.isLocal
+    isLocal: req.body.isLocal,
+    imageUrl: req.body.imageUrl,
   }).then((newUser) => {
     res.status(201).json(newUser);
   }).catch((err) => {
@@ -263,7 +264,7 @@ module.exports.deleteProfile = (req, res) => {
 
 module.exports.addRatingToUser = (req, res) => {
   const username = req.params.username;
-  const newRating = req.body.inputRating;
+  const newRating = req.body.inputRating; 
   DB.User.findOne({ where: { username,} })
     .then((profile) => {
       profile.update({
