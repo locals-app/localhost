@@ -93,10 +93,28 @@ class Navigator extends Component {
 
               <BrowserRouter lock={this.props.lock}>
                 <div>
-
-                  <li><NavLink to='/'>Home</NavLink></li>
-                  <li><NavLink to='/Profile' >Profile</NavLink></li>
-                  <div className='logoutButton' onClick={this.props.logout}>Logout</div>
+                  <nav className="navbar navbar-toggleable-md navbar-light bg-faded">
+                  <div className="collapse navbar-collapse" id="navbarNav">
+                    <ul className="navbar-nav main-nav">		
+                      <li className="nav-item active left-logo">		
+                        <NavLink to='/' className="navbar-brand">localhost</NavLink>		
+                      </li>		
+                      <li className="nav-item right-logo">		
+                        <ul className="right-list">		
+                          <li className="right-list-item">		
+                          <NavLink to='/Profile' >Edit Profile</NavLink>		
+                          </li>		
+                          <li className="right-list-item">                        		
+                            <NavLink to='/' className="nav-link">		
+                              <span onClick={this.props.logout}>Logout</span>		
+                              <span>< img className='profile-pic' src={this.state.userData.imageUrl} /></span>		
+                            </NavLink>		
+                          </li>		
+                          </ul>		
+                        </li>		
+                    </ul>		
+                  </div>		
+                  </nav>
 
                   <Route exact path='/' render={(props) => (
                     <Splash

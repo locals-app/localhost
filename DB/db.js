@@ -95,9 +95,9 @@ User.sync({ force: true }).then(() => {
     isLocal: false
   }).then(() => {
     return User.create({
-      username: 'Jeff_Jeffers',
+      username: 'Jeff_The_Benevolent_Dictator',
       location: 'North Hollywood',
-      biography: 'Some other stuffs',
+      biography: 'Some other ghosts n stuffs',
       rating: '[3.5, 1.5, 1.5, 3]',
       isLocal: false
     }).then(() => {
