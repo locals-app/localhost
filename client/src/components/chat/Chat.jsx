@@ -31,10 +31,28 @@ class Chat extends Component {
           "createdAt": "2017-09-25T22:09:40.955Z",
           "updatedAt": "2017-09-25T22:09:40.955Z"
         }],
-      currentUser: 'Max', // this needs to be passed down in props
+      otherUser: 'Max_Jacobs',
+      otherUserImageUrl: 'nothing.jpg',
       conversationId: 3, // this needs to be passed down in props
     }
+    this.findOtherUser = this.findOtherUser.bind(this);
+    this.fetchOtherUserImage = this.fetchOtherUserImage.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  findOtherUser(messages) {
+		this.state.messages.forEach( message => {
+			if (message.userId !== this.props.currentUser) {
+				this.setState({otherUser: message.userId})
+			}
+		});
+	}
+
+	fetchOtherUserImage() {
+		axios.get(`api/profiles/${this.state.otherUser}`).then((userData) => {
+			this.setState({otherUserImageUrl: userData.data.imageUrl});
+		}).catch(err => console.error(err));
+	}
 
   componentDidMount() {
     this.socket = io('/');
@@ -49,7 +67,7 @@ class Chat extends Component {
       const message = {
         text,
         conversationId: this.state.conversationId,
-        userId: this.state.currentUser,
+        userId: this.props.currentUser,
         id: this.state.messages[this.state.messages.length-1].id+1,
       }
       this.setState({messages: [...this.state.messages, message]})
@@ -62,7 +80,7 @@ class Chat extends Component {
     return (
       <div>
         <input type="text" placeholder='Enter a message...' onKeyUp={this.handleSubmit.bind(this)}/>
-        <Messages messages={this.state.messages} currentUser={this.state.currentUser}/>
+        <Messages messages={this.state.messages} currentUser={this.props.currentUser} currentUserImage={this.props.currentUserImage}/>
       </div>
     )
   }

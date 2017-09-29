@@ -126,6 +126,8 @@ class Navigator extends Component {
                 lock={this.props.lock}
                 idToken={this.props.idToken}
                 locationQuery={this.state.locationQuery}
+                launchChat={this.launchChat.bind(this)}
+                currentUser={this.state.userData.username}
               />
             )}/>
             <Route path='/Profile' render={(props) => (
@@ -141,6 +143,8 @@ class Navigator extends Component {
                 {...props}
                 lock={this.props.lock}
                 idToken={this.props.idToken}
+                currentUser={this.state.userData.username}
+                currentUserImage={this.state.userData.imageUrl}
               />
             )}/>
           </div>

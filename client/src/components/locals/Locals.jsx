@@ -37,7 +37,7 @@ class Locals extends Component {
       <div>
         {
           this.state.locals.map((local, i) => {
-            return <Local local={local} key={i}/>
+            return <Local local={local} key={i} launchChat={this.props.launchChat} currentUser={this.props.currentUser}/>
           })
         }
       </div>
