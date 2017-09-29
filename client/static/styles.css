@@ -2,6 +2,50 @@
  * The geosuggest module
  * NOTE: duplicated font-sizes' are for browsers which don't support rem (only IE 8)
  */
+
+
+ 		
+.navbar-brand {		
+  font-family: 'Comfortaa', cursive;		
+}		
+ 	
+.main-nav {		
+   width: 100%		
+}		
+ 	
+.right-list {		
+  list-style-type: none;		
+}		
+ 	
+.right-list-item {		
+   display: inline-block;		
+}		
+ 	
+.right-logo {		
+  width: 49%;		
+  text-align: right;		
+}		
+ 	
+.left-logo {		
+  width: 49%;		
+}		
+ 	
+.profile-pic {		
+  border-radius: 50%;		
+  height: 35px;		
+  margin-left: 10px;		
+}		
+ 	
+.logged-in-as {		
+  padding-right: 13px;		
+}
+
+
+
+
+
+
+
  .geosuggest {
     font-size: 18px;
     font-size: 1rem;
