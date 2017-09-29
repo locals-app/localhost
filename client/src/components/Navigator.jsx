@@ -124,6 +124,7 @@ class Navigator extends Component {
         </div>
       )
     }
+    
 }
 
 export default Navigator;
