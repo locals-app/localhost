@@ -13,12 +13,12 @@ class Profile extends Component {
     this.handleLocationChange = this.handleLocationChange.bind(this);
     this.handleProfileSubmission = this.handleProfileSubmission.bind(this);
     this.toggleLocal = this.toggleLocal.bind(this);
-  }
+  };
 
   handleLocationChange(value) {
     this.state.user.location = value.label;
     this.forceUpdate();
-  }
+  };
 
   toggleLocal () {
     this.state.user.isLocal = !this.state.user.isLocal;
@@ -34,7 +34,7 @@ class Profile extends Component {
       data: this.state.user,
     }).then(res => console.log(res))
       .catch(err => console.log(err));
-  }
+  };
 
   render() {
 
@@ -70,8 +70,9 @@ class Profile extends Component {
         </div>
       </div>
     )
-  }
-}
+  };
+  
+};
 
 export default Profile;
 
