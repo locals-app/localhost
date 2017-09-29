@@ -105,6 +105,7 @@ class Navigator extends Component {
                   <Route path='/Profile' render={(props) => (
                     <Profile
                       {...props}
+                      user={this.state.userData}
                       lock={this.props.lock}
                       idToken={this.props.idToken}
                     />

@@ -106,7 +106,8 @@ User.sync({ force: true }).then(() => {
         location: 'Portland',
         biography: 'Another bio',
         rating: '[3.5, 4.5, 1.5, 4]',
-        isLocal: true
+        isLocal: true,
+        imageUrl: 'https://scontent.xx.fbcdn.net/v/t31.0-1/20776604_10154853781141662_4297692357582205900_o.jpg?oh=c8bd95f05e0a9b1f1891b13fdcc4da9f&oe=5A552F7F'
       }).then(() => {
         return User.create({
           username: 'Tiffany_Wang',
