@@ -111,6 +111,7 @@ class Navigator extends Component {
                 idToken={this.props.idToken}
                 handleKeyPress={this.handleKeyPress.bind(this)}
                 myMessages={this.state.myMessages}
+                currentUser={this.state.userData.username}
               />
             )}/>
             <Route path='/Locals' render={(props) => (
