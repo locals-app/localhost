@@ -23,7 +23,7 @@ class Splash extends Component {
           onChange={this.handleChange}
           onKeyPress={this.props.handleKeyPress.bind(null, this.state)}
           type="text"/>
-        <OpenConversations />
+        <OpenConversations myMessages={this.props.myMessages} />
       </div>
     )
   }

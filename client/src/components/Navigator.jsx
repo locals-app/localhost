@@ -80,8 +80,7 @@ class Navigator extends Component {
         } else {
           objectOfConvos[message.conversationId] = [message];
         }
-      })
-      console.log(objectOfConvos);
+      });
       return objectOfConvos;
     }
     
@@ -91,7 +90,7 @@ class Navigator extends Component {
         <div>
           <div>
             <div>
-            
+
               <BrowserRouter lock={this.props.lock}>
                 <div>
 
@@ -105,6 +104,7 @@ class Navigator extends Component {
                       lock={this.props.lock}
                       idToken={this.props.idToken}
                       handleKeyPress={this.handleKeyPress.bind(this)}
+                      myMessages={this.state.myMessages}
                     />
                   )}/>
                   <Route path='/Locals' render={(props) => (
