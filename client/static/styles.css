@@ -6,6 +6,29 @@
  .navbar-brand {
   font-family: 'Comfortaa', cursive;
  }
+
+ .main-nav {
+   width: 100%
+ }
+
+ .right-logo {
+  width: 49%;
+  text-align: right;
+ }
+
+ .left-logo {
+  width: 49%;
+ }
+
+ .profile-pic {
+  border-radius: 50%;
+  height: 35px;
+  margin-left: 10px;
+ }
+
+ .logged-in-as {
+  padding-right: 13px;
+ }
  
  
  .geosuggest {
