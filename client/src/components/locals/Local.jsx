@@ -29,10 +29,9 @@ class Local extends Component {
       axios.post(`/api/changerating/${this.props.local.username}`, newRating)
         .then((res) => {
           console.log(res);
+        }).catch((err) => {
+          console.log('error setting new rating: ', err);
         })
-          .catch((err) => {
-            console.log('error setting new rating: ', err);
-          })
     }
   }
 

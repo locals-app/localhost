@@ -6,7 +6,6 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
 // import files
-const authMiddleware = require('./auth.middleware');
 const router = require('./router/router.js');
 const db = require('../DB/db.js');
 // instantiate server and socketIo
@@ -15,8 +14,6 @@ const server = http.createServer(app);
 const io = socketIo(server);
 const port = process.env.PORT || 3000;
 // middleware
-// app.use('/api', authMiddleware.jwtCheck);   // --> these checks are what will need to be figured out
-// app.use('/api', authMiddleware.readScope);    --> these checks are what will need to be figured out
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -33,23 +30,19 @@ io.on('connection', (socket) => {
     });
     db.User.findOne({
       where: {username: message.userId}
-    })
-      .then((user) => {
-        db.Message.create({
-          text: message.text,
-          userId: user.id,
-          conversationId: message.conversationId,
-        })
-          .then((success) => {
-            console.log('message added to DB');
-          })
-          .catch((err) => {
-            console.log(err, 'message failed to add to DB');
-          });
-      })
-      .catch((err) => {
-        console.log(err);
+    }).then((user) => {
+      db.Message.create({
+        text: message.text,
+        userId: user.id,
+        conversationId: message.conversationId,
+      }).then((success) => {
+        console.log('message added to DB');
+      }).catch((err) => {
+        console.log(err, 'message failed to add to DB');
       });
+    }).catch((err) => {
+      console.log(err);
+    });
   });
 });
 // fire up server
