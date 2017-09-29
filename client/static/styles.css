@@ -11,6 +11,14 @@
    width: 100%
  }
 
+ .right-list {
+  list-style-type: none;
+ }
+
+ .right-list-item {
+   display: inline-block;
+ }
+
  .right-logo {
   width: 49%;
   text-align: right;
