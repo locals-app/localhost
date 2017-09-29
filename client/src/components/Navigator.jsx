@@ -20,7 +20,7 @@ class Navigator extends Component {
         locationQuery: '',
         profile: null,
         userData: {},
-        myMessages: [],
+        myMessages: {},
       }
     }
 
@@ -58,7 +58,7 @@ class Navigator extends Component {
             .then(() => {
               axios.get(`/api/messages/${this.state.userData.username}`)
               .then((results) => {
-                this.setState({myMessages: results.data})
+                this.setState({ myMessages: this.sortByRoom(results.data) })
               }).catch(err => console.error(err));
             }).catch(err => console.error(err));
         });
@@ -71,6 +71,18 @@ class Navigator extends Component {
       }
       this.setState({ locationQuery: val.text });
     }
+
+    sortByRoom = (messagesArray) => {
+      let objectOfConvos = {};
+      messagesArray.forEach((message) => {
+        if (objectOfConvos[message.conversationId]) {
+          objectOfConvos[message.conversationId].push(message);
+        } else {
+          objectOfConvos[message.conversationId] = [message];
+        }
+      });
+      return objectOfConvos;
+    }
     
 
     render() {
@@ -78,7 +90,7 @@ class Navigator extends Component {
         <div>
           <div>
             <div>
-            
+
               <BrowserRouter lock={this.props.lock}>
                 <div>
 
@@ -92,6 +104,7 @@ class Navigator extends Component {
                       lock={this.props.lock}
                       idToken={this.props.idToken}
                       handleKeyPress={this.handleKeyPress.bind(this)}
+                      myMessages={this.state.myMessages}
                     />
                   )}/>
                   <Route path='/Locals' render={(props) => (
