@@ -17,13 +17,14 @@ class Splash extends Component {
   }
 
   render() {
+    let { myMessages, handleKeyPress } = this.props
     return (
       <div>
         <input
           onChange={this.handleChange}
-          onKeyPress={this.props.handleKeyPress.bind(null, this.state)}
+          onKeyPress={handleKeyPress.bind(null, this.state)}
           type="text"/>
-        <OpenConversations myMessages={this.props.myMessages} />
+        <OpenConversations myMessages={myMessages} />
       </div>
     )
   }

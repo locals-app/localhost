@@ -5,8 +5,13 @@ class ConvoStub extends Component {
 		super(props);
 	}
 	render = () => {
+		let { messages } = this.props;
 		return (
-			<div> test </div>
+			<div>
+				{messages.map((message, i) => {
+					return <div key={i}>{message.userId.replace('_', ' ')}: {message.text}</div>
+				})}
+			</div>
 		)
 	}
 }
