@@ -30,23 +30,19 @@ io.on('connection', (socket) => {
     });
     db.User.findOne({
       where: {username: message.userId}
-    })
-      .then((user) => {
-        db.Message.create({
-          text: message.text,
-          userId: user.id,
-          conversationId: message.conversationId,
-        })
-          .then((success) => {
-            console.log('message added to DB');
-          })
-          .catch((err) => {
-            console.log(err, 'message failed to add to DB');
-          });
-      })
-      .catch((err) => {
-        console.log(err);
+    }).then((user) => {
+      db.Message.create({
+        text: message.text,
+        userId: user.id,
+        conversationId: message.conversationId,
+      }).then((success) => {
+        console.log('message added to DB');
+      }).catch((err) => {
+        console.log(err, 'message failed to add to DB');
       });
+    }).catch((err) => {
+      console.log(err);
+    });
   });
 });
 // fire up server

@@ -45,21 +45,18 @@ class Navigator extends Component {
                 isLocal: false,
                 rating: '[]',
                 imageUrl: this.state.profile.picture_large,
-              })
-                .then(results => this.setState({userData: results.data}))
+              }).then(results => this.setState({userData: results.data}))
                 .catch(err => console.error(err))
               }
-            })
-          .catch( (err) => {
-            throw err;
-          })
-          .then(() => {
-            axios.get(`/api/messages/${this.state.userData.username}`)
-            .then((results) => {
-              this.setState({ myMessages: this.sortByRoom(results.data) })
+            }).catch( (err) => {
+              throw err;
+            }).then(() => {
+              axios.get(`/api/messages/${this.state.userData.username}`)
+                .then((results) => {
+                  this.setState({ myMessages: this.sortByRoom(results.data) })
+                }).catch(err => console.error(err));
             }).catch(err => console.error(err));
-          }).catch(err => console.error(err));
-      });
+          });
     }.bind(this));
   }
 
@@ -86,65 +83,61 @@ class Navigator extends Component {
   render() {
     return (
       <div>
-        <div>
+        <BrowserRouter lock={this.props.lock}>
           <div>
-            <BrowserRouter lock={this.props.lock}>
-              <div>
-                <nav className="navbar navbar-toggleable-md navbar-light bg-faded">
-                <div className="collapse navbar-collapse" id="navbarNav">
-                  <ul className="navbar-nav main-nav">		
-                    <li className="nav-item active left-logo">		
-                      <NavLink to='/' className="navbar-brand">localhost</NavLink>		
-                    </li>		
-                    <li className="nav-item right-logo">		
-                      <ul className="right-list">
-                        <li className="right-list-item">                        		
-                          <NavLink to='/Profile' className="nav-link">		
-                            <span onClick={this.props.logout}>Logout</span>	 	
-                            <span>< img className='profile-pic' src={this.state.userData.imageUrl} /></span>		
-                          </NavLink>		
-                        </li>		
-                      </ul>		
+            <nav className="navbar navbar-toggleable-md navbar-light bg-faded">
+            <div className="collapse navbar-collapse" id="navbarNav">
+              <ul className="navbar-nav main-nav">		
+                <li className="nav-item active left-logo">		
+                  <NavLink to='/' className="navbar-brand">localhost</NavLink>		
+                </li>		
+                <li className="nav-item right-logo">		
+                  <ul className="right-list">
+                    <li className="right-list-item">                        		
+                      <NavLink to='/Profile' className="nav-link">		
+                        <span onClick={this.props.logout}>Logout</span>	 	
+                        <span>< img className='profile-pic' src={this.state.userData.imageUrl} /></span>		
+                      </NavLink>		
                     </li>		
                   </ul>		
-                </div>		
-                </nav>
-                <Route exact path='/' render={(props) => (
-                  <Splash
-                    {...props}
-                    lock={this.props.lock}
-                    idToken={this.props.idToken}
-                    handleKeyPress={this.handleKeyPress.bind(this)}
-                    myMessages={this.state.myMessages}
-                  />
-                )}/>
-                <Route path='/Locals' render={(props) => (
-                  <Locals
-                    {...props}
-                    lock={this.props.lock}
-                    idToken={this.props.idToken}
-                    locationQuery={this.state.locationQuery}
-                  />
-                )}/>
-                <Route path='/Profile' render={(props) => (
-                  <Profile
-                    {...props}
-                    user={this.state.userData}
-                    lock={this.props.lock}
-                    idToken={this.props.idToken}
-                  />
-                )}/>
-                <Route path='/Chat' render={(props) => (
-                  <Chat
-                    {...props}
-                    lock={this.props.lock}
-                    idToken={this.props.idToken}
-                  />
-                )}/>
-              </div>
-            </BrowserRouter>
+                </li>		
+              </ul>		
+            </div>		
+            </nav>
+            <Route exact path='/' render={(props) => (
+              <Splash
+                {...props}
+                lock={this.props.lock}
+                idToken={this.props.idToken}
+                handleKeyPress={this.handleKeyPress.bind(this)}
+                myMessages={this.state.myMessages}
+              />
+            )}/>
+            <Route path='/Locals' render={(props) => (
+              <Locals
+                {...props}
+                lock={this.props.lock}
+                idToken={this.props.idToken}
+                locationQuery={this.state.locationQuery}
+              />
+            )}/>
+            <Route path='/Profile' render={(props) => (
+              <Profile
+                {...props}
+                user={this.state.userData}
+                lock={this.props.lock}
+                idToken={this.props.idToken}
+              />
+            )}/>
+            <Route path='/Chat' render={(props) => (
+              <Chat
+                {...props}
+                lock={this.props.lock}
+                idToken={this.props.idToken}
+              />
+            )}/>
           </div>
-        </div>
+        </BrowserRouter>
       </div>
     )
   }
