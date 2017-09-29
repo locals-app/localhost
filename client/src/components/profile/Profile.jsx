@@ -1,61 +1,78 @@
 import React, { Component } from 'react';
 import {Form, Field} from 'simple-react-forms';
-import ToggleButton from 'react-toggle-button'
+import Geosuggest from 'react-geosuggest';
+import axios from 'axios';
 
 class Profile extends Component {
 
   constructor (props) {
     super(props);
     this.state = {
-      user: {},
-      localToggle: false,
+      user: this.props.user,
     }
-  }
-
-  handleProfileSubmission () {
-    const data = this.refs['updateProfile'].getFormValues();
-    console.log(data); 
-  }
-
-  // not currently being implemented anywhere
-  toggleSwitch () {
-    this.setState({
-      localToggle: !localToggle,
-    })
+    this.handleLocationChange = this.handleLocationChange.bind(this);
+    this.handleProfileSubmission = this.handleProfileSubmission.bind(this);
+    this.toggleLocal = this.toggleLocal.bind(this);
   };
 
-  //this will ultimately need to take facebook prof pics and names
+  handleLocationChange(value) {
+    this.state.user.location = value.label;
+    this.forceUpdate();
+  };
+
+  toggleLocal () {
+    this.state.user.isLocal = !this.state.user.isLocal;
+    this.forceUpdate();
+  };
+
+  handleProfileSubmission (event) {
+    const data = this.refs['updateProfile'].getFormValues();
+    this.state.user.biography = data.biography;
+    axios({
+      method: 'put',
+      url: `/api/profiles/${this.state.user.username}`,
+      data: this.state.user,
+    }).then(res => console.log(res))
+      .catch(err => console.log(err));
+  };
+
   render() {
+
     return (
       
       <div>
         <div className='profilePic'>
-          <img src='https://ih1.redbubble.net/image.79519809.4870/flat,800x800,075,f.u1.jpg' alt=''/> 
+          <img style={{width: 300}} src={this.state.user.imageUrl} alt=''/> 
         </div>
+
         <div className='username'>
-          <span>User name would eventually go here</span>
+          <span>{this.state.user.username}</span>
+        </div>
+
+        <div>
+          <span>Location</span>
+          <Geosuggest onSuggestSelect={this.handleLocationChange}/>
         </div>
 
         <div>
           <Form ref='updateProfile' className='updateProfile'>
             <Field
               className='bio'
-              name='bio'
+              name='biography'
               label='Say something about yourself'
               type='text'
             />
-            <Field
-              name='isLocal'
-              label='Would you like to be a local?'
-              type='text'
-            />
           </Form>
+          
+          {this.state.user.isLocal ? (<i onClick={this.toggleLocal} className="fa fa-3x fa-toggle-on" aria-hidden="true"></i>) : (<i onClick={this.toggleLocal} className="fa fa-3x fa-toggle-off" aria-hidden="true"></i>)}
+
           <button className='saveProfile' onClick={this.handleProfileSubmission.bind(this)}>Save Profile</button>
         </div>
       </div>
     )
-  }
-}
+  };
+  
+};
 
 export default Profile;
 

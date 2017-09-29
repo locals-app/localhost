@@ -21,7 +21,7 @@ webpackConfig.module.loaders.push({
   loader: 'babel-loader',
   options: { 
     presets: ['es2015', 'react'],  
-    plugins: ['transform-es2015-arrow-functions'] 
+    plugins: ['transform-class-properties'] 
   },
 });
 

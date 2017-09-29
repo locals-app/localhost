@@ -88,28 +88,29 @@ Conversation.belongsTo(User, { onDelete: 'cascade' });
 
 User.sync({ force: true }).then(() => {
   return User.create({
-    username: 'Alex',
+    username: 'David_Leigh',
     location: 'Santa Monica',
     biography: 'some stuff about me',
     rating: '[3.5, 4.5, 1.5, 3]',
     isLocal: false
   }).then(() => {
     return User.create({
-      username: 'Jeff',
+      username: 'Jeff_The_Benevolent_Dictator',
       location: 'North Hollywood',
-      biography: 'Some other stuffs',
+      biography: 'Some other ghosts n stuffs',
       rating: '[3.5, 1.5, 1.5, 3]',
       isLocal: false
     }).then(() => {
       return User.create({
-        username: 'Max',
+        username: 'Max_Jacobs',
         location: 'Portland',
         biography: 'Another bio',
         rating: '[3.5, 4.5, 1.5, 4]',
-        isLocal: true
+        isLocal: true,
+        imageUrl: 'https://scontent.xx.fbcdn.net/v/t31.0-1/20776604_10154853781141662_4297692357582205900_o.jpg?oh=c8bd95f05e0a9b1f1891b13fdcc4da9f&oe=5A552F7F'
       }).then(() => {
         return User.create({
-          username: 'Tiffany',
+          username: 'Tiffany_Wang',
           location: 'Los Angeles',
           biography: 'yet another one',
           rating: '[3.5, 1.5, 3.5, 4]',
@@ -128,51 +129,68 @@ User.sync({ force: true }).then(() => {
                   firstUser: 3,
                   secondUser: 4
                 }).then(() => {
-                  Message.sync({ force: true }).then(() => {
-                    return Message.create({
-                      text: 'From Alex to Max',
-                      userId: 1,
-                      conversationId: 1
-                    }).then(() => {
+                  return Conversation.create({
+                    firstUser: 1,
+                    secondUser: 4            
+                  }).then(() => {
+                    Message.sync({ force: true }).then(() => {
                       return Message.create({
-                        text: 'Hi Alex!',
-                        userId: 3,
+                        text: 'From Alex to Max',
+                        userId: 1,
                         conversationId: 1
                       }).then(() => {
-                        Message.create({
-                          text: 'Hey Max!',
-                          userId: 1,
+                        return Message.create({
+                          text: 'Hi Alex!',
+                          userId: 3,
                           conversationId: 1
                         }).then(() => {
-                          return Message.create({
-                            text: 'From Jeff to Max',
-                            userId: 2,
-                            conversationId: 2
+                          Message.create({
+                            text: 'Hey Max!',
+                            userId: 1,
+                            conversationId: 1
                           }).then(() => {
                             return Message.create({
-                              text: 'Hi Jeff!',
-                              userId: 3,
+                              text: 'From Jeff to Max',
+                              userId: 2,
                               conversationId: 2
                             }).then(() => {
-                              Message.create({
-                                text: 'Hi Max!',
-                                userId: 2,
+                              return Message.create({
+                                text: 'Hi Jeff!',
+                                userId: 3,
                                 conversationId: 2
                               }).then(() => {
-                                return Message.create({
-                                  text: 'From Tiffany to Max',
-                                  userId: 4,
-                                  conversationId: 3
+                                Message.create({
+                                  text: 'Hi Max!',
+                                  userId: 2,
+                                  conversationId: 2
                                 }).then(() => {
                                   return Message.create({
-                                    text: 'Hi Tiffany!',
-                                    userId: 3,
+                                    text: 'From Tiffany to Max',
+                                    userId: 4,
                                     conversationId: 3
                                   }).then(() => {
-                                    Message.create({
-                                      text: 'Hi Max!',
-                                      userId: 4,
+                                    return Message.create({
+                                      text: 'Hi Tiffany!',
+                                      userId: 3,
                                       conversationId: 3
+                                    }).then(() => {
+                                      return Message.create({
+                                        text: 'Hi Max!',
+                                        userId: 4,
+                                        conversationId: 3
+                                      }).then(() => {
+                                        return Message.create({
+                                          text: 'Hi Tiffany',
+                                          userId: 1,
+                                          conversationId: 4
+                                        }).then(() => {
+                                          return Message.create({
+                                            text: 'Hi Alex',
+                                            userId: 4,
+                                            conversationId: 4
+                                          });
+                                        });
+                                      });
                                     });
                                   });
                                 });

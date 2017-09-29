@@ -213,7 +213,8 @@ module.exports.addProfile = (req, res) => {
     location: req.body.location,
     biography: req.body.biography,
     rating: req.body.rating,
-    isLocal: req.body.isLocal
+    isLocal: req.body.isLocal,
+    imageUrl: req.body.imageUrl,
   }).then((newUser) => {
     res.status(201).json(newUser);
   }).catch((err) => {
@@ -262,9 +263,6 @@ module.exports.deleteProfile = (req, res) => {
 };
 
 module.exports.addRatingToUser = (req, res) => {
-  console.log('REQUEST HAS BEEN SENT ____________________________');
-  console.log('request inside controller, params: ', req.params); //{ username: 'Tiffany' }
-  console.log('request inside controller, body: ', req.body); //{ inputRating: 1.5 }
   const username = req.params.username;
   const newRating = req.body.inputRating;
   DB.User.findOne({ where: { username,} })

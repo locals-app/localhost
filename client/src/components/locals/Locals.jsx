@@ -25,7 +25,6 @@ class Locals extends Component {
       .then((results) => {
         this.setState({
           locals: results.data,
-          ready: true,
         });
       })
       .catch( (err) => {

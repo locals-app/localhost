@@ -1,12 +1,7 @@
 // dependencies
 import React, { Component } from 'react';
-import { BrowserRouter, Route, NavLink } from 'react-router-dom';
-import axios from 'axios';
 // components
 import Navigator from './Navigator';
-import Profile from './profile/Profile.jsx';
-import LoggedIn from './splash/LoggedIn';
-import Locals from './locals/Locals';
 import SignIn from './splash/SignIn';
 
 // The main container through which every component should render.
@@ -17,17 +12,13 @@ class App extends Component {
     this.state = {
       idToken: '',
     };
+    this.logout = this.logout.bind(this);
   }
 
   // creates a lock and sets the idToken upon login
   componentWillMount() {
     this.lock = new Auth0Lock('kaQTBjg6m1VWXujuWrjYNDahHpDyJBEk', 'localhost-app.auth0.com');
-    this.setState({idToken: this.getIdToken()})
-  }
-
-  logout() {
-    localStorage.removeItem('id_token');
-    this.setState({idToken: ''});
+    this.setState({idToken: this.getIdToken()});
   }
 
   // function for getting idToken from Auth0
@@ -49,13 +40,18 @@ class App extends Component {
     }
     return idToken;
   }
+
+  logout() {
+    localStorage.removeItem('id_token');
+    this.setState({idToken: ''});
+  }
   
   // renders SignIn component which is currently functioning as our sign-in page OR something else (ideally nav bar, routes, and the rest of the app)
   render() {
     if (this.state.idToken) {
       return (
         <div>
-          <Navigator lock={this.lock} idToken={this.state.idToken} logout={this.logout.bind(this)}/>
+          <Navigator lock={this.lock} idToken={this.state.idToken} logout={this.logout}/>
         </div>
       );
     } else {

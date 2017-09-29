@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ConversationStubs from './ConversationStubs';
+import OpenConversations from './OpenConversations';
 import { NavLink, withRouter} from 'react-router-dom';
 
 class Splash extends Component {
@@ -17,13 +17,14 @@ class Splash extends Component {
   }
 
   render() {
+    let { myMessages, handleKeyPress } = this.props
     return (
       <div>
         <input
           onChange={this.handleChange}
-          onKeyPress={this.props.handleKeyPress.bind(null, this.state)}
+          onKeyPress={handleKeyPress.bind(null, this.state)}
           type="text"/>
-        <ConversationStubs />
+        <OpenConversations myMessages={myMessages} />
       </div>
     )
   }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-const Rating = require('react-rating');
+import Rating from 'react-rating';
 import axios from 'axios';
 
 class Local extends Component {
