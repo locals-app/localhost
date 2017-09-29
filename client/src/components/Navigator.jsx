@@ -20,7 +20,7 @@ class Navigator extends Component {
         locationQuery: '',
         profile: null,
         userData: {},
-        myMessages: [],
+        myMessages: {},
       }
     }
 
