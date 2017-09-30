@@ -94,7 +94,7 @@ class Navigator extends Component {
             <div className="collapse navbar-collapse" id="navbarNav">
               <ul className="navbar-nav main-nav">		
                 <li className="nav-item active left-logo">		
-                  <NavLink to='/' className="navbar-brand">localhost</NavLink>		
+                  <NavLink onClick={()=>{window.location.reload()}} to='/' className="navbar-brand">localhost</NavLink>		
                 </li>		
                 <li className="nav-item right-logo">		
                   <ul className="right-list">
