@@ -57,7 +57,12 @@ class App extends Component {
         </div>
       );
     } else {
-      return (<SignIn lock={this.lock} />);
+      return (
+        <div>
+          <Navigator lock={this.lock} idToken={this.state.idToken} logout={this.logout}/>
+          <SignIn lock={this.lock} />
+        </div>
+      );
     }
   }
 
