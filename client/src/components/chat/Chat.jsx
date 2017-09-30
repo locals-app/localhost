@@ -10,7 +10,7 @@ class Chat extends Component {
       messages: [],
       otherUser: '',
       otherUserImageUrl: '',
-      conversationId: 3, // this needs to be passed down in props
+      conversationId: null,
     }
     this.findOtherUser = this.findOtherUser.bind(this);
     this.fetchOtherUserImage = this.fetchOtherUserImage.bind(this);
@@ -32,7 +32,10 @@ class Chat extends Component {
   }
   
   componentWillMount() {
-    this.setState({messages: this.props.messages});
+    this.setState({
+      messages: this.props.messages,
+      conversationId: this.props.messages[0].conversationId,
+    });
   }
 
   componentDidMount() {
