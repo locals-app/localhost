@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-const Message = ({message, currentUser}) => {
+const Message = ({message, currentUser, currentUserImage}) => {
   if (message.userId === currentUser) {
     return (
-      <li className='currentUser'>{message.text} <b> --- {message.userId}</b></li> // assigning classnames to both users for styling purposes
+      <li className='currentUser'>{message.text} <b> --- {message.userId}</b><img src={currentUserImage} style={{width: 20}} alt=""/></li> // assigning classnames to both users for styling purposes
     );
   } else {
     return (
