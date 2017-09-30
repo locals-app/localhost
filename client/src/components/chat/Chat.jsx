@@ -7,41 +7,44 @@ class Chat extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      messages: [{ // messages needs to be passed down w/ props
-          "id": 7,
-          "text": "From Tiffany to Max",
-          "userId": "Tiffany",
-          "conversationId": 3,
-          "createdAt": "2017-09-25T22:09:40.368Z",
-          "updatedAt": "2017-09-25T22:09:40.368Z"
-        },
-        {
-          "id": 8,
-          "text": "Hi Tiffany!",
-          "userId": "Max",
-          "conversationId": 3,
-          "createdAt": "2017-09-25T22:09:40.493Z",
-          "updatedAt": "2017-09-25T22:09:40.493Z"
-        },
-        {
-          "id": 9,
-          "text": "Hi Max!",
-          "userId": "Tiffany",
-          "conversationId": 3,
-          "createdAt": "2017-09-25T22:09:40.955Z",
-          "updatedAt": "2017-09-25T22:09:40.955Z"
-        }],
-      currentUser: 'Max', // this needs to be passed down in props
-      conversationId: 3, // this needs to be passed down in props
+      messages: [],
+      otherUser: '',
+      otherUserImageUrl: '',
+      conversationId: null,
     }
+    this.findOtherUser = this.findOtherUser.bind(this);
+    this.fetchOtherUserImage = this.fetchOtherUserImage.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  findOtherUser(messages) {
+		this.state.messages.forEach( message => {
+			if (message.userId !== this.props.currentUser) {
+				this.setState({otherUser: message.userId})
+			}
+		});
+	}
+
+	fetchOtherUserImage() {
+		axios.get(`api/profiles/${this.state.otherUser}`).then((userData) => {
+			this.setState({otherUserImageUrl: userData.data.imageUrl});
+		}).catch(err => console.error(err));
+  }
+  
+  componentWillMount() {
+    this.setState({
+      messages: this.props.messages,
+      conversationId: this.props.messages[0].conversationId,
+    });
   }
 
   componentDidMount() {
     this.socket = io('/');
     this.socket.on('message', message => {
-      this.setState({messages: [...this.state.messages, message]})
-    })
+      this.setState({messages: [...this.state.messages, message]});
+    });
   }
+
 
   handleSubmit (event) {
     const text = event.target.value;
@@ -49,7 +52,7 @@ class Chat extends Component {
       const message = {
         text,
         conversationId: this.state.conversationId,
-        userId: this.state.currentUser,
+        userId: this.props.currentUser,
         id: this.state.messages[this.state.messages.length-1].id+1,
       }
       this.setState({messages: [...this.state.messages, message]})
@@ -62,7 +65,7 @@ class Chat extends Component {
     return (
       <div>
         <input type="text" placeholder='Enter a message...' onKeyUp={this.handleSubmit.bind(this)}/>
-        <Messages messages={this.state.messages} currentUser={this.state.currentUser}/>
+        <Messages messages={this.state.messages} currentUser={this.props.currentUser} currentUserImage={this.props.currentUserImage}/>
       </div>
     )
   }

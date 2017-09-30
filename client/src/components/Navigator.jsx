@@ -1,6 +1,6 @@
 // dependencies
 import React, { Component } from 'react';
-import { withRouter, BrowserRouter, Route, NavLink } from 'react-router-dom';
+import { withRouter, BrowserRouter, Route, NavLink , Router} from 'react-router-dom';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 // components
@@ -19,6 +19,7 @@ class Navigator extends Component {
       profile: null,
       userData: {},
       myMessages: {},
+      chatMessages: [],
     }
   }
 
@@ -60,14 +61,14 @@ class Navigator extends Component {
     }.bind(this));
   }
 
-  handleKeyPress (val, event) {
+  handleKeyPress(val, event) {
     if(event.key == 'Enter'){
       val.history.push('/Locals');
     }
     this.setState({ locationQuery: val.text });
   }
 
-  sortByRoom = (messagesArray) => {
+  sortByRoom(messagesArray) {
     let objectOfConvos = {};
     messagesArray.forEach((message) => {
       if (objectOfConvos[message.conversationId]) {
@@ -78,7 +79,11 @@ class Navigator extends Component {
     });
     return objectOfConvos;
   }
-    
+
+  launchChat(val, event) {
+    val.history.push('/Chat');
+    this.setState({ chatMessages: val.messages }, () => console.log(val));
+  }
 
   render() {
     return (
@@ -89,7 +94,7 @@ class Navigator extends Component {
             <div className="collapse navbar-collapse" id="navbarNav">
               <ul className="navbar-nav main-nav">		
                 <li className="nav-item active left-logo">		
-                  <NavLink to='/' className="navbar-brand">localhost</NavLink>		
+                  <NavLink onClick={() => {Router.refresh()}} to='/' className="navbar-brand">localhost</NavLink>		
                 </li>		
                 <li className="nav-item right-logo">		
                   <ul className="right-list">
@@ -111,6 +116,8 @@ class Navigator extends Component {
                 idToken={this.props.idToken}
                 handleKeyPress={this.handleKeyPress.bind(this)}
                 myMessages={this.state.myMessages}
+                currentUser={this.state.userData.username}
+                launchChat={this.launchChat.bind(this)}
               />
             )}/>
             <Route path='/Locals' render={(props) => (
@@ -119,6 +126,8 @@ class Navigator extends Component {
                 lock={this.props.lock}
                 idToken={this.props.idToken}
                 locationQuery={this.state.locationQuery}
+                launchChat={this.launchChat.bind(this)}
+                currentUser={this.state.userData.username}
               />
             )}/>
             <Route path='/Profile' render={(props) => (
@@ -134,6 +143,9 @@ class Navigator extends Component {
                 {...props}
                 lock={this.props.lock}
                 idToken={this.props.idToken}
+                currentUser={this.state.userData.username}
+                currentUserImage={this.state.userData.imageUrl}
+                messages={this.state.chatMessages}
               />
             )}/>
           </div>

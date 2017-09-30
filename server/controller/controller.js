@@ -147,22 +147,44 @@ module.exports.addConversation = (req, res) => {
       userToAdd2 = user2.id;
     }).then((bothUsers) => {
       if (userToAdd1 < userToAdd2) {
-        DB.Conversation.create({
-          firstUser: userToAdd1,
-          secondUser: userToAdd2
-        }).then((newConversation) => {
-          res.status(201).json(newConversation);
-        }).catch((err) => {
-          res.status(404).json(err);
+        DB.Conversation.findOne({
+          where: {
+            firstUser: userToAdd1,
+            secondUser: userToAdd2
+          }
+        }).then((found) => {
+          if (found) {
+            res.json(found);
+          } else {
+            DB.Conversation.create({
+              firstUser: userToAdd1,
+              secondUser: userToAdd2
+            }).then((newConversation) => {
+              res.status(201).json(newConversation);
+            }).catch((err) => {
+              res.status(404).json(err);
+            });
+          }
         });
       } else {
-        DB.Conversation.create({
-          firstUser: userToAdd2,
-          secondUser: userToAdd1
-        }).then((newConversation) => {
-          res.status(201).json(newConversation);
-        }).catch((err) => {
-          res.status(404).json(err);
+        DB.Conversation.findOne({
+          where: {
+            firstUser: userToAdd2,
+            secondUser: userToAdd1
+          }
+        }).then((found) => {
+          if(found) {
+            res.json(found);
+          } else {
+            DB.Conversation.create({
+              firstUser: userToAdd2,
+              secondUser: userToAdd1
+            }).then((newConversation) => {
+              res.status(201).json(newConversation);
+            }).catch((err) => {
+              res.status(404).json(err);
+            });
+          }
         });
       }
     });
