@@ -24,6 +24,7 @@ class Navigator extends Component {
       currentConvos: [],
       usernameArray: []
     }
+    this.renderLoginStatus = this.renderLoginStatus.bind(this);
   }
 
   componentDidMount() {
@@ -136,10 +137,12 @@ class Navigator extends Component {
                 </li>		
                 <li className="nav-item right-logo">		
                   <ul className="right-list">
+                    <li className="right-list-item">
+                      <span> {this.renderLoginStatus()} </span>
+                    </li>
                     <li className="right-list-item">                        		
-                      <NavLink to='/Profile' className="nav-link">		
-                        <span onClick={this.props.logout}>Logout</span>	 	
-                        <span>< img className='profile-pic' src={this.state.userData.imageUrl} /></span>		
+                      <NavLink to='/Profile' className="nav-link">			 	
+                        <span><img className='profile-pic' src={this.state.userData.imageUrl} /></span>		
                       </NavLink>		
                     </li>		
                   </ul>		
