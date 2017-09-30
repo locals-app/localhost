@@ -10,6 +10,7 @@ class ConvoStub extends Component {
 			otherUser: '',
 			otherUserImageUrl: '',
 			history: this.props.history,
+			messages: this.props.messages
 		}
 
 		this.findOtherUser = this.findOtherUser.bind(this);

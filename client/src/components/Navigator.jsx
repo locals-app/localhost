@@ -82,7 +82,7 @@ class Navigator extends Component {
 
   launchChat(val, event) {
     val.history.push('/Chat');
-    this.setState({ chatMessages: val }, () => console.log(val));
+    this.setState({ chatMessages: val.messages }, () => console.log(val));
   }
 
   render() {
@@ -145,6 +145,7 @@ class Navigator extends Component {
                 idToken={this.props.idToken}
                 currentUser={this.state.userData.username}
                 currentUserImage={this.state.userData.imageUrl}
+                messages={this.state.chatMessages}
               />
             )}/>
           </div>

@@ -7,32 +7,9 @@ class Chat extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      messages: [{ // messages needs to be passed down w/ props
-          "id": 7,
-          "text": "From Tiffany to Max",
-          "userId": "Tiffany",
-          "conversationId": 3,
-          "createdAt": "2017-09-25T22:09:40.368Z",
-          "updatedAt": "2017-09-25T22:09:40.368Z"
-        },
-        {
-          "id": 8,
-          "text": "Hi Tiffany!",
-          "userId": "Max",
-          "conversationId": 3,
-          "createdAt": "2017-09-25T22:09:40.493Z",
-          "updatedAt": "2017-09-25T22:09:40.493Z"
-        },
-        {
-          "id": 9,
-          "text": "Hi Max!",
-          "userId": "Tiffany",
-          "conversationId": 3,
-          "createdAt": "2017-09-25T22:09:40.955Z",
-          "updatedAt": "2017-09-25T22:09:40.955Z"
-        }],
-      otherUser: 'Max_Jacobs',
-      otherUserImageUrl: 'nothing.jpg',
+      messages: [],
+      otherUser: '',
+      otherUserImageUrl: '',
       conversationId: 3, // this needs to be passed down in props
     }
     this.findOtherUser = this.findOtherUser.bind(this);
@@ -52,14 +29,19 @@ class Chat extends Component {
 		axios.get(`api/profiles/${this.state.otherUser}`).then((userData) => {
 			this.setState({otherUserImageUrl: userData.data.imageUrl});
 		}).catch(err => console.error(err));
-	}
+  }
+  
+  componentWillMount() {
+    this.setState({messages: this.props.messages});
+  }
 
   componentDidMount() {
     this.socket = io('/');
     this.socket.on('message', message => {
-      this.setState({messages: [...this.state.messages, message]})
-    })
+      this.setState({messages: [...this.state.messages, message]});
+    });
   }
+
 
   handleSubmit (event) {
     const text = event.target.value;
