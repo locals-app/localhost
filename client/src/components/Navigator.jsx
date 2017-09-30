@@ -20,6 +20,7 @@ class Navigator extends Component {
       userData: {},
       myMessages: {},
       chatMessages: [],
+      otherUserImageUrl: '',
     }
   }
 
@@ -82,7 +83,10 @@ class Navigator extends Component {
 
   launchChat(val, event) {
     val.history.push('/Chat');
-    this.setState({ chatMessages: val.messages }, () => console.log(val));
+    this.setState({
+      chatMessages: val.messages,
+      otherUserImageUrl: val.otherUserImageUrl,
+    }, () => console.log(val));
   }
 
   render() {
@@ -146,6 +150,7 @@ class Navigator extends Component {
                 currentUser={this.state.userData.username}
                 currentUserImage={this.state.userData.imageUrl}
                 messages={this.state.chatMessages}
+                otherUserImageUrl={this.state.otherUserImageUrl}
               />
             )}/>
           </div>
