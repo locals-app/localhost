@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import Rating from 'react-rating';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
 class Local extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      inputRating: ''
+      inputRating: '',
+      messages: [],
+      history: this.props.history,
     }
     this.changeRating = this.changeRating.bind(this);
     this.parsedRating = JSON.parse(this.props.local.rating);
@@ -15,6 +18,20 @@ class Local extends Component {
     }, 0))/this.parsedRating.length);
   }
 
+  createConversation() {
+
+    axios.post('/api/modifyconversation', {
+      firstUser: this.props.currentUser,
+      secondUser: this.props.local.username,
+    }).then((results) => {
+      this.setState({messages: [{conversationId: results.data.id}]}, () => {
+        this.props.launchChat.call(null, this.state);
+      });
+    }).catch((err) => {
+      console.log('post did not work', err);
+    });
+  }
+ 
   changeRating(input) {
     console.log('button input worked');
     if (this.state.inputRating === '') {
@@ -38,7 +55,7 @@ class Local extends Component {
   render() {
     if (this.props.local.isLocal) {
       return (
-        <div>
+        <div onClick={this.createConversation.bind(this)}>
           <div>
           Username:  {this.props.local.username}
           </div>
@@ -61,4 +78,4 @@ class Local extends Component {
   }
 }
 
-export default Local;
+export default withRouter(Local);

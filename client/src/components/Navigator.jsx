@@ -81,6 +81,9 @@ class Navigator extends Component {
   }
 
   launchChat(val, event) {
+    console.log('====================================')
+    console.log('here is val', val);
+    console.log('====================================')
     val.history.push('/Chat');
     this.setState({ chatMessages: val.messages }, () => console.log(val));
   }

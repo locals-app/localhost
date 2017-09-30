@@ -7,7 +7,7 @@ class Chat extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      messages: [],
+      messages: this.props.messages || [],
       otherUser: '',
       otherUserImageUrl: '',
       conversationId: null,
@@ -35,7 +35,11 @@ class Chat extends Component {
     this.setState({
       messages: this.props.messages,
       conversationId: this.props.messages[0].conversationId,
-    });
+    }, () => {
+      if (!this.state.messages[0].text) {
+        this.setState({messages: [{id:0}]});
+      }
+    })
   }
 
   componentDidMount() {
