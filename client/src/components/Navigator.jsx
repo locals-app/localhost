@@ -1,6 +1,6 @@
 // dependencies
 import React, { Component } from 'react';
-import { withRouter, BrowserRouter, Route, NavLink } from 'react-router-dom';
+import { withRouter, BrowserRouter, Route, NavLink , Router} from 'react-router-dom';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 // components
@@ -94,7 +94,7 @@ class Navigator extends Component {
             <div className="collapse navbar-collapse" id="navbarNav">
               <ul className="navbar-nav main-nav">		
                 <li className="nav-item active left-logo">		
-                  <NavLink onClick={()=>{window.location.reload()}} to='/' className="navbar-brand">localhost</NavLink>		
+                  <NavLink onClick={() => {Router.refresh()}} to='/' className="navbar-brand">localhost</NavLink>		
                 </li>		
                 <li className="nav-item right-logo">		
                   <ul className="right-list">

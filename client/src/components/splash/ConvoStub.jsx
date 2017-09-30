@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Router } from 'react-router-dom';
 
 
 class ConvoStub extends Component {
