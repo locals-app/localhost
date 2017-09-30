@@ -33,6 +33,7 @@ class Locals extends Component {
   }
 
   render() {
+    if (this.state.locals.length > 0) {
     return (
       <div>
         {
@@ -41,7 +42,13 @@ class Locals extends Component {
           })
         }
       </div>
-    )
+    )} else {
+      return (
+        <div>
+          No locals found :/
+        </div>
+      )
+    }
   }
 }
 

@@ -92,7 +92,7 @@ User.sync({ force: true }).then(() => {
     location: 'Santa Monica',
     biography: 'some stuff about me',
     rating: '[3.5, 4.5, 1.5, 3]',
-    isLocal: false,
+    isLocal: true,
     imageUrl: 'http://i.telegraph.co.uk/multimedia/archive/02002/Larry_david_2002589b.jpg'
   }).then(() => {
     return User.create({
@@ -100,7 +100,7 @@ User.sync({ force: true }).then(() => {
       location: 'North Hollywood',
       biography: 'Some other ghosts n stuffs',
       rating: '[3.5, 1.5, 1.5, 3]',
-      isLocal: false,
+      isLocal: true,
       imageUrl: 'https://pbs.twimg.com/profile_images/620774262329085952/F_7Gn6Ji.jpg',
     }).then(() => {
       return User.create({
@@ -116,7 +116,7 @@ User.sync({ force: true }).then(() => {
           location: 'Los Angeles',
           biography: 'yet another one',
           rating: '[3.5, 1.5, 3.5, 4]',
-          isLocal: false, 
+          isLocal: true, 
           imageUrl: 'https://images.sunfrogshirts.com/2016/03/07/It-is-a-TIFFANY-Thing--TIFFANY-Last-Name-Surname-T-Shirt-Black-front.jpg'
         }).then(() => {
           Conversation.sync({ force: true }).then(() => {

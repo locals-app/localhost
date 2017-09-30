@@ -36,22 +36,28 @@ class Local extends Component {
   }
 
   render() {
-    return (
-      <div>
+    if (this.props.local.isLocal) {
+      return (
         <div>
-        Username:  {this.props.local.username}
+          <div>
+          Username:  {this.props.local.username}
+          </div>
+          <div>
+          Bio:  {this.props.local.biography}
+          </div>
+          <div>
+          Location:  {this.props.local.location}
+          </div>
+          <div>
+            <Rating empty="fa fa-star-o fa-2x" full="fa fa-star fa-2x" placeholder="fa fa-star fa-2x" fractions={2}  onChange={this.changeRating} placeholderRate={this.averagedParsedRating}/>
+          </div>
         </div>
-        <div>
-        Bio:  {this.props.local.biography}
-        </div>
-        <div>
-        Location:  {this.props.local.location}
-        </div>
-        <div>
-          <Rating empty="fa fa-star-o fa-2x" full="fa fa-star fa-2x" placeholder="fa fa-star fa-2x" fractions={2}  onChange={this.changeRating} placeholderRate={this.averagedParsedRating}/>
-        </div>
-      </div>
-    )
+      )
+    } else {
+      return (
+        <div></div>
+      );
+    }
   }
 }
 
