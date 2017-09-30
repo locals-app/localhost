@@ -10,12 +10,24 @@ class Local extends Component {
       inputRating: '',
       messages: [],
       history: this.props.history,
+      otherUserImageUrl: '',
     }
     this.changeRating = this.changeRating.bind(this);
+    this.getOtherUserImage = this.getOtherUserImage.bind(this);
     this.parsedRating = JSON.parse(this.props.local.rating);
     this.averagedParsedRating = ((this.parsedRating.reduce((acc, rating) => {
       return acc + rating
     }, 0))/this.parsedRating.length);
+  }
+
+  componentWillMount() {
+    this.getOtherUserImage()
+  }
+
+  getOtherUserImage() {
+    axios.get(`api/profiles/${this.props.local.username}`).then((userData) => {
+      this.setState({otherUserImageUrl: userData.data.imageUrl})
+    }).catch(err => console.error(err))
   }
 
   createConversation() {
@@ -30,6 +42,7 @@ class Local extends Component {
     }).catch((err) => {
       console.log('post did not work', err);
     });
+  
   }
  
   changeRating(input) {
@@ -56,6 +69,7 @@ class Local extends Component {
     if (this.props.local.isLocal) {
       return (
         <div onClick={this.createConversation.bind(this)}>
+          <img src={this.state.otherUserImageUrl} style={{width: 20}} alt=""/>
           <div>
           Username:  {this.props.local.username}
           </div>

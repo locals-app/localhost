@@ -12,23 +12,9 @@ class Chat extends Component {
       otherUserImageUrl: '',
       conversationId: null,
     }
-    this.findOtherUser = this.findOtherUser.bind(this);
-    this.fetchOtherUserImage = this.fetchOtherUserImage.bind(this);
+
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
 
-  findOtherUser(messages) {
-		this.state.messages.forEach( message => {
-			if (message.userId !== this.props.currentUser) {
-				this.setState({otherUser: message.userId})
-			}
-		});
-	}
-
-	fetchOtherUserImage() {
-		axios.get(`api/profiles/${this.state.otherUser}`).then((userData) => {
-			this.setState({otherUserImageUrl: userData.data.imageUrl});
-		}).catch(err => console.error(err));
   }
   
   componentWillMount() {
@@ -69,7 +55,12 @@ class Chat extends Component {
     return (
       <div>
         <input type="text" placeholder='Enter a message...' onKeyUp={this.handleSubmit.bind(this)}/>
-        <Messages messages={this.state.messages} currentUser={this.props.currentUser} currentUserImage={this.props.currentUserImage}/>
+        <Messages
+          messages={this.state.messages}
+          currentUser={this.props.currentUser}
+          currentUserImage={this.props.currentUserImage}
+          otherUserImageUrl={this.props.otherUserImageUrl}
+        />
       </div>
     )
   }
