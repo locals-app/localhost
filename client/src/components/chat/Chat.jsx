@@ -11,13 +11,21 @@ class Chat extends Component {
       otherUser: '',
       otherUserImageUrl: '',
       conversationId:  null,
+      convoIdToPass: null
     }
-
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
+  setConvoToPass() {
+    if (this.props.messages[0] === undefined) {
+      this.setState({ convoIdToPass: 0 });
+    } else {
+      this.setState({ convoIdToPass: this.props.messages[0].conversationId})
+    }
   }
   
   componentWillMount() {
+    this.setConvoToPass.call(this);
     if (this.props.messages[0]) {
       this.setState({
         messages: this.props.messages,
@@ -49,6 +57,7 @@ class Chat extends Component {
         userId: this.props.currentUser,
         id: this.state.messages[this.state.messages.length-1].id+1,
       }
+      console.log('error before or after?')
       this.setState({messages: [...this.state.messages, message]})
       this.socket.emit('message', message)
       event.target.value = '';
@@ -64,7 +73,7 @@ class Chat extends Component {
           currentUser={this.props.currentUser}
           currentUserImage={this.props.currentUserImage}
           otherUserImageUrl={this.props.otherUserImageUrl}
-          conversationId={this.state.messages[0].conversationId}
+          conversationId={this.state.convoIdToPass}
         />
       </div>
     )
