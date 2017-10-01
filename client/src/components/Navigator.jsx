@@ -21,14 +21,12 @@ class Navigator extends Component {
       myMessages: {},
       chatMessages: [],
       otherUserImageUrl: '',
+      currentConvos: []
     }
   }
 
   componentDidMount() {
-    // The token is passed down from the App component 
-    // and used to retrieve the profile
     this.updateMessages();
-    
   }
 
   updateMessages() {

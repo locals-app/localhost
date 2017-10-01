@@ -18,13 +18,11 @@ class Chat extends Component {
   }
   
   componentWillMount() {
-    console.log('mounted')
     if (this.props.messages[0]) {
       this.setState({
         messages: this.props.messages,
         conversationId: this.props.messages[0].conversationId,
       }, () => {
-        console.log('convoid', this.state.conversationId);
         if (!this.state.messages[0].text) {
           this.setState({messages: [{id:0}]});
         }
@@ -66,6 +64,7 @@ class Chat extends Component {
           currentUser={this.props.currentUser}
           currentUserImage={this.props.currentUserImage}
           otherUserImageUrl={this.props.otherUserImageUrl}
+          conversationId={this.state.messages[0].conversationId}
         />
       </div>
     )
