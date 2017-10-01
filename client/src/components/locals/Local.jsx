@@ -72,7 +72,7 @@ class Local extends Component {
             <div className="media">
               <img className="main-profile-small-img d-flex align-self-center mr-3 rounded-circle" src={this.state.otherUserImageUrl} alt="Profile image"/>
               <div className="media-body">
-                <h5 className="mt-0">{this.props.local.username}</h5>
+                <h5 className="mt-0">{this.props.local.username.replace('_', ' ')}</h5>
                 <div>
                   <Rating empty="fa fa-star-o fa-2x" full="fa fa-star fa-2x" placeholder="fa fa-star fa-2x" fractions={2}  onChange={this.changeRating} placeholderRate={this.averagedParsedRating}/>
                 </div>
