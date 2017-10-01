@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import OpenConversations from './OpenConversations';
 import { withRouter } from 'react-router-dom';
+import Geosuggest from 'react-geosuggest';
 
 class Splash extends Component {
   constructor(props) {
@@ -9,21 +10,23 @@ class Splash extends Component {
       text: '',
       history: this.props.history,
     }
-    this.handleChange = this.handleChange.bind(this);
+    this.handleSuggest = this.handleSuggest.bind(this);
   }
-  
-  handleChange(e) {
-    this.setState({ text: e.target.value })
+
+  handleSuggest(value) {
+    this.setState({ text: value.label }, () => {
+      this.props.handleSelect.call(null, this.state)
+    });
   }
 
   render() {
-    let { myMessages, handleKeyPress, currentUser, launchChat } = this.props
+    let { myMessages, currentUser, launchChat } = this.props
     return (
       <div>
-        <input
-          onChange={this.handleChange}
-          onKeyPress={handleKeyPress.bind(null, this.state)}
-          type="text"/>
+        <Geosuggest 
+          onSuggestSelect={this.handleSuggest}
+          placeholder={'Where would you like to go?'}
+        />
         <OpenConversations
           myMessages={myMessages}
           currentUser={currentUser}

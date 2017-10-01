@@ -86,9 +86,9 @@ Conversation.belongsTo(User, { onDelete: 'cascade' });
 
 
 
-User.sync({}).then(() => {
-  Message.sync({}).then(() => {
-    Conversation.sync({})
+User.sync().then(() => {
+  Message.sync().then(() => {
+    Conversation.sync();
   });
 });
 
