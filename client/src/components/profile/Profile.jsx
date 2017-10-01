@@ -15,7 +15,10 @@ class Profile extends Component {
     this.toggleLocal = this.toggleLocal.bind(this);
   };
 
-  componentDidMount() {  
+  componentWillMount() {
+    if (this.state.user.username) {
+      this.state.user.username = this.state.user.username.replace('_', ' ');
+    }
     if (!this.state.user.username) {
       this.props.history.push('/')
     }

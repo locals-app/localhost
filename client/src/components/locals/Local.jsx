@@ -71,7 +71,7 @@ class Local extends Component {
         <div onClick={this.createConversation.bind(this)}>
           <img src={this.state.otherUserImageUrl} style={{width: 20}} alt=""/>
           <div>
-          Username:  {this.props.local.username}
+          Username:  {this.props.local.username.replace('_', ' ')}
           </div>
           <div>
           Bio:  {this.props.local.biography}
