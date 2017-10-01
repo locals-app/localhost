@@ -45,36 +45,41 @@ class Profile extends Component {
   };
 
   render() {
-    return (      
+
+    return (
       <div>
-        <div className='profilePic'>
-          <img style={{width: 300}} src={this.state.user.imageUrl} alt=''/> 
+        <div className="container">
+          <div className="row">
+        <div className="col align-self-center">
+        <div className="card w-50">
+          <div className="crop">
+          <img className="card-img-top" src={this.state.user.imageUrl} alt="Card image cap" />
+          </div>
+          <div className="card-body">
+            <h4 className="card-title">{this.state.user.username}</h4>
+            <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+          <ul className="list-group list-group-flush">
+            <li className="list-group-item">Your City<Geosuggest onSuggestSelect={this.handleLocationChange}/></li>
+            <li className="list-group-item">
+            <Form ref='updateProfile' className='updateProfile'>
+              <Field
+                className='bio'
+                name='biography'
+                label='Say something about yourself'
+                type='text'
+              />
+            </Form>
+            </li>
+            <li className="list-group-item">
+              Are you a local? {this.state.user.isLocal ? (<i onClick={this.toggleLocal} className="fa fa-3x fa-toggle-on toggle-switch" aria-hidden="true"></i>) : (<i onClick={this.toggleLocal} className="fa fa-3x fa-toggle-off toggle-switch" aria-hidden="true"></i>)}
+            </li>
+            <li className="list-group-item"><button className="saveProfile btn btn-primary btn-lg btn-block" onClick={this.handleProfileSubmission.bind(this)}>Save Profile</button></li>
+          </ul>
         </div>
-
-        <div className='username'>
-          <span>{this.state.user.username}</span>
-        </div>
-
-        <div>
-          <span>Location</span>
-          <Geosuggest onSuggestSelect={this.handleLocationChange}/>
-        </div>
-
-        <div>
-          <Form ref='updateProfile' className='updateProfile'>
-            <Field
-              className='bio'
-              name='biography'
-              label='Say something about yourself'
-              type='text'
-              value={this.state.user.biography}
-            />
-          </Form>
-          
-          {this.state.user.isLocal ? (<i onClick={this.toggleLocal} className="fa fa-3x fa-toggle-on" aria-hidden="true"></i>) : (<i onClick={this.toggleLocal} className="fa fa-3x fa-toggle-off" aria-hidden="true"></i>)}
-
-          <button className='saveProfile' onClick={this.handleProfileSubmission.bind(this)}>Save Profile</button>
-        </div>
+      </div>
+      </div>
+      </div>
       </div>
     )
   };
