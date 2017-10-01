@@ -35,6 +35,10 @@ router.route('/modifyconversation')
 //Deleting to this route deletes a single conversation
 .delete(controller.deleteConversation);
 
+router.route('/getconvobyid/:id')
+//this route returns a conversation with both users in it
+.get(controller.getConvobyId);
+
 router.route('/profiles/createnew') 
 //This route allows new profiles to be posted
 .post(controller.addProfile);

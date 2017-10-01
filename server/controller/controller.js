@@ -227,6 +227,34 @@ module.exports.deleteConversation = (req, res) => {
   });
 };
 
+//This method returns a conversation when given a conversation id in the params
+module.exports.getConvobyId = (req, res) => {
+  let convoToSend;
+  let id1;
+  let id2;
+  DB.Conversation.findOne({
+    where: { id: req.params.id },
+    raw: true
+  }).then((convo) => {
+    convoToSend = convo;
+    id1 = convo.firstUser;
+    id2 = convo.secondUser;
+    DB.User.findOne({
+      where: { id: id1 }
+    }).then((user1) => {
+      id1 = user1.username;
+      DB.User.findOne({
+        where: { id: id2 }
+      }).then((user2) => {
+        id2 = user2.username;
+        convoToSend.firstUser = id1;
+        convoToSend.secondUser = id2;
+        res.json(convoToSend);
+      });
+    });
+  });
+};
+
 //This method adds a new profile to the Users table
 //TODO: if user properties are changed, update this method
 module.exports.addProfile = (req, res) => {
