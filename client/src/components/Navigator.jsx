@@ -27,6 +27,11 @@ class Navigator extends Component {
   componentDidMount() {
     // The token is passed down from the App component 
     // and used to retrieve the profile
+    this.updateMessages();
+    
+  }
+
+  updateMessages() {
     this.props.lock.getProfile(this.props.idToken, function (err, profile) {
       if (err) {
         console.log("Error loading the Profile", err);
@@ -91,20 +96,19 @@ class Navigator extends Component {
   render() {
     return (
       <div>
-        
           <div>
             <nav className="navbar navbar-toggleable-md navbar-light bg-faded">
             <div className="collapse navbar-collapse" id="navbarNav">
               <ul className="navbar-nav main-nav">		
                 <li className="nav-item active left-logo">		
-                  <NavLink to='/' className="navbar-brand">localhost</NavLink>		
+                  <NavLink to='/' onClick={this.updateMessages.bind(this)} className="navbar-brand">localhost</NavLink>		
                 </li>		
                 <li className="nav-item right-logo">		
                   <ul className="right-list">
                     <li className="right-list-item">                        		
                       <NavLink to='/Profile' className="nav-link">		
                         <span onClick={this.props.logout}>Logout</span>	 	
-                        <span>< img className='profile-pic' src={this.state.userData.imageUrl} /></span>		
+                        <span><img className='profile-pic' src={this.state.userData.imageUrl} /></span>		
                       </NavLink>		
                     </li>		
                   </ul>		
