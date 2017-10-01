@@ -17,7 +17,7 @@ class Chat extends Component {
 
   }
   
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.messages[0]) {
       this.setState({
         messages: this.props.messages,

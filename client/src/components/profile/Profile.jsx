@@ -15,6 +15,13 @@ class Profile extends Component {
     this.toggleLocal = this.toggleLocal.bind(this);
   };
 
+  componentDidUpdate() {
+    
+    if (!this.state.user.username) {
+      this.props.history.push('/')
+    }
+  }
+
   handleLocationChange(value) {
     this.state.user.location = value.label;
     this.forceUpdate();
@@ -36,9 +43,7 @@ class Profile extends Component {
   };
 
   render() {
-
-    return (
-      
+    return (      
       <div>
         <div className='profilePic'>
           <img style={{width: 300}} src={this.state.user.imageUrl} alt=''/> 
