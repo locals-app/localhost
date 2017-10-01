@@ -95,6 +95,12 @@ class Navigator extends Component {
     }, () => console.log(val));
   }
 
+
+
+  // fixed-top ?
+
+
+
   render() {
     return (
       <div>

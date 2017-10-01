@@ -23,15 +23,33 @@ class Splash extends Component {
     let { myMessages, currentUser, launchChat } = this.props
     return (
       <div>
-        <Geosuggest 
-          onSuggestSelect={this.handleSuggest}
-          placeholder={'Where would you like to go?'}
-        />
-        <OpenConversations
-          myMessages={myMessages}
-          currentUser={currentUser}
-          launchChat={launchChat}
-        />
+
+        <div className="splash-page-container">
+          <div className="container">
+            <div className="row">
+              <div className="col-8 geosuggest-column">
+
+                <div className="geosuggest-container">
+                  <Geosuggest 
+                  onSuggestSelect={this.handleSuggest}
+                  placeholder={'Where would you like to go?'}
+                  />
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div>
+          <OpenConversations
+            myMessages={myMessages}
+            currentUser={currentUser}
+            launchChat={launchChat}
+          />
+        </div>
+
       </div>
     )
   }
