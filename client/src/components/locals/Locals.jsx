@@ -14,8 +14,11 @@ class Locals extends Component {
   }
 
   componentWillMount() {
-    console.log('locals', this.props.locationQuery)
-    this.getLocals(this.props.locationQuery)
+    if (!this.props.locationQuery) {
+      this.props.history.push('/');
+    }
+    console.log('locals', this.props.locationQuery);
+    this.getLocals(this.props.locationQuery);
   }
 
   // axios request to get locals by location

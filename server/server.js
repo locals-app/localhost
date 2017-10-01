@@ -14,11 +14,12 @@ const server = http.createServer(app);
 const io = socketIo(server);
 const port = process.env.PORT || 3000;
 // middleware
-app.use(cors());
+// app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use('/api', router);
-app.use(express.static(__dirname + '/../client/static'));
+app.use('/', express.static(__dirname + '/../client/static'));
+
 // socket.io chat
 io.on('connection', (socket) => {
   socket.on('message', (message) => {

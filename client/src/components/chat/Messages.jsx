@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Message from './Message';
 
-const Messages = ({messages, currentUser, currentUserImage, otherUserImageUrl}) => {
+const Messages = ({messages, currentUser, currentUserImage, otherUserImageUrl, conversationId}) => {
   return (
     <div>
       {messages.map((message) => {
@@ -12,6 +12,7 @@ const Messages = ({messages, currentUser, currentUserImage, otherUserImageUrl}) 
             currentUser={currentUser}
             currentUserImage={currentUserImage}
             otherUserImageUrl={otherUserImageUrl}
+            conversationId={conversationId}
           />
         )
       })}

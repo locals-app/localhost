@@ -10,22 +10,34 @@ class Chat extends Component {
       messages: this.props.messages || [],
       otherUser: '',
       otherUserImageUrl: '',
-      conversationId: null,
+      conversationId:  null,
+      convoIdToPass: null
     }
-
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
+  setConvoToPass() {
+    if (this.props.messages[0] === undefined) {
+      this.setState({ convoIdToPass: 0 });
+    } else {
+      this.setState({ convoIdToPass: this.props.messages[0].conversationId})
+    }
   }
   
   componentWillMount() {
-    this.setState({
-      messages: this.props.messages,
-      conversationId: this.props.messages[0].conversationId,
-    }, () => {
-      if (!this.state.messages[0].text) {
-        this.setState({messages: [{id:0}]});
-      }
-    })
+    this.setConvoToPass.call(this);
+    if (this.props.messages[0]) {
+      this.setState({
+        messages: this.props.messages,
+        conversationId: this.props.messages[0].conversationId,
+      }, () => {
+        if (!this.state.messages[0].text) {
+          this.setState({messages: [{id:0}]});
+        }
+      })
+    } else {
+      this.props.history.push('/');
+    }
   }
 
   componentDidMount() {
@@ -60,6 +72,7 @@ class Chat extends Component {
           currentUser={this.props.currentUser}
           currentUserImage={this.props.currentUserImage}
           otherUserImageUrl={this.props.otherUserImageUrl}
+          conversationId={this.state.convoIdToPass}
         />
       </div>
     )

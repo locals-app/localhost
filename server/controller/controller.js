@@ -285,10 +285,11 @@ module.exports.getProfile = (req, res) => {
 };
 
 module.exports.changeProfile = (req, res) => {
-  const username = req.params.username;
+  const username = req.body.username.replace(' ', '_');
   DB.User.findOne({
     where: { username, }
   }).then((profile) => {
+    console.log(profile)
     profile.update({
       location: req.body.location,
       biography: req.body.biography,

@@ -15,6 +15,15 @@ class Profile extends Component {
     this.toggleLocal = this.toggleLocal.bind(this);
   };
 
+  componentWillMount() {
+    if (this.state.user.username) {
+      this.state.user.username = this.state.user.username.replace('_', ' ');
+    }
+    if (!this.state.user.username) {
+      this.props.history.push('/')
+    }
+  }
+
   handleLocationChange(value) {
     this.state.user.location = value.label;
     this.forceUpdate();
@@ -32,13 +41,11 @@ class Profile extends Component {
       method: 'put',
       url: `/api/profiles/${this.state.user.username}`,
       data: this.state.user,
-    }).then(res => alert('Profile Saved!')).catch(err => console.log(err));
+    }).then(res => console.log(res)).catch(err => console.log(err));
   };
 
   render() {
-
-    return (
-      
+    return (      
       <div>
         <div className='profilePic'>
           <img style={{width: 300}} src={this.state.user.imageUrl} alt=''/> 
@@ -60,6 +67,7 @@ class Profile extends Component {
               name='biography'
               label='Say something about yourself'
               type='text'
+              value={this.state.user.biography}
             />
           </Form>
           
