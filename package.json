@@ -21,6 +21,7 @@
     "babel-preset-react": "^6.24.1",
     "babelify": "^7.2.0",
     "body-parser": "^1.18.1",
+    "bootstrap": "^4.0.0-beta",
     "browserify": "^13.0.0",
     "browserify-global-shim": "^1.0.0",
     "bumpery": "^1.1.1",

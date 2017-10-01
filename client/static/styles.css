@@ -30,22 +30,44 @@
   width: 49%;		
 }		
  	
+.logged-in-as {		
+  padding-right: 13px;		
+}
+
+  /**
+   * list of locals page
+   */
+
 .profile-pic {		
   border-radius: 50%;		
   height: 35px;		
   margin-left: 10px;		
 }		
- 	
-.logged-in-as {		
-  padding-right: 13px;		
-}
 
 .main-profile-small-img {
-  height: 64px;
-  width: 64px;
+  height: 100px;
+  width: 100px;
 }
 
+.locals-navbar-brand {
+  margin: auto;
+  font-family: 'Comfortaa', cursive;
+  padding: 30px;
+}
 
+.locals-list-navbar {
+  background: #FECBC5;
+}
+
+.locals-media-entire {
+  padding: 20px;
+  width: 350px;
+  margin: auto;
+}
+
+  /**
+   * geosuggest
+   */
 
  .geosuggest {
     font-size: 18px;
@@ -91,9 +113,6 @@
     border-width: 0;
   }
   
-  /**
-   * A geosuggest item
-   */
   .geosuggest__item {
     font-size: 18px;
     font-size: 1rem;
