@@ -15,8 +15,7 @@ class Profile extends Component {
     this.toggleLocal = this.toggleLocal.bind(this);
   };
 
-  componentDidUpdate() {
-    
+  componentDidMount() {  
     if (!this.state.user.username) {
       this.props.history.push('/')
     }
