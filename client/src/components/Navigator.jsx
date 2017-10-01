@@ -1,6 +1,6 @@
 // dependencies
 import React, { Component } from 'react';
-import { withRouter, BrowserRouter, Route, NavLink , Router, Switch } from 'react-router-dom';
+import { withRouter, BrowserRouter, Route, NavLink , Router, Switch, HashRouter } from 'react-router-dom';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 // components
@@ -94,6 +94,7 @@ class Navigator extends Component {
   render() {
     return (
       <div>
+          <HashRouter>
           <div>
             <nav className="navbar navbar-toggleable-md navbar-light bg-faded">
             <div className="collapse navbar-collapse" id="navbarNav">
@@ -157,6 +158,7 @@ class Navigator extends Component {
               )}/>
             </Switch>
           </div>
+          </HashRouter>
       </div>
     )
   }

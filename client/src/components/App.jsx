@@ -53,9 +53,7 @@ class App extends Component {
     if (this.state.idToken) {
       return (
         <div>
-        <HashRouter>
           <Navigator lock={this.lock} idToken={this.state.idToken} logout={this.logout}/>
-        </HashRouter>
         </div>
       );
     } else {
