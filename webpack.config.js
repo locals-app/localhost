@@ -5,12 +5,16 @@ const webpackConfig = {
   output: {
     path: path.resolve(__dirname, './client/static'),
     filename: 'bundle.js',
+    publicPath: '/'
   },
   module: {
     loaders: [],
   },
   resolve: {
     extensions: ['.js', '.jsx'],
+  },
+   devServer: {
+    historyApiFallback: true,
   },
   devtool: 'inline-source-map',
 };
