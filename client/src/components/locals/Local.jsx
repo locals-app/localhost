@@ -68,21 +68,19 @@ class Local extends Component {
   render() {
     if (this.props.local.isLocal) {
       return (
-        <div onClick={this.createConversation.bind(this)}>
-          <img src={this.state.otherUserImageUrl} style={{width: 20}} alt=""/>
-          <div>
-          Username:  {this.props.local.username.replace('_', ' ')}
+          <div className="locals-media-entire">
+            <div className="media">
+              <img className="main-profile-small-img d-flex align-self-center mr-3 rounded-circle" src={this.state.otherUserImageUrl} alt="Profile image"/>
+              <div className="media-body">
+                <h5 className="mt-0">{this.props.local.username.replace('_', ' ')}</h5>
+                <div>
+                  <Rating empty="fa fa-star-o fa-2x" full="fa fa-star fa-2x" placeholder="fa fa-star fa-2x" fractions={2}  onChange={this.changeRating} placeholderRate={this.averagedParsedRating}/>
+                </div>
+                <p>{this.props.local.biography}</p>
+                <button onClick={this.createConversation.bind(this)} type="button" className="btn btn-info btn-sm">Message</button>
+              </div>
+            </div>
           </div>
-          <div>
-          Bio:  {this.props.local.biography}
-          </div>
-          <div>
-          Location:  {this.props.local.location}
-          </div>
-          <div>
-            <Rating empty="fa fa-star-o fa-2x" full="fa fa-star fa-2x" placeholder="fa fa-star fa-2x" fractions={2}  onChange={this.changeRating} placeholderRate={this.averagedParsedRating}/>
-          </div>
-        </div>
       )
     } else {
       return (

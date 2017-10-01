@@ -39,6 +39,17 @@ class Locals extends Component {
     if (this.state.locals.length > 0) {
     return (
       <div>
+        <div className="locals-list-navbar-row">
+          <div className="locals-list-navbar-col">
+          </div>
+          <div className="locals-list-navbar-col-6">
+            <nav className="locals-list-navbar navbar navbar-light bg-light">
+              <span className="h1" className="locals-navbar-brand mb-0">Viewing locals of <span className="font-weight-bold">{this.props.locationQuery}</span></span>
+            </nav>
+          </div>
+          <div className="locals-list-navbar-col">
+          </div>
+        </div>
         {
           this.state.locals.map((local, i) => {
             return <Local local={local} key={i} launchChat={this.props.launchChat} currentUser={this.props.currentUser}/>
