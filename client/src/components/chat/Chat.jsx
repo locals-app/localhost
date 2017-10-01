@@ -10,7 +10,7 @@ class Chat extends Component {
       messages: this.props.messages || [],
       otherUser: '',
       otherUserImageUrl: '',
-      conversationId: null,
+      conversationId:  null,
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -18,14 +18,18 @@ class Chat extends Component {
   }
   
   componentWillMount() {
-    this.setState({
-      messages: this.props.messages,
-      conversationId: this.props.messages[0].conversationId,
-    }, () => {
-      if (!this.state.messages[0].text) {
-        this.setState({messages: [{id:0}]});
-      }
-    })
+    if (this.props.messages[0]) {
+      this.setState({
+        messages: this.props.messages,
+        conversationId: this.props.messages[0].conversationId,
+      }, () => {
+        if (!this.state.messages[0].text) {
+          this.setState({messages: [{id:0}]});
+        }
+      })
+    } else {
+      this.props.history.push('/');
+    }
   }
 
   componentDidMount() {
