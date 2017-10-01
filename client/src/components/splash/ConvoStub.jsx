@@ -12,8 +12,6 @@ class ConvoStub extends Component {
 			history: this.props.history,
 			messages: this.props.messages
 		}
-
-		this.findOtherUser = this.findOtherUser.bind(this);
 		this.fetchOtherUserImage = this.fetchOtherUserImage.bind(this);
 	}
 
@@ -29,14 +27,6 @@ class ConvoStub extends Component {
 				});
 			}
 		})
-	}
-
-	findOtherUser(messages) {
-		this.props.messages.forEach( message => {
-			if (message.userId !== this.props.currentUser) {
-				this.setState({otherUser: message.userId})
-			}
-		});
 	}
 
 	fetchOtherUserImage() {
