@@ -17,10 +17,6 @@ class ConvoStub extends Component {
 		this.fetchOtherUserImage = this.fetchOtherUserImage.bind(this);
 	}
 
-	// componentWillMount() {
-	// 	this.findOtherUser();
-	// }
-
 	componentDidMount() {
 		axios.get(`/api/getconvobyid/${this.state.messages[0].conversationId}`).then((response) => {
 			if (response.data.firstUser !== this.props.currentUser) {

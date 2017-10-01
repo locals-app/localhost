@@ -1,9 +1,6 @@
 things to fix: 
 
--clear the bio editing on the profile page
-
 -move the ability to rate to the convostub
 
--still need to make it so ongoing conversations do not appear on the landing page
+-still need to make it so ongoing conversations do not appear on the locals page
 
--change bug in transition from profile page to splash page
