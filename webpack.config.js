@@ -13,8 +13,8 @@ const webpackConfig = {
   resolve: {
     extensions: ['.js', '.jsx'],
   },
-   devServer: {
-    historyApiFallback: true,
+  devServer: {
+      historyApiFallback: true
   },
   devtool: 'inline-source-map',
 };

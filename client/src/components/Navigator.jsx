@@ -1,6 +1,6 @@
 // dependencies
 import React, { Component } from 'react';
-import { withRouter, BrowserRouter, Route, NavLink , Router} from 'react-router-dom';
+import { withRouter, BrowserRouter, Route, NavLink , Router, Switch } from 'react-router-dom';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 // components
@@ -91,7 +91,7 @@ class Navigator extends Component {
   render() {
     return (
       <div>
-        <BrowserRouter lock={this.props.lock}>
+        
           <div>
             <nav className="navbar navbar-toggleable-md navbar-light bg-faded">
             <div className="collapse navbar-collapse" id="navbarNav">
@@ -112,48 +112,49 @@ class Navigator extends Component {
               </ul>		
             </div>		
             </nav>
-            <Route exact path='/' render={(props) => (
-              <Splash
-                {...props}
-                lock={this.props.lock}
-                idToken={this.props.idToken}
-                handleSelect={this.handleSelect.bind(this)}
-                myMessages={this.state.myMessages}
-                currentUser={this.state.userData.username}
-                launchChat={this.launchChat.bind(this)}
-              />
-            )}/>
-            <Route path='/Locals' render={(props) => (
-              <Locals
-                {...props}
-                lock={this.props.lock}
-                idToken={this.props.idToken}
-                locationQuery={this.state.locationQuery}
-                launchChat={this.launchChat.bind(this)}
-                currentUser={this.state.userData.username}
-              />
-            )}/>
-            <Route path='/Profile' render={(props) => (
-              <Profile
-                {...props}
-                user={this.state.userData}
-                lock={this.props.lock}
-                idToken={this.props.idToken}
-              />
-            )}/>
-            <Route path='/Chat' render={(props) => (
-              <Chat
-                {...props}
-                lock={this.props.lock}
-                idToken={this.props.idToken}
-                currentUser={this.state.userData.username}
-                currentUserImage={this.state.userData.imageUrl}
-                messages={this.state.chatMessages}
-                otherUserImageUrl={this.state.otherUserImageUrl}
-              />
-            )}/>
+            <Switch>
+              <Route exact path='/' render={(props) => (
+                <Splash
+                  {...props}
+                  lock={this.props.lock}
+                  idToken={this.props.idToken}
+                  handleSelect={this.handleSelect.bind(this)}
+                  myMessages={this.state.myMessages}
+                  currentUser={this.state.userData.username}
+                  launchChat={this.launchChat.bind(this)}
+                />
+              )}/>
+              <Route path='/Locals' render={(props) => (
+                <Locals
+                  {...props}
+                  lock={this.props.lock}
+                  idToken={this.props.idToken}
+                  locationQuery={this.state.locationQuery}
+                  launchChat={this.launchChat.bind(this)}
+                  currentUser={this.state.userData.username}
+                />
+              )}/>
+              <Route path='/Profile' render={(props) => (
+                <Profile
+                  {...props}
+                  user={this.state.userData}
+                  lock={this.props.lock}
+                  idToken={this.props.idToken}
+                />
+              )}/>
+              <Route path='/Chat' render={(props) => (
+                <Chat
+                  {...props}
+                  lock={this.props.lock}
+                  idToken={this.props.idToken}
+                  currentUser={this.state.userData.username}
+                  currentUserImage={this.state.userData.imageUrl}
+                  messages={this.state.chatMessages}
+                  otherUserImageUrl={this.state.otherUserImageUrl}
+                />
+              )}/>
+            </Switch>
           </div>
-        </BrowserRouter>
       </div>
     )
   }
