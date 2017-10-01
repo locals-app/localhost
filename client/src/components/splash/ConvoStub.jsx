@@ -17,26 +17,22 @@ class ConvoStub extends Component {
 		this.fetchOtherUserImage = this.fetchOtherUserImage.bind(this);
 	}
 
-	componentWillMount() {
-		this.findOtherUser();
-	}
+	// componentWillMount() {
+	// 	this.findOtherUser();
+	// }
 
 	componentDidMount() {
-		if (this.state.otherUser.length === 0) {
-			axios.get(`/api/getconvobyid/${this.state.messages[0].conversationId}`).then((response) => {
-				if (response.data.firstUser !== this.props.currentUser) {
-					this.setState({ otherUser: response.data.firstUser }, () => {
-						this.fetchOtherUserImage();
-					});
-				} else {
-					this.setState({ otherUser: response.data.secondUser }, () => {
-						this.fetchOtherUserImage();
-					});
-				}
-			})
-		} else {
-			this.fetchOtherUserImage();
-		}
+		axios.get(`/api/getconvobyid/${this.state.messages[0].conversationId}`).then((response) => {
+			if (response.data.firstUser !== this.props.currentUser) {
+				this.setState({ otherUser: response.data.firstUser }, () => {
+					this.fetchOtherUserImage();
+				});
+			} else {
+				this.setState({ otherUser: response.data.secondUser }, () => {
+					this.fetchOtherUserImage();
+				});
+			}
+		})
 	}
 
 	findOtherUser(messages) {
