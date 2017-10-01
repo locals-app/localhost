@@ -81,6 +81,10 @@ it returns:
     "createdAt": "2017-09-23T23:37:09.122Z",
 }
 
+Route: /api/getconvobyid/:id
+
+A GET request to this route returns an object that contains the usernames of both users in a particular conversation.
+
 A DELETE request to this route deletes a single conversation and all associated messages
 it requires: 
 {

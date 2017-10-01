@@ -1,6 +1,6 @@
 // dependencies
 import React, { Component } from 'react';
-import { withRouter, BrowserRouter, Route, NavLink , Router} from 'react-router-dom';
+import { withRouter, BrowserRouter, Route, NavLink , Router, Switch, HashRouter, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 // components
@@ -21,12 +21,15 @@ class Navigator extends Component {
       myMessages: {},
       chatMessages: [],
       otherUserImageUrl: '',
+      currentConvos: []
     }
   }
 
   componentDidMount() {
-    // The token is passed down from the App component 
-    // and used to retrieve the profile
+    this.updateMessages();
+  }
+
+  updateMessages() {
     this.props.lock.getProfile(this.props.idToken, function (err, profile) {
       if (err) {
         console.log("Error loading the Profile", err);
@@ -91,20 +94,20 @@ class Navigator extends Component {
   render() {
     return (
       <div>
-        <BrowserRouter lock={this.props.lock}>
+          <HashRouter>
           <div>
             <nav className="navbar navbar-toggleable-md navbar-light bg-faded">
             <div className="collapse navbar-collapse" id="navbarNav">
               <ul className="navbar-nav main-nav">		
                 <li className="nav-item active left-logo">		
-                  <NavLink to='/' className="navbar-brand">localhost</NavLink>		
+                  <NavLink to='/' onClick={this.updateMessages.bind(this)} className="navbar-brand">localhost</NavLink>		
                 </li>		
                 <li className="nav-item right-logo">		
                   <ul className="right-list">
                     <li className="right-list-item">                        		
                       <NavLink to='/Profile' className="nav-link">		
                         <span onClick={this.props.logout}>Logout</span>	 	
-                        <span>< img className='profile-pic' src={this.state.userData.imageUrl} /></span>		
+                        <span><img className='profile-pic' src={this.state.userData.imageUrl} /></span>		
                       </NavLink>		
                     </li>		
                   </ul>		
@@ -112,48 +115,53 @@ class Navigator extends Component {
               </ul>		
             </div>		
             </nav>
-            <Route exact path='/' render={(props) => (
-              <Splash
-                {...props}
-                lock={this.props.lock}
-                idToken={this.props.idToken}
-                handleSelect={this.handleSelect.bind(this)}
-                myMessages={this.state.myMessages}
-                currentUser={this.state.userData.username}
-                launchChat={this.launchChat.bind(this)}
-              />
-            )}/>
-            <Route path='/Locals' render={(props) => (
-              <Locals
-                {...props}
-                lock={this.props.lock}
-                idToken={this.props.idToken}
-                locationQuery={this.state.locationQuery}
-                launchChat={this.launchChat.bind(this)}
-                currentUser={this.state.userData.username}
-              />
-            )}/>
-            <Route path='/Profile' render={(props) => (
-              <Profile
-                {...props}
-                user={this.state.userData}
-                lock={this.props.lock}
-                idToken={this.props.idToken}
-              />
-            )}/>
-            <Route path='/Chat' render={(props) => (
-              <Chat
-                {...props}
-                lock={this.props.lock}
-                idToken={this.props.idToken}
-                currentUser={this.state.userData.username}
-                currentUserImage={this.state.userData.imageUrl}
-                messages={this.state.chatMessages}
-                otherUserImageUrl={this.state.otherUserImageUrl}
-              />
-            )}/>
+            <Switch>
+              <Route exact path='/' render={(props) => (
+                <Splash
+                  {...props}
+                  lock={this.props.lock}
+                  idToken={this.props.idToken}
+                  handleSelect={this.handleSelect.bind(this)}
+                  myMessages={this.state.myMessages}
+                  currentUser={this.state.userData.username}
+                  launchChat={this.launchChat.bind(this)}
+                />
+              )}/>
+              <Route path='/access_token*' render={() => {
+                return (<Redirect to='/'/>)
+              }}/>
+              <Route path='/Locals' render={(props) => (
+                <Locals
+                  {...props}
+                  lock={this.props.lock}
+                  idToken={this.props.idToken}
+                  locationQuery={this.state.locationQuery}
+                  launchChat={this.launchChat.bind(this)}
+                  currentUser={this.state.userData.username}
+                />
+              )}/>
+              <Route path='/Profile' render={(props) => (
+                <Profile
+                  {...props}
+                  user={this.state.userData}
+                  lock={this.props.lock}
+                  idToken={this.props.idToken}
+                />
+              )}/>
+              <Route path='/Chat' render={(props) => (
+                <Chat
+                  {...props}
+                  lock={this.props.lock}
+                  idToken={this.props.idToken}
+                  currentUser={this.state.userData.username}
+                  currentUserImage={this.state.userData.imageUrl}
+                  messages={this.state.chatMessages}
+                  otherUserImageUrl={this.state.otherUserImageUrl}
+                />
+              )}/>
+            </Switch>
           </div>
-        </BrowserRouter>
+          </HashRouter>
       </div>
     )
   }
