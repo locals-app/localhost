@@ -22,7 +22,7 @@ class Navigator extends Component {
       chatMessages: [],
       otherUserImageUrl: '',
       currentConvos: [],
-      conversationKey: {}
+      usernameArray: []
     }
   }
 
@@ -61,7 +61,7 @@ class Navigator extends Component {
                 .then((results) => {
                   this.setState({ 
                     myMessages: this.sortByRoom(results.data.messages), 
-                    conversationKey: results.data.conversationKey
+                    usernameArray: results.data.usernameArray
                   });
                 }).catch(err => console.error(err));
             }).catch(err => console.error(err));
@@ -142,6 +142,7 @@ class Navigator extends Component {
                   locationQuery={this.state.locationQuery}
                   launchChat={this.launchChat.bind(this)}
                   currentUser={this.state.userData.username}
+                  usernameArray={this.state.usernameArray}
                 />
               )}/>
               <Route path='/Profile' render={(props) => (

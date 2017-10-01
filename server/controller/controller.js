@@ -49,9 +49,13 @@ module.exports.getMessagesByUser = (req, res) => {
             users.forEach((user) => conversationKey[user.id] = user.username);
             messages.forEach((message) => message.userId = conversationKey[message.userId]);
             console.log(conversationKey)
+            let usernameArray = [];
+            for (let key in conversationKey) {
+              usernameArray.push(conversationKey[key]);
+            }
             res.status(200).json({
               messages: messages,
-              conversationKey: conversationKey
+              usernameArray: usernameArray
             }).catch((err) => {
               res.status(404).json(err);
             })
