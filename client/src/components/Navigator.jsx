@@ -21,7 +21,8 @@ class Navigator extends Component {
       myMessages: {},
       chatMessages: [],
       otherUserImageUrl: '',
-      currentConvos: []
+      currentConvos: [],
+      conversationKey: {}
     }
   }
 
@@ -58,7 +59,10 @@ class Navigator extends Component {
             }).then(() => {
               axios.get(`/api/messages/${this.state.userData.username}`)
                 .then((results) => {
-                  this.setState({ myMessages: this.sortByRoom(results.data) })
+                  this.setState({ 
+                    myMessages: this.sortByRoom(results.data.messages), 
+                    conversationKey: results.data.conversationKey
+                  });
                 }).catch(err => console.error(err));
             }).catch(err => console.error(err));
           });

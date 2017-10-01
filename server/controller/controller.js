@@ -7,18 +7,27 @@ module.exports.getMessagesByUser = (req, res) => {
   const username = req.params.username;
   let convoArray = [];
   let convoIdArray = [];
+  let usersToHash = [];
   DB.User.findAll({
     where: { username, }
   }).then((user) => {
     userId = user[0].id;
     DB.Conversation.findAll({
-      where: { firstUser: user[0].id }
+      where: { firstUser: user[0].id },
+      raw: true
     }).then((conversations) => {
-      conversations.forEach((one) => convoArray.push(one));
+      conversations.forEach((one) => {
+        convoArray.push(one);
+        usersToHash.push(one.secondUser);
+      });
       DB.Conversation.findAll({
-        where: { secondUser: user[0].id }
+        where: { secondUser: user[0].id },
+        raw: true
       }).then((conversations) => {
-        conversations.forEach((one) => convoArray.push(one));
+        conversations.forEach((one) => {
+          convoArray.push(one)
+          usersToHash.push(one.firstUser);
+        });
         convoArray.forEach((conversation) => {
           convoIdArray.push(conversation.id);
         });
@@ -26,19 +35,26 @@ module.exports.getMessagesByUser = (req, res) => {
           where: { conversationId: convoIdArray },
           raw: true
         }).then((messages) => {
-          
-          usersToHash = [];
           let conversationKey = {};
-          messages.forEach((message) => {
-            usersToHash.push(message.userId);
-          });
           DB.User.findAll({
             where: { id: usersToHash },
             raw: true
           }).then((users) => {
+            convoIdArray = convoIdArray.sort();
+            for (let i = 0; i < convoIdArray.length; i++) {
+              if (convoIdArray[i] === convoIdArray[i+1]) {
+                convoIdArray.splice(i, 1);
+              }
+            }
             users.forEach((user) => conversationKey[user.id] = user.username);
             messages.forEach((message) => message.userId = conversationKey[message.userId]);
-            res.status(200).json(messages);
+            console.log(conversationKey)
+            res.status(200).json({
+              messages: messages,
+              conversationKey: conversationKey
+            }).catch((err) => {
+              res.status(404).json(err);
+            })
           });
         });
       });
