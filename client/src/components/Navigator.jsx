@@ -1,6 +1,6 @@
 // dependencies
 import React, { Component } from 'react';
-import { withRouter, BrowserRouter, Route, NavLink , Router, Switch, HashRouter } from 'react-router-dom';
+import { withRouter, BrowserRouter, Route, NavLink , Router, Switch, HashRouter, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 // components
@@ -127,6 +127,9 @@ class Navigator extends Component {
                   launchChat={this.launchChat.bind(this)}
                 />
               )}/>
+              <Route path='/access_token*' render={() => {
+                return (<Redirect to='/'/>)
+              }}/>
               <Route path='/Locals' render={(props) => (
                 <Locals
                   {...props}
