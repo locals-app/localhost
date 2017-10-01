@@ -25,6 +25,7 @@ class Splash extends Component {
       <div>
         <Geosuggest 
           onSuggestSelect={this.handleSuggest}
+          placeholder={'Where would you like to go?'}
         />
         <OpenConversations
           myMessages={myMessages}
