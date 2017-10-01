@@ -17,7 +17,7 @@ class ConvoStub extends Component {
 
 	componentDidMount() {
 		axios.get(`/api/getconvobyid/${this.state.messages[0].conversationId}`).then((response) => {
-			if (response.data.firstUser !== this.props.currentUser) {
+			if (response.data.firstUser !== this.props.currentUser.replace(' ', '_')) {
 				this.setState({ otherUser: response.data.firstUser }, () => {
 					this.fetchOtherUserImage();
 				});
