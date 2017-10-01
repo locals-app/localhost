@@ -67,6 +67,7 @@ class Profile extends Component {
               name='biography'
               label='Say something about yourself'
               type='text'
+              value={this.state.user.biography}
             />
           </Form>
           

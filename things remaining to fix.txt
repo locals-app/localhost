@@ -2,8 +2,8 @@ things to fix:
 
 -clear the bio editing on the profile page
 
--change the way a profile change notification occurs
-
 -move the ability to rate to the convostub
 
 -still need to make it so ongoing conversations do not appear on the landing page
+
+-change bug in transition from profile page to splash page
