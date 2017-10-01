@@ -9,6 +9,7 @@ class ConvoStub extends Component {
 		this.state ={
 			otherUser: '',
 			otherUserImageUrl: '',
+			otherUserLocation: '',
 			history: this.props.history,
 			messages: this.props.messages
 		}
@@ -31,7 +32,11 @@ class ConvoStub extends Component {
 
 	fetchOtherUserImage() {
 		axios.get(`api/profiles/${this.state.otherUser}`).then((userData) => {
-			this.setState({otherUserImageUrl: userData.data.imageUrl});
+			console.log(userData)
+			this.setState({
+				otherUserImageUrl: userData.data.imageUrl,
+				otherUserLocation: userData.data.location
+			});
 		}).catch(err => console.error(err));
 	}
 
@@ -40,6 +45,7 @@ class ConvoStub extends Component {
 		return (
 			<div onClick={launchChat.bind(null, this.state)}>
 				<span>Conversation with {this.state.otherUser.replace('_', ' ')}</span>
+				<div>A local from: {this.state.otherUserLocation}</div>
 				<img src={this.state.otherUserImageUrl} style={{width: 20}} alt=""/>
 				<div>
 					{messages[messages.length - 1].text}
