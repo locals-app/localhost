@@ -22,7 +22,22 @@ class ConvoStub extends Component {
 	}
 
 	componentDidMount() {
-		this.fetchOtherUserImage();
+		if (this.state.otherUser.length === 0) {
+			axios.get(`/api/getconvobyid/${this.state.messages[0].conversationId}`).then((response) => {
+				console.log(response.data);
+				if (response.data.firstUser !== this.props.currentUser) {
+					this.setState({ otherUser: response.data.firstUser }, () => {
+						this.fetchOtherUserImage();
+					});
+				} else {
+					this.setState({ otherUser: response.data.secondUser }, () => {
+						this.fetchOtherUserImage();
+					});
+				}
+			})
+		} else {
+			this.fetchOtherUserImage();
+		}
 	}
 
 	findOtherUser(messages) {
