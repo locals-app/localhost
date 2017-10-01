@@ -7,5 +7,3 @@ things to fix:
 -move the ability to rate to the convostub
 
 -still need to make it so ongoing conversations do not appear on the landing page
-
--remove underscores where present

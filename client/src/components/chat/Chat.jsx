@@ -57,7 +57,6 @@ class Chat extends Component {
         userId: this.props.currentUser,
         id: this.state.messages[this.state.messages.length-1].id+1,
       }
-      console.log('error before or after?')
       this.setState({messages: [...this.state.messages, message]})
       this.socket.emit('message', message)
       event.target.value = '';
