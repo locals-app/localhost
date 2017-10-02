@@ -139,7 +139,7 @@ class Navigator extends Component {
                     <li className="right-list-item">                        		
                       <NavLink to='/Profile' className="nav-link">		
                         <span onClick={this.props.logout}>Logout</span>	 	
-                        <span>< img className='profile-pic' src={this.state.userData.imageUrl} /></span>		
+                        <span><img className='profile-pic' src={this.state.userData.imageUrl} /></span>		
                       </NavLink>		
                     </li>		
                   </ul>		

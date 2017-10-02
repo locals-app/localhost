@@ -26,7 +26,7 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('message', {
       text: message.text,
       userId: message.userId,
-      id: message.id+1,
+      id: message.id + 1,
       conversationId: message.conversationId,
     });
     db.User.findOne({

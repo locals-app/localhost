@@ -25,7 +25,7 @@ module.exports.getMessagesByUser = (req, res) => {
         raw: true
       }).then((conversations) => {
         conversations.forEach((one) => {
-          convoArray.push(one)
+          convoArray.push(one);
           usersToHash.push(one.firstUser);
         });
         convoArray.forEach((conversation) => {
@@ -42,7 +42,7 @@ module.exports.getMessagesByUser = (req, res) => {
           }).then((users) => {
             convoIdArray = convoIdArray.sort();
             for (let i = 0; i < convoIdArray.length; i++) {
-              if (convoIdArray[i] === convoIdArray[i+1]) {
+              if (convoIdArray[i] === convoIdArray[i + 1]) {
                 convoIdArray.splice(i, 1);
               }
             }
@@ -190,7 +190,7 @@ module.exports.addConversation = (req, res) => {
             secondUser: userToAdd1
           }
         }).then((found) => {
-          if(found) {
+          if (found) {
             res.json(found);
           } else {
             DB.Conversation.create({
@@ -228,7 +228,7 @@ module.exports.deleteConversation = (req, res) => {
           return 1;
         }
         return 0;
-      }
+      };
       userIds = userIds.sort(sorter);
       DB.Conversation.findOne({
         where: {
@@ -237,7 +237,6 @@ module.exports.deleteConversation = (req, res) => {
         },
         raw: true
       }).then((destruction) => {
-        console.log(destruction)
         DB.Message.destroy({
           where: { conversationId: destruction.id }
         }).then((moreDestruction) => {
@@ -342,7 +341,7 @@ module.exports.deleteProfile = (req, res) => {
 module.exports.addRatingToUser = (req, res) => {
   const username = req.params.username;
   const newRating = req.body.inputRating; 
-  DB.User.findOne({ where: { username,} })
+  DB.User.findOne({ where: { username, } })
     .then((profile) => {
       profile.update({
         rating: newRating,
