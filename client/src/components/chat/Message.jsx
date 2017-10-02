@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 const Message = ({message, currentUser, currentUserImage, otherUserImageUrl, conversationId}) => {
-  console.log(message);
   if (message.text && (message.conversationId === conversationId)) {
     if (message.userId === currentUser) {
       return (

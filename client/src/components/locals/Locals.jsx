@@ -17,7 +17,6 @@ class Locals extends Component {
     if (!this.props.locationQuery) {
       this.props.history.push('/');
     }
-    console.log('locals', this.props.locationQuery);
     this.getLocals(this.props.locationQuery);
   }
 
@@ -36,7 +35,6 @@ class Locals extends Component {
   }
 
   render() {
-    console.log(this.props.usernameArray);
     if (this.state.locals.length > 0) {
     return (
       <div>

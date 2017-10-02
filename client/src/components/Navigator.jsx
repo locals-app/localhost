@@ -31,14 +31,10 @@ class Navigator extends Component {
   }
 
   passChatMessages(val) {
-    console.log(val)
-    this.setState({chatMessages: [val]}, () => {
-      console.log('chatmessages', this.state.chatMessages);
-    })
+    this.setState({chatMessages: [val]});
   }
 
   updateMessages() {
-    console.log('chat messages', this.state.chatMessages.text);
     if (this.state.chatMessages.length === 1 && this.state.chatMessages[0].text === undefined) {
       axios({
         url: '/api/modifyconversation',
@@ -47,9 +43,7 @@ class Navigator extends Component {
           firstUser: this.state.chatMessages[0].userId,
           secondUser: this.state.userData.username
         }
-      }).then(() => {
-        console.log('empty conversation deleted')
-      }).catch((err) => {
+      }).then(() => {}).catch((err) => {
         console.log(err)
       });
     }
@@ -62,10 +56,8 @@ class Navigator extends Component {
         axios.get(`/api/profiles/${this.state.profile.given_name}_${this.state.profile.family_name}`)
           .then( (results) => {
             if (results.data) {
-              console.log('results found', results.data)
               this.setState({userData: results.data});
             } else {
-              console.log('results not found', results.data)
               axios.post('/api/profiles/createnew', {
                 username: `${this.state.profile.given_name}_${this.state.profile.family_name}`,
                 location: '',
@@ -88,9 +80,7 @@ class Navigator extends Component {
                   axios.post('/api/modifyconversation', {
                     firstUser: this.state.userData.username,
                     secondUser: this.state.userData.username
-                  }).then((results) => {
-                    console.log('conversation with yourself created');
-                  })
+                  }).then((results) => {});
                 }).catch(err => console.error(err));
             }).catch(err => console.error(err));
           });
@@ -120,7 +110,7 @@ class Navigator extends Component {
     this.setState({
       chatMessages: val.messages,
       otherUserImageUrl: val.otherUserImageUrl,
-    }, () => console.log(val));
+    });
   }
 
   render() {
@@ -139,7 +129,7 @@ class Navigator extends Component {
                     <li className="right-list-item">                        		
                       <NavLink to='/Profile' className="nav-link">		
                         <span onClick={this.props.logout}>Logout</span>	 	
-                        <span>< img className='profile-pic' src={this.state.userData.imageUrl} /></span>		
+                        <span><img className='profile-pic' src={this.state.userData.imageUrl} /></span>		
                       </NavLink>		
                     </li>		
                   </ul>		
