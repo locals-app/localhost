@@ -73,9 +73,7 @@ class ConvoStub extends Component {
 				inputRating: JSON.stringify(this.state.otherUserRating)
 			};
 			axios.post(`/api/changerating/${this.state.otherUser}`, newRating)
-				.then((res) => {
-					console.log('woaahhhh');
-				}).catch((err) => {
+				.then((res) => {}).catch((err) => {
 					console.log('error setting new rating: ', err);
 				})
 		})

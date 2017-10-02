@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {Form, Field} from 'simple-react-forms';
 import Geosuggest from 'react-geosuggest';
 import axios from 'axios';
 
@@ -70,33 +69,31 @@ class Profile extends Component {
           <hr />
           <ul className="list-group list-group-flush">
             <li className="list-group-item"><span className="form-span">Your City:</span><Geosuggest onSuggestSelect={this.handleLocationChange}/></li>
-            <li className="list-group-item"> <span className="form-span">Bio:</span>
-            
-              <div className="geosuggest">
-                <div className="geosuggest__input-wrapper">
-                <form ref='updateProfile' className='updateProfile'>
-              <input
-                className='geosuggest__input'
-                id='bio-input'
-                name='biography'
-                type='text'
-                placeholder="Say something about yourself!"
-                value={this.state.bioInput}
-                onChange={this.handleBioInput}
-              />
-              </form>
+            <li className="list-group-item"> <span className="form-span">Say something about yourself:</span>
+                <div className="geosuggest">
+                  <div className="geosuggest__input-wrapper">
+                  <form ref='updateProfile' className='updateProfile'>
+                <input
+                  className='geosuggest__input'
+                  id='bio-input'
+                  name='biography'
+                  type='text'
+                  placeholder="Say something about yourself!"
+                  value={this.state.bioInput}
+                  onChange={this.handleBioInput}
+                />
+                </form>
+                </div>
               </div>
-              </div>
-            
             </li>
             <li className="list-group-item">
-              Are you a local? {this.state.user.isLocal ? (<i onClick={this.toggleLocal} className="fa fa-3x fa-toggle-on toggle-switch" aria-hidden="true"></i>) : (<i onClick={this.toggleLocal} className="fa fa-3x fa-toggle-off toggle-switch" aria-hidden="true"></i>)}
+              Enable to become a Local! {this.state.user.isLocal ? (<i onClick={this.toggleLocal} className="fa fa-3x fa-toggle-on toggle-switch" aria-hidden="true"></i>) : (<i onClick={this.toggleLocal} className="fa fa-3x fa-toggle-off toggle-switch" aria-hidden="true"></i>)}
             </li>
             <li>
               <button className="saveProfile btn btn-primary btn-lg btn-block" type="button" data-toggle="modal" data-target="#exampleModal">
                 Save Changes
               </button>
-              <div className="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog" role="document">
                   <div className="modal-content">
                     <div className="modal-header">
