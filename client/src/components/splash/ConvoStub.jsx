@@ -43,6 +43,7 @@ class ConvoStub extends Component {
 	}
 
 	deleteConversation() {
+		console.log('test');
 		axios({
 			url: '/api/modifyconversation',
 			method: 'delete',

@@ -220,7 +220,16 @@ module.exports.deleteConversation = (req, res) => {
       where: { username: req.body.secondUser }
     }).then((user2) => {
       userIds.push(user2[0].id);
-      userIds.sort();
+      sorter = (a, b) => {
+        if (a < b) {
+          return -1;
+        }
+        if (b < a) {
+          return 1;
+        }
+        return 0;
+      }
+      userIds = userIds.sort(sorter);
       DB.Conversation.findOne({
         where: {
           firstUser: userIds[0],
@@ -228,6 +237,7 @@ module.exports.deleteConversation = (req, res) => {
         },
         raw: true
       }).then((destruction) => {
+        console.log(destruction)
         DB.Message.destroy({
           where: { conversationId: destruction.id }
         }).then((moreDestruction) => {
