@@ -71,9 +71,6 @@ class ConvoStub extends Component {
 
 	changeRating(input) {
 		this.setState({otherUserRating: [...this.state.otherUserRating, input]}, () => {
-			console.log('====================================')
-			console.log('state', this.state)
-			console.log('====================================')
 			const newRating = {
 				inputRating: JSON.stringify(this.state.otherUserRating)
 			};
