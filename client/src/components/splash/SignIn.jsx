@@ -1,14 +1,6 @@
-// dependencies
 import React, { Component } from 'react';
-import { withRouter, BrowserRouter, Route, NavLink , Router, Switch, HashRouter, Redirect } from 'react-router-dom';
 import axios from 'axios';
-import PropTypes from 'prop-types';
-// components
-import Profile from '../profile/Profile';
-import Locals from '../locals/Locals';
-import Chat from '../chat/Chat';
-import Splash from '../splash/Splash';
-import Geosuggest from 'react-geosuggest';
+
 
 class SignIn extends Component {
 
