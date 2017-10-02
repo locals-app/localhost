@@ -57,17 +57,18 @@ class Profile extends Component {
           </div>
           <div className="card-body">
             <h4 className="card-title">{this.state.user.username}</h4>
-            <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <p className="card-text">{this.state.user.biography}</p>
           </div>
+          <hr />
           <ul className="list-group list-group-flush">
-            <li className="list-group-item">Your City<Geosuggest onSuggestSelect={this.handleLocationChange}/></li>
-            <li className="list-group-item">
+            <li className="list-group-item">Your City:<Geosuggest onSuggestSelect={this.handleLocationChange}/></li>
+            <li className="list-group-item"> Bio:
             <Form ref='updateProfile' className='updateProfile'>
               <Field
-                className='bio'
+                id='bio'
                 name='biography'
-                label='Say something about yourself'
                 type='text'
+                placeholder="say something about yourself!"
               />
             </Form>
             </li>
