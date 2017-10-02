@@ -80,7 +80,7 @@ class Profile extends Component {
                 id='bio-input'
                 name='biography'
                 type='text'
-                placeholder="say something about yourself!"
+                placeholder="Say something about yourself!"
                 value={this.state.bioInput}
                 onChange={this.handleBioInput}
               />
@@ -92,7 +92,29 @@ class Profile extends Component {
             <li className="list-group-item">
               Are you a local? {this.state.user.isLocal ? (<i onClick={this.toggleLocal} className="fa fa-3x fa-toggle-on toggle-switch" aria-hidden="true"></i>) : (<i onClick={this.toggleLocal} className="fa fa-3x fa-toggle-off toggle-switch" aria-hidden="true"></i>)}
             </li>
-            <li className="list-group-item"><button className="saveProfile btn btn-primary btn-lg btn-block" onClick={this.handleProfileSubmission.bind(this)}>Save Profile</button></li>
+            <li>
+              <button className="saveProfile btn btn-primary btn-lg btn-block" type="button" data-toggle="modal" data-target="#exampleModal">
+                Save Changes
+              </button>
+              <div className="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog" role="document">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h5 className="modal-title" id="exampleModalLabel">Your Profile</h5>
+                      <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div className="modal-body">
+                    <p>Changes Saved!</p>
+                    </div>
+                    <div className="modal-footer">
+                      <button onClick={this.handleProfileSubmission.bind(this)} type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
           </ul>
         </div>
       </div>

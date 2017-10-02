@@ -193,12 +193,24 @@
 }
 
 .message-button-splash {
-  margin-top: 110px;
+  margin-top: -70px;
+}
+
+.user-help-modal {
+  margin-top: -50px;
 }
 
 /* might cause issues? */
 .card {
   border: 0px !important;
+}
+
+.instructions-title {
+  font-size: 17px;
+}
+
+.instructions-list {
+  font-size: 14px;
 }
 
 
