@@ -31,18 +31,17 @@ class Local extends Component {
   }
 
   createConversation() {
-
     axios.post('/api/modifyconversation', {
       firstUser: this.props.currentUser,
       secondUser: this.props.local.username,
     }).then((results) => {
-      this.setState({messages: [{conversationId: results.data.id}]}, () => {
+      this.setState({messages: [{
+        conversationId: results.data.id, userId: this.props.local.username}]}, () => {
         this.props.launchChat.call(null, this.state);
       });
     }).catch((err) => {
       console.log('post did not work', err);
     });
-  
   }
  
   changeRating(input) {
