@@ -39,6 +39,11 @@ class Chat extends Component {
     } else {
       this.props.history.push('/');
     }
+
+    const script = document.createElement("script");
+      script.src = "./chatScript.js";
+      script.async = true;
+      document.body.appendChild(script);
   }
 
   componentDidMount() {
@@ -68,6 +73,7 @@ class Chat extends Component {
   render() {
     return (
       <div>
+        <ul className="chat-thread">
         <Messages
           messages={this.state.messages}
           currentUser={this.props.currentUser}
@@ -75,11 +81,10 @@ class Chat extends Component {
           otherUserImageUrl={this.props.otherUserImageUrl}
           conversationId={this.state.convoIdToPass}
         />
-        <div className="geosuggest">
-          <div className="geosuggest__input-wrapper">
-            <input className='geosuggest__input' id='bio-input' type="text" placeholder='Enter a message...' onKeyUp={this.handleSubmit.bind(this)}/>
-          </div>
-        </div>
+        </ul>
+          <form className="chat-window">
+            <input className="chat-window-message" name="chat-window-message" autoComplete="off" autoFocus type="text" placeholder='Enter a message...' onKeyUp={this.handleSubmit.bind(this)}/>
+         </form>
       </div>
     )
   }
