@@ -155,6 +155,7 @@
 .splash-page-container {
   background-image: url("https://hello.travefy.com/wp-content/uploads/2015/01/group-travel-family-trip-planner-app-HR.jpg");
   background-size: cover;
+  background-position: 50%;
   padding-top: 30px;
   height: 570px;
 }
@@ -164,12 +165,12 @@
 }
 
 .convo-stub-entire-media {
-  margin: 10px;
+  margin: 20px;
 }
 
 .convo-profile-small-img {
-  height: 60px;
-  width: 60px;
+  height: 80px;
+  width: 80px;
   border-radius: 50%;	
 }
 
