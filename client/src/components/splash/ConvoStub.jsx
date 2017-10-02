@@ -70,6 +70,7 @@ class ConvoStub extends Component {
         </div>
         <button className="btn btn-primary" onClick={this.deleteConversation}>Delete this conversation</button>
 		  </div>
+			</div>
 		)
 	}
 }
