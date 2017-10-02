@@ -77,9 +77,16 @@ class Chat extends Component {
           conversationId={this.state.convoIdToPass}
         />
         </ul>
-          <form className="chat-window">
+          {/* <form className="chat-window">
             <input className="chat-window-message" type="text" placeholder='Enter a message...' onKeyUp={this.handleSubmit.bind(this)}/>
-         </form>
+         </form> */}
+         <div>
+         <div className="geosuggest">
+          <div className="geosuggest__input-wrapper">
+            <input className='geosuggest__input' id='bio-input' type="text" placeholder='Enter a message...' onKeyUp={this.handleSubmit.bind(this)}/>
+          </div>
+        </div>
+      </div>
       </div>
     )
   }
