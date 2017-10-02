@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 // components
 import Navigator from './Navigator';
 import SignIn from './splash/SignIn';
-import { BrowserRouter, HashRouter } from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
 
 
 // The main container through which every component should render.
