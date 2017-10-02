@@ -24,7 +24,7 @@ class SignIn extends Component {
           <div>
 
           <video id="bgvid" autoPlay muted loop>
-            <source src="./final.mp4" type="video/mp4" />
+            <source src="./final-reduced-size.mp4" type="video/mp4" />
             Your browser does not support HTML5 video.
           </video>
           <div className="container"> 

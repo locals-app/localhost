@@ -53,7 +53,6 @@ class Locals extends Component {
         </div>
         {
           this.state.locals.map((local, i) => {
-            console.log(local);
             if (!this.props.usernameArray.includes(local.username)) { 
               return <Local local={local} key={i} launchChat={this.props.launchChat} currentUser={this.props.currentUser}/>
             } else {
