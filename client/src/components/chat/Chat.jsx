@@ -4,6 +4,7 @@ import axios from 'axios';
 import Messages from './Messages';
 
 class Chat extends Component {
+  
   constructor(props) {
     super(props)
     this.state = {
@@ -46,7 +47,6 @@ class Chat extends Component {
       this.setState({messages: [...this.state.messages, message]});
     });
   }
-
 
   handleSubmit (event) {
     const text = event.target.value;
