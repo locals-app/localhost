@@ -1,9 +1,6 @@
-/**
- * The geosuggest module
- * NOTE: duplicated font-sizes' are for browsers which don't support rem (only IE 8)
- */
-
-
+/*
+* navbar
+*/
  		
 .navbar-brand {		
   font-family: 'Comfortaa', cursive;		
@@ -34,9 +31,11 @@
   padding-right: 13px;		
 }
 
-  /**
-   * list of locals page
-   */
+
+
+/*
+* list of locals page
+*/
 
 .profile-pic {		
   border-radius: 50%;		
@@ -66,7 +65,6 @@
 }
 
 
-
 /* 
 * splash page
 */
@@ -83,11 +81,42 @@
   padding-top: 290px;
 }
 
+.convo-stub-entire-media {
+  margin: 10px;
+}
+
+.convo-profile-small-img {
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;	
+}
+
+.convo-stub-user-name {
+  margin: 0px;
+  font-size: 16px;
+}
+
+.convo-stub-user-location {
+  margin: 0px;
+  font-size: 14px;
+}
+
+.convo-stub-user-message {
+  font-size: 13px;
+  color: #696969;
+}
+
+/* might cause issues? */
+.card {
+  border: 0px !important;
+}
 
 
-  /**
-   * geosuggest
-   */
+
+/*
+* geosuggest
+* NOTE: duplicated font-sizes' are for browsers which don't support rem (only IE 8)
+*/
 
 .geosuggest {
   font-size: 18px;
