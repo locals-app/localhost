@@ -14,7 +14,7 @@ const Messages = ({messages, currentUser, currentUserImage, otherUserImageUrl, c
             otherUserImageUrl={otherUserImageUrl}
             conversationId={conversationId}
           />
-        )
+        ) 
       })}
     </div>
   )
