@@ -1,6 +1,82 @@
 /*
 * navbar
 */
+/**
+ * The geosuggest module
+ * NOTE: duplicated font-sizes' are for browsers which don't support rem (only IE 8)
+ */
+
+.card {
+  margin: 0 auto;
+  float: none;
+  margin-bottom: 10px;
+  margin-top: 40px;
+  /* border: 0px!important; */
+}
+
+#profile-background {
+  border: rgba(19, 19, 19, 0.48);
+}
+
+.card-title {
+  padding: 8px;
+  margin-bottom: 0px;
+}
+
+.card-text {
+  padding-left: 9px;
+}
+
+/* .list-group-item {
+  border: 0px!important;
+} */
+
+
+#convostub {
+  width: 40%;
+  margin: 0 auto;
+}
+
+.profile-pic {
+  border-radius: 50%;
+ height: 35px;
+ margin-left: 10px;
+}
+    
+.main-profile-small-img {
+ height: 100px;
+ width: 100px;
+}
+    
+.locals-navbar-brand {
+ margin: auto;
+ font-family: 'Comfortaa', cursive;
+ padding: 30px;
+}
+    
+.locals-list-navbar {
+ background: #FECBC5;
+}
+    
+.locals-media-entire {
+ padding: 20px;
+ width: 350px;
+ margin: auto;
+}
+
+
+.card-img-top {
+  height: 553px;
+}
+
+.crop {
+  height: 250px;
+  overflow: hidden;
+}
+
+.crop img {
+  margin: -160px 0 0 1px;
+}
  		
 .navbar-brand {		
   font-family: 'Comfortaa', cursive;		
@@ -8,7 +84,12 @@
  	
 .main-nav {		
    width: 100%		
-}		
+}	
+
+#main-logo {
+  margin-left: 8px;
+  font-size: 2em;	
+}
  	
 .right-list {		
   list-style-type: none;		
@@ -24,7 +105,7 @@
 }		
  	
 .left-logo {		
-  width: 49%;		
+  width: 49%;	
 }		
  	
 .logged-in-as {		
@@ -42,16 +123,17 @@
   height: 35px;		
   margin-left: 10px;		
 }		
-
-.main-profile-small-img {
-  height: 100px;
-  width: 100px;
+ 	
+.logged-in-as {		
+  padding-right: 13px;		
 }
 
-.locals-navbar-brand {
-  margin: auto;
-  font-family: 'Comfortaa', cursive;
-  padding: 30px;
+.toggle-switch {
+  padding-left: 15px;
+}
+
+.toggle-switch {
+  padding-left: 15px;
 }
 
 .locals-list-navbar {
@@ -99,6 +181,10 @@
 .convo-stub-user-location {
   margin: 0px;
   font-size: 14px;
+}
+
+.background {
+  background-image: url(https://s3-media4.fl.yelpcdn.com/assets/srv0/yelp_large_assets/79a94a561607/assets/img/home/hero_photos/OknYaBuZZ6nD_ps2BAPGCQ.jpg)
 }
 
 .convo-stub-user-message {
@@ -187,4 +273,60 @@
 }
 .geosuggest__item__matched-text {
   font-weight: bold;
+}
+
+#bio-input {
+
+}
+
+.form-span {
+  width: 25%
+}
+
+
+#signup-background {
+  background: transparent;
+  border: rgba(19, 19, 19, 0.48);
+}
+
+#sign-up-btn {
+  padding: 0px;
+  background: transparent;
+}
+
+#signup-logo {
+  font-family: 'Comfortaa', cursive;
+  text-align: center;
+  height: 155px;
+  font-size: 7em;
+}
+
+#sub-menu {
+  font-family: 'Comfortaa', cursive;
+  text-align: center;
+  font-size: 2em;
+}
+
+.crop {
+  background-color: rgba(0, 0, 0, 0.46);
+  color: white;
+  border-radius: 5px;
+}
+
+video { 
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    transform: translateX(-50%) translateY(-50%);
+  transition: 1s opacity;
+}
+
+.convo-stub-profile {
+  display: inherit;
+  width: 50%;
 }
