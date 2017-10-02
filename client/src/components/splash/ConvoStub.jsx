@@ -34,7 +34,6 @@ class ConvoStub extends Component {
 
 	fetchOtherUserImage() {
 		axios.get(`api/profiles/${this.state.otherUser}`).then((userData) => {
-			console.log(userData)
 			this.setState({
 				otherUserImageUrl: userData.data.imageUrl,
 				otherUserLocation: userData.data.location
@@ -43,7 +42,6 @@ class ConvoStub extends Component {
 	}
 
 	deleteConversation() {
-		console.log('test');
 		axios({
 			url: '/api/modifyconversation',
 			method: 'delete',

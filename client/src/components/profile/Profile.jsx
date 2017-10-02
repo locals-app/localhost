@@ -49,7 +49,7 @@ class Profile extends Component {
       method: 'put',
       url: `/api/profiles/${this.state.user.username}`,
       data: this.state.user,
-    }).then(res => console.log(res)).catch(err => console.log(err));
+    }).then(res => {}).catch(err => console.log(err));
   };
 
   render() {

@@ -45,7 +45,6 @@ class Local extends Component {
   }
  
   changeRating(input) {
-    console.log('button input worked');
     if (this.state.inputRating === '') {
       this.setState({
         inputRating: input
@@ -54,13 +53,10 @@ class Local extends Component {
       const newRating = {
         inputRating: JSON.stringify(this.parsedRating)
       };
-      console.log('state has been set');
       axios.post(`/api/changerating/${this.props.local.username}`, newRating)
-        .then((res) => {
-          console.log(res);
-        }).catch((err) => {
-          console.log('error setting new rating: ', err);
-        })
+      .then((res) => {}).catch((err) => {
+        console.log('error setting new rating: ', err);
+      })
     }
   }
 
