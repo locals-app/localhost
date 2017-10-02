@@ -16,7 +16,7 @@ class SignIn extends Component {
           <div>
 
           <video id="bgvid" autoPlay muted loop>
-            <source src="./final-reduced-size.mp4" type="video/mp4" />
+            <source src="./final-reduced-size.webm" type="video/webm" />
             Your browser does not support HTML5 video.
           </video>
           <div className="container"> 
@@ -27,10 +27,6 @@ class SignIn extends Component {
                     <div id="signup-logo">
                       localhost
                   </div>
-                  <video id="bgvid" playsInline autoPlay muted loop>
-                    <source src="./170609_C_Agra_113_1.mp4" type="video/mp4" />
-                    Your browser does not support HTML5 video.
-                  </video>
                   <h4 id="sub-menu">
                     connecting tourists with locals
                     </h4>
