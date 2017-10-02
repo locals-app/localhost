@@ -28,27 +28,36 @@ class Splash extends Component {
           <div className="container">
             <div className="row">
               <div className="col-8 geosuggest-column">
-
                 <div className="geosuggest-container">
                   <Geosuggest 
                   onSuggestSelect={this.handleSuggest}
                   placeholder={'Where would you like to go?'}
                   />
                 </div>
-
               </div>
             </div>
           </div>
+
+          <button className="btn btn-primary message-button-splash" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+          Messages <i className="fa fa-comment" aria-hidden="true"></i>
+        </button>
+  
+        <div className="collapse" id="collapseExample">
+          <div className="card card-body">
+            <div>
+              <OpenConversations
+                myMessages={myMessages}
+                currentUser={currentUser}
+                launchChat={launchChat}
+              />
+            </div>
+          </div>
+        </div>
         </div>
 
 
-        <div>
-          <OpenConversations
-            myMessages={myMessages}
-            currentUser={currentUser}
-            launchChat={launchChat}
-          />
-        </div>
+
+
 
       </div>
     )
