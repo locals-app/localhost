@@ -9,10 +9,12 @@ class Profile extends Component {
     super(props);
     this.state = {
       user: this.props.user,
+      bioInput: '',
     }
     this.handleLocationChange = this.handleLocationChange.bind(this);
     this.handleProfileSubmission = this.handleProfileSubmission.bind(this);
     this.toggleLocal = this.toggleLocal.bind(this);
+    this.handleBioInput = this.handleBioInput.bind(this);
   };
 
   componentWillMount() {
@@ -34,9 +36,15 @@ class Profile extends Component {
     this.forceUpdate();
   };
 
+  handleBioInput(e) {
+    this.setState({
+      bioInput: e.target.value 
+    });
+  }
+
   handleProfileSubmission (event) {
-    const data = this.refs['updateProfile'].getFormValues();
-    this.state.user.biography = data.biography;
+    const data = this.state.bioInput;
+    this.state.user.biography = data;
     axios({
       method: 'put',
       url: `/api/profiles/${this.state.user.username}`,
@@ -63,14 +71,16 @@ class Profile extends Component {
           <ul className="list-group list-group-flush">
             <li className="list-group-item">Your City:<Geosuggest onSuggestSelect={this.handleLocationChange}/></li>
             <li className="list-group-item"> Bio:
-            <Form ref='updateProfile' className='updateProfile'>
-              <Field
+            <form ref='updateProfile' className='updateProfile'>
+              <input
                 id='bio'
                 name='biography'
                 type='text'
                 placeholder="say something about yourself!"
+                value={this.state.bioInput}
+                onChange={this.handleBioInput}
               />
-            </Form>
+            </form>
             </li>
             <li className="list-group-item">
               Are you a local? {this.state.user.isLocal ? (<i onClick={this.toggleLocal} className="fa fa-3x fa-toggle-on toggle-switch" aria-hidden="true"></i>) : (<i onClick={this.toggleLocal} className="fa fa-3x fa-toggle-off toggle-switch" aria-hidden="true"></i>)}
