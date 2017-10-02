@@ -51,7 +51,6 @@ class Chat extends Component {
   handleSubmit (event) {
     const text = event.target.value;
     if (event.key == 'Enter' && text) {
-      console.log(this.props.passChatMessages);
       this.props.passChatMessages.call(null, event.target.value);
       const message = {
         text,

@@ -2,23 +2,33 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { withRouter, Router } from 'react-router-dom';
-
+import Rating from 'react-rating';
 
 class ConvoStub extends Component {
 	constructor(props) {
 		super(props);
 		this.state ={
 			otherUser: '',
+			otherUserRating: [],
 			otherUserImageUrl: '',
 			otherUserLocation: '',
 			history: this.props.history,
-			messages: this.props.messages
+			messages: this.props.messages,
 		}
+		this.changeRating = this.changeRating.bind(this);
 		this.fetchOtherUserImage = this.fetchOtherUserImage.bind(this);
 		this.deleteConversation = this.deleteConversation.bind(this);
+		this.averageRating = this.averageRating.bind(this);
 	}
 
-	componentDidMount() {
+	//takes an array of integers
+	averageRating(rateArray) {
+		return ((rateArray.reduce((acc, rating) => {
+      return acc + rating
+    }, 0))/rateArray.length);
+	}
+
+	componentWillMount() {
 		axios.get(`/api/getconvobyid/${this.state.messages[0].conversationId}`).then((response) => {
 			if (response.data.firstUser !== this.props.currentUser.replace(' ', '_')) {
 				this.setState({ otherUser: response.data.firstUser }, () => {
@@ -37,7 +47,8 @@ class ConvoStub extends Component {
 			console.log(userData)
 			this.setState({
 				otherUserImageUrl: userData.data.imageUrl,
-				otherUserLocation: userData.data.location
+				otherUserLocation: userData.data.location,
+				otherUserRating: JSON.parse(userData.data.rating),
 			});
 		}).catch(err => console.error(err));
 	}
@@ -58,6 +69,23 @@ class ConvoStub extends Component {
 		});
 	}
 
+	changeRating(input) {
+		this.setState({otherUserRating: [...this.state.otherUserRating, input]}, () => {
+			console.log('====================================')
+			console.log('state', this.state)
+			console.log('====================================')
+			const newRating = {
+				inputRating: JSON.stringify(this.state.otherUserRating)
+			};
+			axios.post(`/api/changerating/${this.state.otherUser}`, newRating)
+				.then((res) => {
+					console.log('woaahhhh');
+				}).catch((err) => {
+					console.log('error setting new rating: ', err);
+				})
+		})
+  }
+
 	render = () => {
 		let { messages, currentUser, launchChat } = this.props;
 		return (
@@ -69,8 +97,21 @@ class ConvoStub extends Component {
           <h5 className="mt-0 convo-stub-user-name">{this.state.otherUser.replace('_', ' ')}</h5>
           <p className="convo-stub-user-location">{this.state.otherUserLocation}</p>
           <p className="mb-0 convo-stub-user-message">{messages[messages.length - 1].text}</p>
+					<div>
+					</div>
         </div>
 		  </div>
+			<div style={{minWidth: 180}}>
+				<Rating
+					empty="fa fa-star-o fa-2x"
+					full="fa fa-star fa-2x"
+					placeholder="fa fa-star fa-2x"
+					fractions={2}
+					onChange={this.changeRating}
+					initialRate={this.averageRating(this.state.otherUserRating)}
+					placeholderRate={this.averagedParsedRating}
+				/>			
+			</div>
 			<button className="btn btn-primary" onClick={this.deleteConversation}>Delete this conversation</button>
 			</div>
 			</div>

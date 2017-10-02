@@ -73,7 +73,7 @@ class Local extends Component {
               <div className="media-body">
                 <h5 className="mt-0">{this.props.local.username.replace('_', ' ')}</h5>
                 <div>
-                  <Rating empty="fa fa-star-o fa-2x" full="fa fa-star fa-2x" placeholder="fa fa-star fa-2x" fractions={2}  onChange={this.changeRating} placeholderRate={this.averagedParsedRating}/>
+                  <Rating empty="fa fa-star-o fa-2x" full="fa fa-star fa-2x" placeholder="fa fa-star fa-2x" fractions={2}  readonly={true} onChange={this.changeRating} placeholderRate={this.averagedParsedRating}/>
                 </div>
                 <p>{this.props.local.biography}</p>
                 <button onClick={this.createConversation.bind(this)} type="button" className="btn btn-info btn-sm">Message</button>

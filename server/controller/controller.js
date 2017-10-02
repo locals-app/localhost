@@ -340,6 +340,7 @@ module.exports.deleteProfile = (req, res) => {
 };
 
 module.exports.addRatingToUser = (req, res) => {
+  console.log('here is the body', req.body)
   const username = req.params.username;
   const newRating = req.body.inputRating; 
   DB.User.findOne({ where: { username,} })
