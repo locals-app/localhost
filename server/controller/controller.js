@@ -349,8 +349,8 @@ module.exports.addRatingToUser = (req, res) => {
       .then((user) => {
         res.status(201).json(user);
       })
-        .catch((err) => {
-          res.status(404).json(err);
-        });
+      .catch((err) => {
+        res.status(404).json(err);
+      });
     });
 };
