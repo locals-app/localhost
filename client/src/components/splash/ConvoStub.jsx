@@ -43,6 +43,7 @@ class ConvoStub extends Component {
 	}
 
 	deleteConversation() {
+		console.log('test');
 		axios({
 			url: '/api/modifyconversation',
 			method: 'delete',
@@ -68,7 +69,8 @@ class ConvoStub extends Component {
           <p className="convo-stub-user-location">{this.state.otherUserLocation}</p>
           <p className="mb-0 convo-stub-user-message">{messages[messages.length - 1].text}</p>
         </div>
-        <button className="btn btn-primary" onClick={this.deleteConversation}>Delete this conversation</button>
+		  </div>
+		  	<button className="btn btn-primary" onClick={this.deleteConversation}>Delete this conversation</button>
 		  </div>
 		)
 	}

@@ -85,6 +85,12 @@ class Navigator extends Component {
                     myMessages: this.sortByRoom(results.data.messages), 
                     usernameArray: results.data.usernameArray
                   });
+                  axios.post('/api/modifyconversation', {
+                    firstUser: this.state.userData.username,
+                    secondUser: this.state.userData.username
+                  }).then((results) => {
+                    console.log('conversation with yourself created');
+                  })
                 }).catch(err => console.error(err));
             }).catch(err => console.error(err));
           });
@@ -116,12 +122,6 @@ class Navigator extends Component {
       otherUserImageUrl: val.otherUserImageUrl,
     }, () => console.log(val));
   }
-
-
-
-  // fixed-top ?
-
-
 
   render() {
     return (
