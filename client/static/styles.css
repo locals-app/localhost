@@ -106,6 +106,10 @@
   color: #696969;
 }
 
+.message-button-splash {
+  margin-top: 110px;
+}
+
 /* might cause issues? */
 .card {
   border: 0px !important;

@@ -123,7 +123,7 @@ class Navigator extends Component {
                   </ul>		
                 </li>		
               </ul>		
-            </div>		
+            </div>
             </nav>
             <Switch>
               <Route exact path='/' render={(props) => (

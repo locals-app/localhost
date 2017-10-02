@@ -37,9 +37,8 @@ class Splash extends Component {
               </div>
             </div>
           </div>
-        </div>
 
-        <button className="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+          <button className="btn btn-primary message-button-splash" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
           Messages <i className="fa fa-comment" aria-hidden="true"></i>
         </button>
   
@@ -54,6 +53,9 @@ class Splash extends Component {
             </div>
           </div>
         </div>
+        </div>
+
+
 
 
 
