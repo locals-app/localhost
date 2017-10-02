@@ -31,6 +31,22 @@ class Navigator extends Component {
   }
 
   updateMessages() {
+    console.log('chat messages', this.state.chatMessages);
+    if (this.state.chatMessages.length > 0 && !this.state.chatMessages[0].text) {
+      axios({
+        url: '/api/modifyconversation',
+        method: 'delete',
+        data: {
+          firstUser: this.state.chatMessages[0].userId,
+          secondUser: this.state.userData.username
+        }
+      }).then(() => {
+        console.log('empty conversation deleted')
+      }).catch((err) => {
+        console.log(err)
+      });
+      //firstuser: this.state.userData.username
+    }
     this.props.lock.getProfile(this.props.idToken, function (err, profile) {
       if (err) {
         console.log("Error loading the Profile", err);
