@@ -51,12 +51,15 @@ class Chat extends Component {
   handleSubmit (event) {
     const text = event.target.value;
     if (event.key == 'Enter' && text) {
+      console.log(this.props.passChatMessages);
+      this.props.passChatMessages.call(null, event.target.value);
       const message = {
         text,
         conversationId: this.state.conversationId,
         userId: this.props.currentUser,
         id: this.state.messages[this.state.messages.length-1].id+1,
       }
+      this.props.passChatMessages.call(null, message);
       this.setState({messages: [...this.state.messages, message]})
       this.socket.emit('message', message)
       event.target.value = '';
