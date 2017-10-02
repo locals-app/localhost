@@ -14,6 +14,7 @@ class ConvoStub extends Component {
 			messages: this.props.messages
 		}
 		this.fetchOtherUserImage = this.fetchOtherUserImage.bind(this);
+		this.deleteConversation = this.deleteConversation.bind(this);
 	}
 
 	componentDidMount() {
@@ -40,6 +41,21 @@ class ConvoStub extends Component {
 		}).catch(err => console.error(err));
 	}
 
+	deleteConversation() {
+		axios({
+			url: '/api/modifyconversation',
+			method: 'delete',
+			data: {
+				firstUser: this.props.currentUser,
+				secondUser: this.state.otherUser
+			}
+		}).then(() => {
+			this.props.history.push('/');
+		}).catch((err) => {
+			console.log(err);
+		});
+	}
+
 	render = () => {
 		let { messages, currentUser, launchChat } = this.props;
 		return (
@@ -50,6 +66,7 @@ class ConvoStub extends Component {
 				<div>
 					{messages[messages.length - 1].text}
 				</div>
+				<button onClick={this.deleteConversation}>Delete this conversation</button>
 			</div>
 		)
 	}

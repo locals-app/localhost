@@ -30,9 +30,16 @@ class Navigator extends Component {
     this.updateMessages();
   }
 
+  passChatMessages(val) {
+    console.log(val)
+    this.setState({chatMessages: [val]}, () => {
+      console.log('chatmessages', this.state.chatMessages);
+    })
+  }
+
   updateMessages() {
-    console.log('chat messages', this.state.chatMessages);
-    if (this.state.chatMessages.length > 0 && !this.state.chatMessages[0].text) {
+    console.log('chat messages', this.state.chatMessages.text);
+    if (this.state.chatMessages.length === 1 && this.state.chatMessages[0].text === undefined) {
       axios({
         url: '/api/modifyconversation',
         method: 'delete',
@@ -183,6 +190,7 @@ class Navigator extends Component {
                   currentUserImage={this.state.userData.imageUrl}
                   messages={this.state.chatMessages}
                   otherUserImageUrl={this.state.otherUserImageUrl}
+                  passChatMessages={this.passChatMessages.bind(this)}
                 />
               )}/>
             </Switch>
