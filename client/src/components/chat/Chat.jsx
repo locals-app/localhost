@@ -39,11 +39,6 @@ class Chat extends Component {
     } else {
       this.props.history.push('/');
     }
-
-    const script = document.createElement("script");
-      script.src = "./chatScript.js";
-      script.async = true;
-      document.body.appendChild(script);
   }
 
   componentDidMount() {
@@ -83,7 +78,7 @@ class Chat extends Component {
         />
         </ul>
           <form className="chat-window">
-            <input className="chat-window-message" name="chat-window-message" autoComplete="off" autoFocus type="text" placeholder='Enter a message...' onKeyUp={this.handleSubmit.bind(this)}/>
+            <input className="chat-window-message" type="text" placeholder='Enter a message...' onKeyUp={this.handleSubmit.bind(this)}/>
          </form>
       </div>
     )

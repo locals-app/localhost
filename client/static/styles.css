@@ -370,6 +370,7 @@ CHATBOX:
   overflow-y: scroll;
   overflow-x: hidden;
 }
+
 .chat-thread li {
   position: relative;
   clear: both;
@@ -539,4 +540,8 @@ CHATBOX:
   100% {
     margin-right: 0;
   }
+}
+
+div[ng-view]{
+  height: 100%;
 }
