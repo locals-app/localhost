@@ -14,6 +14,10 @@
   /* border: 0px!important; */
 }
 
+#profile-background {
+  border: rgba(19, 19, 19, 0.48);
+}
+
 .card-title {
   padding: 8px;
   margin-bottom: 0px;
@@ -144,6 +148,8 @@
 .convo-stub-user-location {
   margin: 0px;
   font-size: 14px;
+.background {
+  background-image: url(https://s3-media4.fl.yelpcdn.com/assets/srv0/yelp_large_assets/79a94a561607/assets/img/home/hero_photos/OknYaBuZZ6nD_ps2BAPGCQ.jpg)
 }
 
 .convo-stub-user-message {

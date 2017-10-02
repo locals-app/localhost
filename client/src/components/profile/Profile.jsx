@@ -55,11 +55,11 @@ class Profile extends Component {
   render() {
 
     return (
-      <div>
+      <div className="background">
         <div className="container">
           <div className="row">
         <div className="col align-self-center">
-        <div className="card w-50">
+        <div className="card w-50" id="profile-background">
           <div className="crop">
           <img className="card-img-top" src={this.state.user.imageUrl} alt="Card image cap" />
           </div>
