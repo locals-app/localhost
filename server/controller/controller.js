@@ -48,7 +48,6 @@ module.exports.getMessagesByUser = (req, res) => {
             }
             users.forEach((user) => conversationKey[user.id] = user.username);
             messages.forEach((message) => message.userId = conversationKey[message.userId]);
-            console.log(conversationKey)
             let usernameArray = [];
             for (let key in conversationKey) {
               usernameArray.push(conversationKey[key]);
@@ -307,7 +306,6 @@ module.exports.changeProfile = (req, res) => {
   DB.User.findOne({
     where: { username, }
   }).then((profile) => {
-    console.log(profile)
     profile.update({
       location: req.body.location,
       biography: req.body.biography,

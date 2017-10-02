@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { withRouter, Router } from 'react-router-dom';
 
@@ -50,7 +51,7 @@ class ConvoStub extends Component {
 				secondUser: this.state.otherUser
 			}
 		}).then(() => {
-			this.props.history.push('/');
+			window.location.reload();
 		}).catch((err) => {
 			console.log(err);
 		});
@@ -59,12 +60,14 @@ class ConvoStub extends Component {
 	render = () => {
 		let { messages, currentUser, launchChat } = this.props;
 		return (
-			<div onClick={launchChat.bind(null, this.state)}>
-				<span>Conversation with {this.state.otherUser.replace('_', ' ')}</span>
-				<div>A local from: {this.state.otherUserLocation}</div>
-				<img src={this.state.otherUserImageUrl} style={{width: 20}} alt=""/>
-				<div>
-					{messages[messages.length - 1].text}
+			<div id="convostub">
+				<div onClick={launchChat.bind(null, this.state)}>
+					<span>Conversation with {this.state.otherUser.replace('_', ' ')}</span>
+					<div>A local from: {this.state.otherUserLocation}</div>
+					<img src={this.state.otherUserImageUrl} style={{width: 20}} alt=""/>
+					<div>
+						{messages[messages.length - 1].text}
+					</div>
 				</div>
 				<button onClick={this.deleteConversation}>Delete this conversation</button>
 			</div>
