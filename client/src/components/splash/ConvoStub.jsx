@@ -61,15 +61,17 @@ class ConvoStub extends Component {
 		let { messages, currentUser, launchChat } = this.props;
 		return (
       <div id="convostub">
-			<div className="media convo-stub-entire-media" onClick={launchChat.bind(null, this.state)}>
+				<div className="media convo-stub-entire-media">
+			<div className="convo-stub-profile" onClick={launchChat.bind(null, this.state)}>
         <img className="convo-profile-small-img d-flex align-self-center mr-3" src={this.state.otherUserImageUrl} alt="Profile pic"/>
         <div className="media-body">
           <h5 className="mt-0 convo-stub-user-name">{this.state.otherUser.replace('_', ' ')}</h5>
           <p className="convo-stub-user-location">{this.state.otherUserLocation}</p>
           <p className="mb-0 convo-stub-user-message">{messages[messages.length - 1].text}</p>
         </div>
-        <button className="btn btn-primary" onClick={this.deleteConversation}>Delete this conversation</button>
 		  </div>
+			<button className="btn btn-primary" onClick={this.deleteConversation}>Delete this conversation</button>
+			</div>
 			</div>
 		)
 	}
