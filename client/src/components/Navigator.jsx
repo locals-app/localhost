@@ -45,7 +45,6 @@ class Navigator extends Component {
       }).catch((err) => {
         console.log(err)
       });
-      //firstuser: this.state.userData.username
     }
     this.props.lock.getProfile(this.props.idToken, function (err, profile) {
       if (err) {
