@@ -132,7 +132,7 @@ class Navigator extends Component {
             <div className="collapse navbar-collapse" id="navbarNav">
               <ul className="navbar-nav main-nav">		
                 <li className="nav-item active left-logo">		
-                  <NavLink to='/' onClick={this.updateMessages.bind(this)} className="navbar-brand">localhost</NavLink>		
+                  <NavLink to='/' onClick={this.updateMessages.bind(this)} className="navbar-brand" id="main-logo">localhost</NavLink>		
                 </li>		
                 <li className="nav-item right-logo">		
                   <ul className="right-list">

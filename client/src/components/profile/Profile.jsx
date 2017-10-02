@@ -69,18 +69,25 @@ class Profile extends Component {
           </div>
           <hr />
           <ul className="list-group list-group-flush">
-            <li className="list-group-item">Your City:<Geosuggest onSuggestSelect={this.handleLocationChange}/></li>
-            <li className="list-group-item"> Bio:
-            <form ref='updateProfile' className='updateProfile'>
+            <li className="list-group-item"><span className="form-span">Your City:</span><Geosuggest onSuggestSelect={this.handleLocationChange}/></li>
+            <li className="list-group-item"> <span className="form-span">Bio:</span>
+            
+              <div className="geosuggest">
+                <div className="geosuggest__input-wrapper">
+                <form ref='updateProfile' className='updateProfile'>
               <input
-                id='bio'
+                className='geosuggest__input'
+                id='bio-input'
                 name='biography'
                 type='text'
                 placeholder="say something about yourself!"
                 value={this.state.bioInput}
                 onChange={this.handleBioInput}
               />
-            </form>
+              </form>
+              </div>
+              </div>
+            
             </li>
             <li className="list-group-item">
               Are you a local? {this.state.user.isLocal ? (<i onClick={this.toggleLocal} className="fa fa-3x fa-toggle-on toggle-switch" aria-hidden="true"></i>) : (<i onClick={this.toggleLocal} className="fa fa-3x fa-toggle-off toggle-switch" aria-hidden="true"></i>)}

@@ -11,12 +11,21 @@
   float: none;
   margin-bottom: 10px;
   margin-top: 40px;
-  border: 0px!important;
+  /* border: 0px!important; */
 }
 
-.list-group-item {
-  border: 0px!important;
+.card-title {
+  padding: 8px;
+  margin-bottom: 0px;
 }
+
+.card-text {
+  padding-left: 9px;
+}
+
+/* .list-group-item {
+  border: 0px!important;
+} */
 
 
 .card-img-top {
@@ -38,7 +47,12 @@
  	
 .main-nav {		
    width: 100%		
-}		
+}	
+
+#main-logo {
+  margin-left: 8px;
+  font-size: 2em;	
+}
  	
 .right-list {		
   list-style-type: none;		
@@ -54,7 +68,7 @@
 }		
  	
 .left-logo {		
-  width: 49%;		
+  width: 49%;	
 }		
  	
 .logged-in-as {		
@@ -218,4 +232,12 @@
 }
 .geosuggest__item__matched-text {
   font-weight: bold;
+}
+
+#bio-input {
+
+}
+
+.form-span {
+  width: 25%
 }
