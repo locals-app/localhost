@@ -102,6 +102,17 @@ class ConvoStub extends Component {
               <p className="mb-0 convo-stub-user-message">{messages[messages.length - 1].text}</p>
             </div>
           </div>
+          <div style={{minWidth: 180}}>
+            <Rating
+              empty="fa fa-star-o fa-2x"
+              full="fa fa-star fa-2x"
+              placeholder="fa fa-star fa-2x"
+              fractions={2}
+              onChange={this.changeRating}
+              initialRate={this.averageRating(this.state.otherUserRating)}
+              placeholderRate={this.averagedParsedRating}
+            />			
+          </div>
           <button className="btn btn-primary delete-conversation-button" onClick={this.deleteConversation}>Delete this conversation</button>
 			  </div>
 			</div>
