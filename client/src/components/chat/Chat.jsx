@@ -68,6 +68,7 @@ class Chat extends Component {
   render() {
     return (
       <div>
+        <ul className="chat-thread">
         <Messages
           messages={this.state.messages}
           currentUser={this.props.currentUser}
@@ -75,11 +76,17 @@ class Chat extends Component {
           otherUserImageUrl={this.props.otherUserImageUrl}
           conversationId={this.state.convoIdToPass}
         />
-        <div className="geosuggest">
+        </ul>
+          {/* <form className="chat-window">
+            <input className="chat-window-message" type="text" placeholder='Enter a message...' onKeyUp={this.handleSubmit.bind(this)}/>
+         </form> */}
+         <div>
+         <div className="geosuggest">
           <div className="geosuggest__input-wrapper">
             <input className='geosuggest__input' id='bio-input' type="text" placeholder='Enter a message...' onKeyUp={this.handleSubmit.bind(this)}/>
           </div>
         </div>
+      </div>
       </div>
     )
   }
